@@ -1,6 +1,9 @@
 # Created by https://www.gitignore.io/api/git,linux,macos,windows,eclipse,intellij,sublimetext,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=git,linux,macos,windows,eclipse,intellij,sublimetext,visualstudiocode
 
+### This project ###
+src/main/resources/data/jugador
+
 ### Eclipse ###
 .metadata
 bin/
