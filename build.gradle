@@ -1,0 +1,69 @@
+plugins {
+    id "java"
+    id "org.sonarqube" version "3.0"
+    id "jacoco"
+}
+
+sourceCompatibility=1.8
+targetCompatibility=1.8
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled false
+        xml.enabled true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "pujc:spaceinvaders"
+        property "sonar.projectName", "pujc-spaceinvaders"
+        property "sonar.sources", "src/main"
+        property "sonar.tests", "src/test"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.java.binaries", "build/classes"
+        property "sonar.exclusions", "**/*Generated.java"
+    }
+}
+
+// Do not generate reports for individual projects
+tasks.named("jacocoTestReport") {
+    enabled = true
+}
+
+ext {
+    javaMainClass = "interfaz.InterfazSpaceInvaders"
+}
+
+task runWithExec(type: Exec) {
+    dependsOn build
+    group = "Execution"
+    description = "Run the main class with ExecTask"
+    commandLine "java", "-classpath", sourceSets.main.runtimeClasspath.getAsPath(), javaMainClass
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+gradle.startParameter.continueOnFailure = true
+tasks['sonarqube'].dependsOn test
