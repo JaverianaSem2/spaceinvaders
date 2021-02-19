@@ -1,13 +1,14 @@
 package mundo;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import excepciones.PartidaYaExisteException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PartidaTest {
+class PartidaTest {
 
 	private Partida     partida;
 	private NaveJugador jugador;
@@ -32,27 +33,22 @@ public class PartidaTest {
 			jugador.agregarPartida( p1 );
 			jugador.agregarPartida( p2 );
 			jugador.agregarPartida( p3 );
-		} catch ( PartidaYaExisteException e ) {
-			// TODO Auto-generated catch block
+		} catch ( PartidaYaExisteException ignored ) {
+			// Do nothing
 		}
 	}
 
 	// INICIAR ENEMIGOS
 	private void setUpEscenario3 () {
 		partida = new Partida( "prueba_IniciarEnemigos" );
-
 		enemigos = new Enemigo[5][10];
-
 		partida.setEnemigos( enemigos );
-
 	}
 
 	// ELIMINAR UN ENIMIGO
 	private void setUpEscenario4 () {
 		partida = new Partida( "prueba_EliminarEnemigo" );
-
 		enemigos = new Enemigo[2][3];
-
 		partida.setEnemigos( enemigos );
 
 		for ( int i = 0; i < enemigos.length; i++ ) {
@@ -60,50 +56,37 @@ public class PartidaTest {
 				enemigos[i][j] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
 			}
 		}
-
 	}
 
 	// TERMINAR NIVEL
 	private void setUpEscenario5 () {
-
 		partida = new Partida( "prueba_TerminarNivel" );
-
 		enemigos = new Enemigo[2][3];
-
 		partida.setEnemigos( enemigos );
 
-		for ( int i = 0; i < enemigos.length; i++ ) {
-			for ( int j = 0; j < enemigos[i].length; j++ ) {
-				enemigos[i][j] = null;
-			}
+		for ( Enemigo[] enemigo : enemigos ) {
+			Arrays.fill( enemigo, null );
 		}
+
 		enemigos[0][2] = (InvasorCalamar) new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
 	}
 
 	// NIVEL COMPLETO
 	private void setUpEscenario6 () {
 		partida = new Partida( "prueba_NivelCompleto" );
-
 		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0, 0, 0 ) );
-
 		partida.getNivel().setNivel( "1" );
-
 		enemigos = new Enemigo[2][3];
-
 		partida.setEnemigos( enemigos );
 
-		for ( int i = 0; i < enemigos.length; i++ ) {
-			for ( int j = 0; j < enemigos[i].length; j++ ) {
-				enemigos[i][j] = null;
-			}
+		for ( Enemigo[] enemigo : enemigos ) {
+			Arrays.fill( enemigo, null );
 		}
 	}
 
 	// ELIMINAR PARTIDA
 	private void setUpEscenario7 () {
-
 		partida = new Partida( "prueba_EliminarPartida" );
-
 		Partida a = new Partida( "prueba_EliminarPartida1" );
 		Partida b = new Partida( "prueba_EliminarPartida2" );
 		Partida c = new Partida( "prueba_EliminarPartida3" );
@@ -115,7 +98,8 @@ public class PartidaTest {
 			partida.agregarPartida( b );
 			partida.agregarPartida( c );
 			partida.agregarPartida( d );
-		} catch ( PartidaYaExisteException e ) {
+		} catch ( PartidaYaExisteException ignored ) {
+			// Do nothing
 		}
 
 	}
@@ -126,7 +110,7 @@ public class PartidaTest {
 		try {
 			jugador.agregarPartida( partida );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepcion inesperada PartidaYaExisteException" );
+			fail( "Lanza excepción inesperada PartidaYaExisteException" );
 		}
 	}
 
@@ -134,12 +118,10 @@ public class PartidaTest {
 	void testAgregarPartidaSinRepetidos () {
 		try {
 			setUpEscenario2();
-
 			Partida agregar = new Partida( "testAgregar" );
 			jugador.agregarPartida( agregar );
-
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepcion inesperada PartidaYaExisteException" );
+			fail( "Lanza excepción inesperada PartidaYaExisteException" );
 		}
 
 	}
@@ -152,7 +134,8 @@ public class PartidaTest {
 		try {
 			jugador.agregarPartida( agregar );
 			fail( "Se esperaba excepcion PartidaYaExisteException" );
-		} catch ( PartidaYaExisteException e ) {
+		} catch ( PartidaYaExisteException ignored ) {
+			// Do nothing
 		}
 	}
 
@@ -166,12 +149,10 @@ public class PartidaTest {
 
 	@Test
 	void testBuscarPartidaSiHayPartidas () {
-
 		setUpEscenario2();
 
 		Partida buscada = partida.buscarPartida( "test2" );
 		assertNotNull( buscada );
-
 	}
 
 	@Test
@@ -191,64 +172,54 @@ public class PartidaTest {
 
 	@Test
 	void testEliminarEnemigo () {
-
 		setUpEscenario4();
 
 		Enemigo eliminar = enemigos[1][2];
-
-		assertNotNull( "No debe ser null porque existe", enemigos[1][2].toString() );
+		assertNotNull( enemigos[1][2].toString(), "No debe ser null porque existe" );
 
 		partida.eliminarUnEnemigo( true, eliminar );
-
 		assertNull( enemigos[1][2], "Debería ser null, porque se elimino" );
 	}
 
 	@Test
 	void testTerminarNivel () {
 		setUpEscenario5();
-
-		assertNotEquals( "Queda un enemigo", partida.terminarNivel() );
+		assertFalse( partida.terminarNivel(), "Queda un enemigo" );
 
 		Enemigo eliminar = enemigos[0][2];
-
 		partida.eliminarUnEnemigo( true, eliminar );
-
-		assertNotEquals( "No quedan enemigos", partida.terminarNivel() );
+		assertTrue( partida.terminarNivel(), "No quedan enemigos" );
 	}
 
 	@Test
 	void testNivelCompleto () {
 		setUpEscenario6();
-
 		assertEquals( "1", partida.getNivel().getNivel() );
 
 		if ( partida.terminarNivel() ) {
 			try {
 				partida.nivelCompleto();
-			} catch ( IOException e ) {
+			} catch ( IOException ignored ) {
+				// Do nothing
 			}
 		}
 
 		assertEquals( "2", partida.getNivel().getNivel() );
-
 	}
 
 	@Test
 	void testEliminarPartida () {
-
 		setUpEscenario7();
 
 		partida.eliminar( "prueba_EliminarPartida2" );
-
 		assertNull( partida.buscarPartida( "prueba_EliminarPartida2" ) );
-
 	}
 
 	@Test
 	void testEsHoja () {
 		setUpEscenario1();
-
 		assertTrue( partida.esHoja() );
+
 		partida.setPartidaDerecha( new Partida( "noSoyHoja" ) );
 		assertFalse( partida.esHoja() );
 	}

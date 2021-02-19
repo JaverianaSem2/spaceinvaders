@@ -2,38 +2,44 @@ package hilos;
 
 import interfaz.InterfazSpaceInvaders;
 import mundo.Partida;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.security.SecureRandom;
 
 public class HiloAuxiliarCreaDisparo extends Thread {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HiloAuxiliarCreaDisparo.class.getName());
 
 	private Partida partidaEnemigos;
 	private InterfazSpaceInvaders interfaz;
 
 	public HiloAuxiliarCreaDisparo(Partida a, InterfazSpaceInvaders principal) {
-		// TODO Auto-generated constructor stub
 		partidaEnemigos = a;
 		interfaz = principal;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
 		while (interfaz.estaEnFuncionamiento()) {
 
-			int fila = (int) (Math.random() * 4);
-			int columna = (int) (Math.random() * 9);
+			SecureRandom rand = new SecureRandom();
+			int fila = rand.nextInt(4);
+			int columna = rand.nextInt(9);
 
 			if (partidaEnemigos.getEnemigos()[fila][columna] != null) {
 				partidaEnemigos.getEnemigos()[fila][columna].disparar(
-						partidaEnemigos.getEnemigos()[fila][columna].getPosX(),
-						partidaEnemigos.getEnemigos()[fila][columna].getPosY());
+					partidaEnemigos.getEnemigos()[fila][columna].getPosX(),
+					partidaEnemigos.getEnemigos()[fila][columna].getPosY()
+				);
 			}
 
 			try {
 				sleep(800);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.info( e.getMessage() );
+				// Restore interrupted state...
+				Thread.currentThread().interrupt();
 			}
 		}
 

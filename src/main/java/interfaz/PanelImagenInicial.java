@@ -3,7 +3,6 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -19,41 +18,11 @@ import javax.swing.JPanel;
  */
 public class PanelImagenInicial extends JPanel implements KeyListener {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private InterfazSpaceInvaders interfaz;
-
-	// -----------------------------------------------------------------
-	// ---------------------------Atributos-----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private JLabel labImagen;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 * @param interfaz
-	 */
 	public PanelImagenInicial(InterfazSpaceInvaders interfaz) {
 
 		// Inicializa la asociación con la interfaz
@@ -71,10 +40,10 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 		// Título del juego: "SPACE INVADERS"
 		JPanel titulo = new JPanel(new FlowLayout());
 		JLabel space = new JLabel("Space ");
-		space.setFont(new Font("ArcadeClassic", Font.PLAIN, 82));
+		space.setFont(FuenteInterfazGrafica.get(82));
 		space.setForeground(Color.WHITE);
 		JLabel invaders = new JLabel("Invaders");
-		invaders.setFont(new Font("ArcadeClassic", Font.PLAIN, 82));
+		invaders.setFont(FuenteInterfazGrafica.get(82));
 		invaders.setForeground(Color.WHITE);
 		titulo.setBackground(fondo);
 		titulo.add(space);
@@ -90,10 +59,10 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 		tecla.setForeground(Color.GREEN);
 		JLabel espacio = new JLabel("ENTER ");
 		espacio.setForeground(Color.YELLOW);
-		presione.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		la.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		tecla.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		espacio.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
+		presione.setFont(FuenteInterfazGrafica.get(49));
+		la.setFont(FuenteInterfazGrafica.get(49));
+		tecla.setFont(FuenteInterfazGrafica.get(49));
+		espacio.setFont(FuenteInterfazGrafica.get(49));
 		flow.setBackground(fondo);
 		flow.add(presione);
 		flow.add(la);
@@ -116,15 +85,16 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 	 * Manejo de eventos de los botones
 	 * 
 	 * @param e
-	 *            Evento que generó la acción - e != null.
+	 * Evento que generó la acción - e != null.
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-			// En caso que el usuario presione la tecla Enter, cambia al panel
-			// que contiene el menú del juego
-			if(!interfaz.estaEnFuncionamiento())
-			interfaz.cambiarPanel("Menú");
+		// En caso que el usuario presione la tecla Enter, cambia al panel
+		// que contiene el menú del juego
+		if (e.getKeyCode() == KeyEvent.VK_ENTER &&
+			! interfaz.estaEnFuncionamiento()) {
+			interfaz.cambiarPanel( "Menú" );
+		}
 	}
 
 	/**
@@ -135,6 +105,7 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// Empty method for control behavior
 	}
 
 	/**
@@ -145,7 +116,9 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_SPACE)
-			interfaz.cambiarPanel("Menú");
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			interfaz.cambiarPanel( "Menú" );
+		}
 	}
+
 }

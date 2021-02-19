@@ -3,10 +3,9 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -22,77 +21,25 @@ import javax.swing.event.ListSelectionListener;
 
 import mundo.NaveJugador;
 
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+
 public class DialogoSeleccionarJugador extends JDialog implements ListSelectionListener, ActionListener {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-	
-	/**
-	 * 
-	 */
-	private final static String ORDENAR = "Ordenar";
-
-	private JButton butOrdenar;
-	// Fin temporal
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final String ORDENAR = "Ordenar";
+	private static final String ACEPTAR = "Aceptar";
+	private static final String CANCELAR = "Cancelar";
 
-	/**
-	 * 
-	 */
-	private final static String ACEPTAR = "Aceptar";
-
-	/**
-	 * 
-	 */
-	private final static String CANCELAR = "Cancelar";
-
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private InterfazSpaceInvaders interfaz;
+	private JButton butOrdenar;
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	@SuppressWarnings("rawtypes")
 	private JList jugadores;
 
-	/**
-	 * 
-	 */
 	private JScrollPane scroll;
-
-	/**
-	 * 
-	 */
 	JButton butBotonAceptar;
-
-	/**
-	 * 
-	 */
 	JButton butBotonCancelar;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 * @param interfaz
-	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DialogoSeleccionarJugador(InterfazSpaceInvaders interfaz) {
 
@@ -101,7 +48,7 @@ public class DialogoSeleccionarJugador extends JDialog implements ListSelectionL
 
 		this.interfaz = interfaz;
 		scroll = new JScrollPane();
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setVerticalScrollBarPolicy( VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setPreferredSize(new Dimension(240, 200));
 		jugadores = new JList();
 		jugadores.addListSelectionListener(this);
@@ -109,7 +56,7 @@ public class DialogoSeleccionarJugador extends JDialog implements ListSelectionL
 		jugadores.setModel(new DefaultListModel());
 		scroll.getViewport().add(jugadores);
 		jugadores.setBackground(Color.BLACK);
-		jugadores.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		jugadores.setFont(FuenteInterfazGrafica.get(20));
 		jugadores.setForeground(Color.BLUE);
 		scroll.setBackground(Color.BLACK);
 		add(scroll, BorderLayout.CENTER);
@@ -119,7 +66,7 @@ public class DialogoSeleccionarJugador extends JDialog implements ListSelectionL
 		butBotonAceptar.addActionListener(this);
 		butBotonAceptar.setBounds(5, 2, 130, 25);
 		butBotonAceptar.setBackground(Color.BLACK);
-		butBotonAceptar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonAceptar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonAceptar.setForeground(Color.YELLOW);
 
 		butBotonCancelar = new JButton(CANCELAR);
@@ -127,7 +74,7 @@ public class DialogoSeleccionarJugador extends JDialog implements ListSelectionL
 		butBotonCancelar.addActionListener(this);
 		butBotonCancelar.setBounds(140, 2, 130, 25);
 		butBotonCancelar.setBackground(Color.BLACK);
-		butBotonCancelar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonCancelar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonCancelar.setForeground(Color.green);
 
 		butOrdenar = new JButton("ORDENAR");
@@ -135,7 +82,7 @@ public class DialogoSeleccionarJugador extends JDialog implements ListSelectionL
 		butOrdenar.setActionCommand(ORDENAR);
 		butOrdenar.setBounds(275, 2, 130, 25);
 		butOrdenar.setBackground(Color.BLACK);
-		butOrdenar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butOrdenar.setFont(FuenteInterfazGrafica.get(20));
 		butOrdenar.setForeground(Color.BLUE);
 
 		this.setBackground(Color.BLACK);
@@ -150,81 +97,66 @@ public class DialogoSeleccionarJugador extends JDialog implements ListSelectionL
 
 		setUndecorated(true);
 		getRootPane().setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
-		// Fin temporal
-
 	}
 
 	// -----------------------------------------------------------------
 	// ----------------------Manejador de eventos-----------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
 
-		if (comando.equals(CANCELAR))
-			this.dispose();
-		else if (comando.equals(ACEPTAR)) {
-			if (darJugadorSeleccionado() != "") {
-				interfaz.actualizarJugadorActual(darJugadorSeleccionado());
+		switch ( comando ) {
+			case CANCELAR:
 				this.dispose();
-			} else {
-				JOptionPane.showMessageDialog(this, "Por favor cree un jugador", "No existen jugadores",
-						JOptionPane.INFORMATION_MESSAGE);
-				this.dispose();
-
-			}
-	
-		} else if (comando.equals(ORDENAR)) {
-			interfaz.ordenarJugadores();
+				break;
+			case ACEPTAR:
+				if ( !darJugadorSeleccionado().equals( "" ) ) {
+					interfaz.actualizarJugadorActual( darJugadorSeleccionado() );
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog( this,
+						"Por favor cree un jugador",
+						"No existen jugadores",
+						JOptionPane.INFORMATION_MESSAGE
+					);
+					this.dispose();
+				}
+				break;
+			case ORDENAR:
+				interfaz.ordenarJugadores();
+				break;
+			default:
+				break;
 		}
 
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
-
+		// Empty method for control behavior
 	}
 
 	// -----------------------------------------------------------------
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 * @param lista
-	 */
 	@SuppressWarnings("unchecked")
-	public void cambiarListaJugadores(Collection lista) {
+	public void cambiarListaJugadores( List<NaveJugador> lista) {
 
 		jugadores.setListData(lista.toArray());
 
-		if (jugadores.getModel().getSize() > 0)
-			jugadores.setSelectedIndex(0);
+		if (jugadores.getModel().getSize() > 0) {
+			jugadores.setSelectedIndex( 0 );
+		}
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String darJugadorSeleccionado() {
 		NaveJugador jugador = (NaveJugador) jugadores.getSelectedValue();
-		if (jugador != null)
-			return (String) jugador.getNickname();
-		else
-			return "";
+		return (jugador != null) ? jugador.getNickname() : "";
 	}
 
-	/**
-	 * 
-	 */
 	public void mostrar() {
 		setSize(400, 400);
 		setLocationRelativeTo(null);

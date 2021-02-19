@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Disparo implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private boolean impacto;
@@ -16,12 +13,9 @@ public class Disparo implements Serializable {
 	private int posY;
 
 	public Disparo(int posX, int posY) {
-		// TODO Auto-generated constructor stub
-
 		this.posX = posX;
 		this.posY = posY;
 		impacto = false;
-
 	}
 
 	public boolean getImpacto() {
@@ -57,37 +51,32 @@ public class Disparo implements Serializable {
 	}
 
 	public boolean hitsEnemigo(Enemigo a) {
-		boolean salida = false;
 		int r = 8;
 		if (a != null) {
 			double cateto = this.posX - a.getPosX();
 			double cateto2 = this.posY - a.getPosY();
 			double d = Math.sqrt((cateto * cateto) + (cateto2 * cateto2));
 
-			if (d < (r + a.getAncho())) {
-				salida = true;
-			}
+			return d < (r + a.getAncho());
 		}
-		return salida;
+		return false;
 	}
 
 	public boolean hitsJugador(NaveJugador a) {
-
-		boolean salida = false;
-
 		if (a != null) {
-
 			double cateto = posX - a.getPosInicialX();
 			double cateto2 = posY - a.getPosIncialY();
 			double d = Math.sqrt((cateto * cateto) + (cateto2 * cateto2));
 
-			if (d < a.getAncho() + 8 && posY == a.getPosIncialY()
-					&& (posX < a.getPosInicialX() + 35 && posX > a.getPosInicialX() - 10)) {
-				salida = true;
-			}
+			return d < a.getAncho() + 8
+				&& posY == a.getPosIncialY()
+				&& (
+					posX < a.getPosInicialX() + 35
+					&& posX > a.getPosInicialX() - 10
+				);
 		}
 
-		return salida;
+		return false;
 	}
 
 }

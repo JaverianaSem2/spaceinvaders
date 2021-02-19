@@ -2,22 +2,23 @@ package hilos;
 
 import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HiloEnemigos extends Thread {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HiloEnemigos.class.getName());
 
 	InterfazSpaceInvaders interfaz;
 	Enemigo enemigo;
 
 	public HiloEnemigos(Enemigo invasores, InterfazSpaceInvaders interfaz) {
-		// TODO Auto-generated constructor stub
-
 		enemigo = invasores;
 		this.interfaz = interfaz;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while (interfaz.estaEnFuncionamiento()) {
 
 			if (enemigo.getDireccion() == Enemigo.DERECHA) {
@@ -38,17 +39,15 @@ public class HiloEnemigos extends Thread {
 			try {
 				sleep(80);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.info( e.getMessage() );
+				Thread.currentThread().interrupt();
 			}
 
 			interfaz.getPanelNivel().updateUI();
 
-			if (enemigo.getDisparoUno() != null) {
-				if (enemigo.getDisparoUno().getPosY() >= 420) {
+			if (enemigo.getDisparoUno() != null && enemigo.getDisparoUno().getPosY() >= 420) {
 					enemigo.getDisparoUno().setImpacto(true);
 					enemigo.eliminarDisparo();
-				}
 			}
 
 		}

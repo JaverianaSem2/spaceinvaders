@@ -2,7 +2,6 @@ package interfaz;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -17,42 +16,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class DialogoInstrucciones extends JDialog implements ListSelectionListener, ActionListener {
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final String ACEPTAR = "Aceptar";
 
-	/**
-	 * 
-	 */
-	private final static String ACEPTAR = "Aceptar";
-
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
-	private InterfazSpaceInvaders interfaz;
-
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	JButton butBotonAceptar;
-
-	/**
-	 * 
-	 * @param interfaz
-	 */
 	JPanel auxiliar;
 
 	public DialogoInstrucciones(InterfazSpaceInvaders interfaz) {
@@ -66,7 +34,7 @@ public class DialogoInstrucciones extends JDialog implements ListSelectionListen
 		butBotonAceptar.addActionListener(this);
 		butBotonAceptar.setBounds(235, 270, 130, 25);
 		butBotonAceptar.setBackground(Color.BLACK);
-		butBotonAceptar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonAceptar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonAceptar.setForeground(Color.BLUE);
 
 		add(butBotonAceptar);
@@ -90,11 +58,9 @@ public class DialogoInstrucciones extends JDialog implements ListSelectionListen
 
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
+		// Empty method for control behavior
 	}
 
-	/**
-	 * 
-	 */
 	public void mostrar() {
 		setSize(600, 300);
 		setLocationRelativeTo(null);
@@ -102,6 +68,7 @@ public class DialogoInstrucciones extends JDialog implements ListSelectionListen
 
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -138,9 +105,9 @@ public class DialogoInstrucciones extends JDialog implements ListSelectionListen
 
 		// Intrucción para mover
 		g2.setColor(Color.WHITE);
-		g2.setFont(new Font("ArcadeClassic", Font.PLAIN, 18));
+		g2.setFont(FuenteInterfazGrafica.get(18));
 		g2.drawString("USE LAS FLECHAS DE", 60, 230);
-		g2.drawString("DIRRECION PARA MOVERSE", 35, 250);
+		g2.drawString("DIRRECIÓN PARA MOVERSE", 35, 250);
 
 		// Dibuja las flechas
 		g2.setColor(Color.WHITE);
@@ -169,12 +136,12 @@ public class DialogoInstrucciones extends JDialog implements ListSelectionListen
 
 		// Nombre de la barra espaceadora
 		g2.setColor(Color.WHITE);
-		g2.setFont(new Font("ArcadeClassic", Font.PLAIN, 25));
+		g2.setFont(FuenteInterfazGrafica.get(25));
 		g2.drawString("SPACE", 340, 190);
 
 		// Intrucción para disparar
 		g2.setColor(Color.WHITE);
-		g2.setFont(new Font("ArcadeClassic", Font.PLAIN, 18));
+		g2.setFont(FuenteInterfazGrafica.get(18));
 		g2.drawString("DISPARA CON LA", 390, 230);
 		g2.drawString("BARRA ESPACEADORA", 365, 250);
 

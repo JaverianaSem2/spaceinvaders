@@ -1,7 +1,6 @@
 package interfaz;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,76 +15,26 @@ import javax.swing.JTextField;
 
 public class DialogoCrearPartida extends JDialog implements ActionListener {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	public static final  String ACEPTAR = "Aceptar";
+	public static final String CANCELAR = "Cancelar";
 
-	/**
-	 * 
-	 */
-	public final static String ACEPTAR = "Aceptar";
-
-	/**
-	 * 
-	 */
-	public final static String CANCELAR = "Cancelar";
-
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	InterfazSpaceInvaders interfaz;
 
-	/**
-	 * 
-	 */
 	JPanel auxiliar;
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	JLabel nombre;
-
-	/**
-	 * 
-	 */
 	JLabel nombre1;
 
-	/**
-	 * 
-	 */
 	JTextField txtNombre;
 
-	/**
-	 * 
-	 */
 	JButton butBotonAceptar;
-
-	/**
-	 * 
-	 */
 	JButton butBotonCancelar;
 
 	// -----------------------------------------------------------------
 	// ---------------------------Constructor---------------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 * @param interfaz
-	 */
 	public DialogoCrearPartida(InterfazSpaceInvaders interfaz) {
 
 		super(interfaz, false);
@@ -98,19 +47,19 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 
 		nombre = new JLabel("Ingrese el nombre    de");
 		nombre.setForeground(Color.YELLOW);
-		nombre.setFont(new Font("ArcadeClassic", Font.PLAIN, 33));
+		nombre.setFont(FuenteInterfazGrafica.get(33));
 		nombre.setBounds(10, 30, 350, 20);
 
 		nombre1 = new JLabel("la    partida");
 		nombre1.setForeground(Color.YELLOW);
-		nombre1.setFont(new Font("ArcadeClassic", Font.PLAIN, 33));
+		nombre1.setFont(FuenteInterfazGrafica.get(33));
 		nombre1.setBounds(10, 55, 240, 20);
 
 		txtNombre = new JTextField();
 		txtNombre.setBackground(Color.orange);
 		txtNombre.setBounds(10, 150, 210, 25);
 		txtNombre.setForeground(Color.BLUE);
-		txtNombre.setFont(new Font("ArcadeClassic", Font.PLAIN, 25));
+		txtNombre.setFont(FuenteInterfazGrafica.get(25));
 
 		JLabel imagen = new JLabel();
 		ImageIcon icono = new ImageIcon("./src/main/resources/data/imagenes/fondoAP.jpg");
@@ -122,7 +71,7 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 		butBotonAceptar.addActionListener(this);
 		butBotonAceptar.setBounds(10, 200, 130, 25);
 		butBotonAceptar.setBackground(Color.BLACK);
-		butBotonAceptar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonAceptar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonAceptar.setForeground(Color.YELLOW);
 
 		butBotonCancelar = new JButton(CANCELAR);
@@ -130,7 +79,7 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 		butBotonCancelar.addActionListener(this);
 		butBotonCancelar.setBounds(200, 200, 130, 25);
 		butBotonCancelar.setBackground(Color.BLACK);
-		butBotonCancelar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonCancelar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonCancelar.setForeground(Color.green);
 
 		auxiliar.setSize(icono.getIconWidth(), icono.getIconHeight());
@@ -149,10 +98,6 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 	// -----------------------------------------------------------------
 	// ----------------------Manejador de eventos-----------------------
 	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -175,9 +120,6 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 */
 	public void mostrar() {
 		setSize(400, 225);
 		add(auxiliar);
@@ -185,10 +127,6 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 		this.setVisible(true);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String darNombre() {
 		return txtNombre.getText();
 	}

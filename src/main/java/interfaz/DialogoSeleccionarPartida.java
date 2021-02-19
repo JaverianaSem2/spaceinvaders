@@ -3,10 +3,9 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -22,64 +21,25 @@ import javax.swing.event.ListSelectionListener;
 
 import mundo.Partida;
 
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+
 public class DialogoSeleccionarPartida extends JDialog implements ListSelectionListener, ActionListener {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private final static String ACEPTAR = "Aceptar";
+	private static final String ACEPTAR = "Aceptar";
+	private static final String CANCELAR = "Cancelar";
 
-	/**
-	 * 
-	 */
-	private final static String CANCELAR = "Cancelar";
-
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private InterfazSpaceInvaders interfaz;
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 */
 	@SuppressWarnings("rawtypes")
 	private JList partidas;
-
-	/**
-	 * 
-	 */
 	private JScrollPane scroll;
 
-	/**
-	 * 
-	 */
-	JButton butBotonAceptar, butBotonCancelar;
+	JButton butBotonAceptar;
+	JButton butBotonCancelar;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 * @param interfaz
-	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DialogoSeleccionarPartida(InterfazSpaceInvaders interfaz) {
 
@@ -88,7 +48,7 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 
 		this.interfaz = interfaz;
 		scroll = new JScrollPane();
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setVerticalScrollBarPolicy( VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setPreferredSize(new Dimension(230, 200));
 		partidas = new JList();
 		partidas.addListSelectionListener(this);
@@ -96,7 +56,7 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 		partidas.setModel(new DefaultListModel());
 		scroll.getViewport().add(partidas);
 		partidas.setBackground(Color.BLACK);
-		partidas.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		partidas.setFont(FuenteInterfazGrafica.get(20));
 		partidas.setForeground(Color.BLUE);
 		scroll.setBackground(Color.BLACK);
 		add(scroll, BorderLayout.CENTER);
@@ -106,7 +66,7 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 		butBotonAceptar.addActionListener(this);
 		butBotonAceptar.setBounds(60, 2, 130, 25);
 		butBotonAceptar.setBackground(Color.BLACK);
-		butBotonAceptar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonAceptar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonAceptar.setForeground(Color.YELLOW);
 
 		butBotonCancelar = new JButton(CANCELAR);
@@ -114,7 +74,7 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 		butBotonCancelar.addActionListener(this);
 		butBotonCancelar.setBounds(210, 2, 130, 25);
 		butBotonCancelar.setBackground(Color.BLACK);
-		butBotonCancelar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonCancelar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonCancelar.setForeground(Color.green);
 
 		this.setBackground(Color.BLACK);
@@ -134,9 +94,6 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 	// ----------------------Manejador de eventos-----------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
@@ -158,24 +115,17 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 		}
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
-
+		// Empty method for control behavior
 	}
 
 	// -----------------------------------------------------------------
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 * @param lista
-	 */
 	@SuppressWarnings("unchecked")
-	public void cambiarListaPartidas(Collection lista) {
+	public void cambiarListaPartidas( List<Partida> lista) {
 
 		partidas.setListData(lista.toArray());
 
@@ -183,24 +133,15 @@ public class DialogoSeleccionarPartida extends JDialog implements ListSelectionL
 			partidas.setSelectedIndex(0);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String darPartidaSeleccionada() {
 		Partida partida = (Partida) partidas.getSelectedValue();
-		if (partida != null)
-			return (String) partida.getNombre();
-		else
-			return "";
+		return (partida != null) ? partida.getNombre() : "";
 	}
 
-	/**
-	 * 
-	 */
 	public void mostrar() {
 		setSize(400, 400);
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+
 }

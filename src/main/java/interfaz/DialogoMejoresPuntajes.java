@@ -1,63 +1,27 @@
 package interfaz;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
+	public static final String ACEPTAR = "Aceptar";
 
-	/**
-	 * 
-	 */
-	public final static String ACEPTAR = "Aceptar";
-
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	InterfazSpaceInvaders interfaz;
 
-	/**
-	 * 
-	 */
 	JPanel auxiliar;
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	JButton butBotonAceptar;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 * @param interfaz
-	 */
-	public DialogoMejoresPuntajes(InterfazSpaceInvaders interfaz, ArrayList<String> puntajes) {
+	public DialogoMejoresPuntajes(InterfazSpaceInvaders interfaz, List<String> puntajes) {
 
 		super(interfaz, false);
 
@@ -72,7 +36,7 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 		butBotonAceptar.addActionListener(this);
 		butBotonAceptar.setBounds(235, 360, 130, 25);
 		butBotonAceptar.setBackground(Color.BLACK);
-		butBotonAceptar.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		butBotonAceptar.setFont(FuenteInterfazGrafica.get(20));
 		butBotonAceptar.setForeground(Color.YELLOW);
 
 		auxiliar.setSize(600,400);
@@ -80,29 +44,29 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 
 		auxiliar.setBackground(Color.BLACK);
 
-		setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		setFont(FuenteInterfazGrafica.get(20));
 		setForeground(Color.RED);
 
 		JLabel labPosicion = new JLabel("POSICION");
-		labPosicion.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		labPosicion.setFont(FuenteInterfazGrafica.get(20));
 		labPosicion.setForeground(Color.GREEN);
 		labPosicion.setBounds(10, 10, 100, 25);
 		auxiliar.add(labPosicion);
 		
 		JLabel labPuntaje = new JLabel("PUNTAJE");
-		labPuntaje.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		labPuntaje.setFont(FuenteInterfazGrafica.get(20));
 		labPuntaje.setForeground(Color.GREEN);
 		labPuntaje.setBounds(110, 10, 200, 25);
 		auxiliar.add(labPuntaje);
 		
 		JLabel labNickname = new JLabel("NICKNAME");
-		labNickname.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		labNickname.setFont(FuenteInterfazGrafica.get(20));
 		labNickname.setForeground(Color.GREEN);
 		labNickname.setBounds(200, 10, 300, 25);
 		auxiliar.add(labNickname);
 		
 		JLabel labNombrePartida = new JLabel("PARTIDA");
-		labNombrePartida.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+		labNombrePartida.setFont(FuenteInterfazGrafica.get(20));
 		labNombrePartida.setForeground(Color.GREEN);
 		labNombrePartida.setBounds(310, 10, 400, 25);
 		auxiliar.add(labNombrePartida);
@@ -130,13 +94,13 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 				nickname.setText(informacion[2]);
 				partida.setText(informacion[3]);
 				
-				numero.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+				numero.setFont(FuenteInterfazGrafica.get(20));
 				numero.setForeground(Color.WHITE);
-				puntaje.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+				puntaje.setFont(FuenteInterfazGrafica.get(20));
 				puntaje.setForeground(Color.WHITE);
-				nickname.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+				nickname.setFont(FuenteInterfazGrafica.get(20));
 				nickname.setForeground(Color.WHITE);
-				partida.setFont(new Font("ArcadeClassic", Font.PLAIN, 20));
+				partida.setFont(FuenteInterfazGrafica.get(20));
 				partida.setForeground(Color.WHITE);
 				
 				numero.setBounds(x, y, 100, 25);
@@ -163,7 +127,7 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 	// -----------------------------------------------------------------
 
 	/**
-	 * 
+	 *
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -173,6 +137,7 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 			this.dispose();
 		}
 	}
+
 	// -----------------------------------------------------------------
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------

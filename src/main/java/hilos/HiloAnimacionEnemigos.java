@@ -4,22 +4,24 @@ import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
 import mundo.InvasorCalamar;
 import mundo.InvasorCangrejo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class HiloAnimacionEnemigos extends Thread {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HiloAnimacionEnemigos.class.getName());
 
 	Enemigo enemigo;
 	InterfazSpaceInvaders interfaz;
 	
 	public HiloAnimacionEnemigos(Enemigo invasores, InterfazSpaceInvaders principal) {
-		// TODO Auto-generated constructor stub
-		
 		enemigo = invasores;
 		interfaz = principal;
 	}
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 
 		while (interfaz.estaEnFuncionamiento()) {
 
@@ -34,8 +36,9 @@ public class HiloAnimacionEnemigos extends Thread {
 			try {
 				sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.info( e.getMessage() ); // Compliant
+				// Restore interrupted state...
+				Thread.currentThread().interrupt();
 			}
 
 			enemigo.setRutaImage(enemigo.getRutaImagen2());
@@ -43,8 +46,9 @@ public class HiloAnimacionEnemigos extends Thread {
 			try {
 				sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.info( e.getMessage() );
+				// Restore interrupted state...
+				Thread.currentThread().interrupt();
 			}
 
 		}

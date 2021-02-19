@@ -14,17 +14,11 @@ import mundo.SpaceInvaders;
  */
 public class Teclado implements KeyListener {
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
+	// public Partida actual
 
-	// public Partida actu;
-
-	private SpaceInvaders actu;
-
-	public NaveJugador navesita;
-
-	public InterfazSpaceInvaders interfaz;
+	private final SpaceInvaders         actu;
+	private final InterfazSpaceInvaders interfaz;
+	private       NaveJugador           navesita;
 
 	// -----------------------------------------------------------------
 	// -----------------------------Métodos-----------------------------
@@ -34,19 +28,16 @@ public class Teclado implements KeyListener {
 		interfaz = principal;
 		actu = actual;
 		navesita = actu.getJugadorActual();
-
 	}
 
 	public void keyPressed(KeyEvent e) {
 
 		if (actu.getEnFuncionamiento()) {
 			navesita = actu.getJugadorActual();
-			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
-				if (navesita.getDisparoUno() == null) {
-					navesita.disparar(interfaz.darPosActualJugador(), 410);
-					interfaz.startHiloJugador();
-				}
+			if ( e.getKeyCode() == KeyEvent.VK_SPACE && navesita.getDisparoUno() == null ) {
+				navesita.disparar( interfaz.darPosActualJugador(), 410 );
+				interfaz.startHiloJugador();
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -76,18 +67,12 @@ public class Teclado implements KeyListener {
 		}
 	}
 
-	/**
-	 * 
-	 */
 	public void keyReleased(KeyEvent e) {
-
+		// Empty method for control key press
 	}
 
-	/**
-	 * 
-	 */
 	public void keyTyped(KeyEvent e) {
-
+		// Empty method for control key press
 	}
 
 }

@@ -9,58 +9,21 @@ import excepciones.PartidaYaExisteException;
  */
 public class NaveJugador extends Nave {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private Partida partidaRaiz;
 
-	/**
-	 * 
-	 */
 	private int posInicialX;
 
-	/**
-	 * 
-	 */
 	private int posIncialY;
-	
-	/**
-	 * 
-	 */
+
 	private String nickname;
 
-	/**
-	 * 
-	 */
 	private String nombre;
 
-	/**
-	 * 
-	 */
 	private int cantidadDisparos;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 * @param pNombre
-	 * @param pDirectorio
-	 */
 	public NaveJugador(String nombre, String nickname) {
 		super();
 		partidaRaiz = null;
@@ -75,11 +38,6 @@ public class NaveJugador extends Nave {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 * @param agregar
-	 * @throws PartidaYaExisteException
-	 */
 	public void agregarPartida(Partida agregar) throws PartidaYaExisteException {
 
 		if (partidaRaiz == null) {
@@ -87,99 +45,52 @@ public class NaveJugador extends Nave {
 		} else {
 			partidaRaiz.agregarPartida(agregar);
 		}
-
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 * @throws PartidaYaExisteException
-	 */
 	public Partida crearPartida(String nombre) throws PartidaYaExisteException {
 
 		Partida b = new Partida(nombre);
 		agregarPartida(b);
 
 		return b;
-
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public int getPosInicialX() {
 		return this.posInicialX;
 	}
 
-	/**
-	 * 
-	 * @param posInicialX
-	 */
 	public void setPosInicialX(int posInicialX) {
 		this.posInicialX = posInicialX;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public int getPosIncialY() {
 		return this.posIncialY;
 	}
 
-	/**
-	 * 
-	 * @param posIncialY
-	 */
 	public void setPosIncialY(int posIncialY) {
 		this.posIncialY = posIncialY;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
+
 	public Partida getPartidaRaiz() {
 		return partidaRaiz;
 	}
 
-	/**
-	 * 
-	 * @param partidaRaiz
-	 */
 	public void setPartidaRaiz(Partida partidaRaiz) {
 		this.partidaRaiz = partidaRaiz;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getNombre() {
 		return nombre;
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getNickname() {
 		return nickname;
 	}
 
-	/**
-	 * 
-	 * @param nickname
-	 */
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
@@ -196,11 +107,8 @@ public class NaveJugador extends Nave {
 		return getVida() == 0;
 	}
 
-	/**
-	 * 
-	 */
 	public void iniciarPartida() {
-
+		// Empty method
 	}
 
 	@Override
