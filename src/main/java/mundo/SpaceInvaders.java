@@ -214,21 +214,20 @@ public class SpaceInvaders {
 				puntaje.setAnterior(puntaje);
 				primerPuntaje = puntaje;
 			} else {
-				Puntaje aux = primerPuntaje;
-
-				while (aux.getSiguiente() != null && aux.getSiguiente().getPuntuacion() >= puntaje.getPuntuacion()) {
-					aux = aux.getSiguiente();
+				// TODO: Validar bucle infinito
+				while (primerPuntaje.getSiguiente() != null && primerPuntaje.getSiguiente().getPuntuacion() >= puntaje.getPuntuacion()) {
+					primerPuntaje = primerPuntaje.getSiguiente();
 				}
 
 				Puntaje nuevaSiguiente = null;
 
-				if (aux.getSiguiente() != null) {
-					nuevaSiguiente = aux.getSiguiente();
+				if (primerPuntaje.getSiguiente() != null) {
+					nuevaSiguiente = primerPuntaje.getSiguiente();
 					nuevaSiguiente.setAnterior(puntaje);
 				}
 
-				aux.setSiguiente(puntaje);
-				puntaje.setAnterior(aux);
+				primerPuntaje.setSiguiente(puntaje);
+				puntaje.setAnterior(primerPuntaje);
 				puntaje.setSiguiente(nuevaSiguiente);
 			}
 		}
