@@ -19,10 +19,6 @@ public abstract class Nave implements Serializable {
 	private int alto;
 	private String rutaImage;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
 	protected Nave () {
 		this.velocidad = 0;
 		this.posX = 0;
