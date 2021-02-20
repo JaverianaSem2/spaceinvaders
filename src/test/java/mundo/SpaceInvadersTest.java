@@ -6,6 +6,7 @@ import java.util.List;
 
 import excepciones.NicknameYaExisteException;
 import excepciones.PartidaYaExisteException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 
@@ -102,13 +103,11 @@ class SpaceInvadersTest {
 	@Test
 	void testAgregarJugadorRepetidoVector () {
 		setUpEscenario2();
-		
-		try {
+
+		Assertions.assertThrows( NicknameYaExisteException.class, () -> {
 			space.agregarJugador("Manuel", "juga4");
-			fail("No lanza excepción esperado NicknameYaExisteException");
-		} catch (NicknameYaExisteException | IOException ignore) {
-			// Do nothing
-		}
+			fail("No lanza excepción esperada NicknameYaExisteException");
+		});
 		
 		assertEquals(4, jugadores.size() );
 	}
@@ -267,19 +266,22 @@ class SpaceInvadersTest {
 		assertEquals( primerPuntaje, Whitebox.getInternalState( spaceInvaders, "primerPuntaje" ) );
 	}
 
+	@Test
 	// Este test entra a un bucle infinito
-	private void testAgregarPuntajePrimerPuntajeMenorAPuntuacion2 () {
+	void testAgregarPuntajePrimerPuntajeMenorAPuntuacion2 () {
 		SpaceInvaders spaceInvaders = new SpaceInvaders(true);
 
-		Puntaje primerPuntaje = new Puntaje( 10, "jugador", "partida" );
-		primerPuntaje.setSiguiente( primerPuntaje );
+		Puntaje primerPuntaje = new Puntaje( 3, "jugador", "partida" );
+		primerPuntaje.setAnterior( new Puntaje( 4, "jugador", "partida" ) );
+		primerPuntaje.setSiguiente( new Puntaje( 3, "jugador", "partida" ) );
 
 		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
-		spaceInvaders.agregarPuntaje( new Puntaje( 10, "jugador", "partida" ) );
+		spaceInvaders.agregarPuntaje( new Puntaje( 3, "jugador", "partida" ) );
 
 		primerPuntaje = (Puntaje) Whitebox.getInternalState(spaceInvaders, "primerPuntaje");
-		assertEquals( "10 jugador partida", primerPuntaje.getAnterior().toString() );
-		assertEquals( "1 jugador partida", primerPuntaje.getSiguiente().toString() );
+		assertEquals( "3 jugador partida", primerPuntaje.toString() );
+		assertEquals( "4 jugador partida", primerPuntaje.getAnterior().toString() );
+		assertEquals( "3 jugador partida", primerPuntaje.getSiguiente().toString() );
 	}
 
 }

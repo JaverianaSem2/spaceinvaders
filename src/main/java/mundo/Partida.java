@@ -82,17 +82,21 @@ public class Partida implements Serializable {
 		if (this.nombre.compareToIgnoreCase(nodo.nombre) == 0) {
 			throw new PartidaYaExisteException(nodo.nombre);
 		} else if (this.nombre.compareToIgnoreCase(nodo.nombre) > 0) {
+
 			if (partidaIzquierda == null) {
 				setPartidaIzquierda(nodo);
 			} else {
 				partidaIzquierda.agregarPartida(nodo);
 			}
+
 		} else {
+
 			if (partidaDerecha == null) {
 				setPartidaDerecha(nodo);
 			} else {
 				partidaDerecha.agregarPartida(nodo);
 			}
+
 		}
 
 	}
@@ -261,6 +265,10 @@ public class Partida implements Serializable {
 		return nombre;
 	}
 
+	/**
+	 * Devuelve listado de partidas ordenadas
+	 * @param acumulado
+	 */
 	public void inOrden ( List<Partida> acumulado) {
 		if (partidaIzquierda != null) {
 			partidaIzquierda.inOrden( acumulado );
