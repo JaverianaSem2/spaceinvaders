@@ -40,7 +40,7 @@ public class PanelNivel extends JPanel {
 		g.drawImage(
 			imagen.getImage(),
 			space.getJugadorActual().getPosInicialX(),
-			space.getJugadorActual().getPosIncialY(),
+			space.getJugadorActual().getPosInicialY(),
 			imagen.getIconWidth(),
 			imagen.getIconHeight(),
 			null

@@ -15,7 +15,7 @@ public class NaveJugador extends Nave {
 
 	private int posInicialX;
 
-	private int posIncialY;
+	private int posInicialY;
 
 	private String nickname;
 
@@ -28,7 +28,7 @@ public class NaveJugador extends Nave {
 		super();
 		partidaRaiz = null;
 		this.posInicialX = 320;
-		this.posIncialY = 410;
+		this.posInicialY = 410;
 		this.setVida(3);
 		this.nombre = nombre;
 		this.nickname = nickname;
@@ -63,12 +63,12 @@ public class NaveJugador extends Nave {
 		this.posInicialX = posInicialX;
 	}
 
-	public int getPosIncialY() {
-		return this.posIncialY;
+	public int getPosInicialY () {
+		return this.posInicialY;
 	}
 
-	public void setPosIncialY(int posIncialY) {
-		this.posIncialY = posIncialY;
+	public void setPosInicialY (int posInicialY ) {
+		this.posInicialY = posInicialY;
 	}
 
 	public Partida getPartidaRaiz() {

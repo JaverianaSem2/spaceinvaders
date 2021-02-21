@@ -64,16 +64,19 @@ public class Disparo implements Serializable {
 
 	public boolean hitsJugador(NaveJugador a) {
 		if (a != null) {
-			double cateto = posX - a.getPosInicialX();
-			double cateto2 = posY - a.getPosIncialY();
-			double d = Math.sqrt((cateto * cateto) + (cateto2 * cateto2));
+			double cateto1 = posX - a.getPosInicialX();
+			double cateto2 = posY - a.getPosInicialY();
+			double d = Math.sqrt((cateto1 * cateto1) + (cateto2 * cateto2));
 
-			return d < a.getAncho() + 8
-				&& posY == a.getPosIncialY()
-				&& (
-					posX < a.getPosInicialX() + 35
-					&& posX > a.getPosInicialX() - 10
-				);
+			boolean condicionRetorno1 = d < a.getAncho() + 8;
+			boolean condicionRetorno2 = posY == a.getPosInicialY();
+			boolean condicionRetorno3a = posX < a.getPosInicialX() + 35;
+			boolean condicionRetorno3b = posX > a.getPosInicialX() - 10;
+			boolean condicionRetorno3 = condicionRetorno3a && condicionRetorno3b;
+
+			return condicionRetorno1
+				&& condicionRetorno2
+				&& condicionRetorno3;
 		}
 
 		return false;

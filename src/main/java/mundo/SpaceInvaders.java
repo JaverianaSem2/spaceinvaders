@@ -104,7 +104,7 @@ public class SpaceInvaders {
 			jugadores.add(agregar);
 			jugadorActual = agregar;
 			jugadorActual.setPosInicialX(300);
-			jugadorActual.setPosIncialY(410);
+			jugadorActual.setPosInicialY(410);
 			jugadorActual.setAncho(30);
 			jugadorActual.setAlto(19);
 			serializarJugador();
