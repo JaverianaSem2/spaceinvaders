@@ -10,7 +10,7 @@ class EnemigoTest {
 	
 	// MOVER - MOVER ABAJO - BORDE(EDGE)
 	private void setUpEscenario1 () {
-		enemigo = (InvasorCalamar) new InvasorCalamar(5, 300, 210, 0, 0, 0, 0, "", "");
+		enemigo = new InvasorCalamar(5, 300, 210, 0, 0, 0, 0, "", "");
 	}
 
 	@Test
@@ -20,14 +20,14 @@ class EnemigoTest {
 		
 		// Mover hacia la derecha
 		enemigo.mover(1);
-		assertTrue(enemigo.getPosX() > 300);
+		assertEquals(305, enemigo.getPosX());
 		
 		// Mover hacia la izquierda
 		enemigo.mover(-1);
-		assertTrue(enemigo.getPosX() <= 300);
+		assertEquals (300, enemigo.getPosX() );
 		
 		enemigo.mover(-1);
-		assertTrue(enemigo.getPosX() < 300);
+		assertEquals( 295, enemigo.getPosX() );
 	}
 
 	@Test
@@ -36,7 +36,7 @@ class EnemigoTest {
 		assertEquals( 210, enemigo.getPosY() );
 		
 		enemigo.moverAbajo(1);
-		assertTrue(enemigo.getPosY() > 210);
+		assertEquals(220, enemigo.getPosY() );
 		
 		enemigo.moverAbajo(1);
 		assertEquals( 230, enemigo.getPosY() );

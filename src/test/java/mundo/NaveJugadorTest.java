@@ -57,7 +57,7 @@ class NaveJugadorTest {
 		assertNotNull( naveJugador.getDisparoUno());
 
 		// Crea un disparo a un enemigo
-		Enemigo momentaneo = (InvasorPulpo) new InvasorPulpo(0, 0, 0, 0, 0, 0, 0, "", "");
+		Enemigo momentaneo = new InvasorPulpo(0, 0, 0, 0, 0, 0, 0, "", "");
 		momentaneo.disparar(100, 300);
 		assertNotNull( momentaneo.getDisparoUno() );
 		
@@ -68,8 +68,8 @@ class NaveJugadorTest {
 	@Test
 	void testEliminaDisparo (){
 		setUpEscenario2();
+
 		assertNotNull( naveJugador.getDisparoUno());
-		
 		naveJugador.eliminarDisparo();
 		assertNull( naveJugador.getDisparoUno());
 	}
@@ -101,8 +101,7 @@ class NaveJugadorTest {
 		Disparo disparo = new Disparo(40, 30);
 		naveJugador.setDisparoUno( disparo );
 		naveJugador.disparar( 60, 50 );
-		assertEquals( 40, naveJugador.getDisparoUno().getPosX() );
-		assertEquals( 30, naveJugador.getDisparoUno().getPosY() );
+		assertSame( disparo,  naveJugador.getDisparoUno() );
 	}
 
 }

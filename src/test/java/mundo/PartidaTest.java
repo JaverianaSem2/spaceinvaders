@@ -3,12 +3,10 @@ package mundo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import excepciones.PartidaYaExisteException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.util.reflection.Whitebox;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,7 +70,7 @@ class PartidaTest {
 			Arrays.fill( enemigo, null );
 		}
 
-		enemigos[0][2] = (InvasorCalamar) new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
+		enemigos[0][2] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
 	}
 
 	// NIVEL COMPLETO
@@ -112,9 +110,11 @@ class PartidaTest {
 	void testAgregarPartida () {
 		setUpEscenario1();
 		try {
+			assertNull( jugador.getPartidaRaiz() );
 			jugador.agregarPartida( partida );
+			assertEquals( partida, jugador.getPartidaRaiz() );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepción inesperada PartidaYaExisteException" );
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 	}
 
@@ -122,10 +122,14 @@ class PartidaTest {
 	void testAgregarPartidaSinRepetidos () {
 		try {
 			setUpEscenario2();
+
+			assertEquals( "test2", jugador.getPartidaRaiz().getNombre() );
 			Partida agregar = new Partida( "testAgregar" );
 			jugador.agregarPartida( agregar );
+			assertEquals( "test2", jugador.getPartidaRaiz().getNombre() );
+			assertEquals( agregar.getNombre(), jugador.getPartidaRaiz().buscarPartida( "testAgregar" ).getNombre() );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepción inesperada PartidaYaExisteException" );
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 	}
 
@@ -149,9 +153,9 @@ class PartidaTest {
 		try {
 			partidaInicial.agregarPartida( partidaSecundaria );
 			assertNotEquals( partidaInicial, partidaInicial.getPartidaIzquierda() );
-			assertEquals( partidaSecundaria, partidaInicial.getPartidaIzquierda() );
+			assertSame( partidaSecundaria, partidaInicial.getPartidaIzquierda() );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepción inesperada PartidaYaExisteException" );
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 	}
 
@@ -164,9 +168,9 @@ class PartidaTest {
 		try {
 			partidaInicial.agregarPartida( partidaSecundaria );
 			assertNotEquals( partidaInicial, partidaInicial.getPartidaIzquierda() );
-			assertEquals( partidaSecundaria, partidaInicial.getPartidaIzquierda().getPartidaIzquierda() );
+			assertSame( partidaSecundaria, partidaInicial.getPartidaIzquierda().getPartidaIzquierda() );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepción inesperada PartidaYaExisteException" );
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 
 	}
@@ -179,9 +183,9 @@ class PartidaTest {
 		try {
 			partidaInicial.agregarPartida( partidaSecundaria );
 			assertNotEquals( partidaInicial, partidaInicial.getPartidaDerecha() );
-			assertEquals( partidaSecundaria, partidaInicial.getPartidaDerecha() );
+			assertSame( partidaSecundaria, partidaInicial.getPartidaDerecha() );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepción inesperada PartidaYaExisteException" );
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 	}
 
@@ -194,9 +198,9 @@ class PartidaTest {
 		try {
 			partidaInicial.agregarPartida( partidaSecundaria );
 			assertNotEquals( partidaInicial, partidaInicial.getPartidaDerecha() );
-			assertEquals( partidaSecundaria, partidaInicial.getPartidaDerecha().getPartidaDerecha() );
+			assertSame( partidaSecundaria, partidaInicial.getPartidaDerecha().getPartidaDerecha() );
 		} catch ( PartidaYaExisteException e ) {
-			fail( "Lanza excepción inesperada PartidaYaExisteException" );
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 
 	}
@@ -205,48 +209,42 @@ class PartidaTest {
 	void testBuscarPartidaSiNoHayNada () {
 		setUpEscenario1();
 
-		Partida buscada = partida.buscarPartida( "test2.1" );
-		assertNull( buscada );
+		assertNull( partida.buscarPartida( "test2.1" ) );
 	}
 
 	@Test
 	void testBuscarPartidaSiHayPartidas () {
 		setUpEscenario2();
 
-		Partida buscada = partida.buscarPartida( "test2" );
-		assertEquals( "test2", buscada.getNombre() );
+		assertEquals( "test2", partida.buscarPartida( "test2" ).getNombre() );
 	}
 
 	@Test
 	void testBuscarPartidaNoHayPartidasIzqNoNulaNombreCortoResultadoNulo () {
 		Partida partida = new Partida( "prueba_AgregarPartida_BuscarPartida" );
 		partida.setPartidaIzquierda( new Partida( "prueba_AgregarPartida_BuscarPartida" ) );
-		Partida buscada = partida.buscarPartida( "prueba_AgregarPartida_BuscarPartida_largo" );
-		assertNull( buscada );
+		assertNull( partida.buscarPartida( "prueba_AgregarPartida_BuscarPartida_largo" ) );
 	}
 
 	@Test
 	void testBuscarPartidaNoHayPartidasIzqNoNulaNombreLargoResultadoNulo () {
 		Partida partida = new Partida( "nombre_largo" );
 		partida.setPartidaIzquierda( new Partida( "nombre_largo" ) );
-		Partida buscada = partida.buscarPartida( "corto" );
-		assertNull( buscada );
+		assertNull( partida.buscarPartida( "corto" ) );
 	}
 
 	@Test
 	void testBuscarPartidaNoHayPartidasDerNoNulaNombreCortoResultadoNulo () {
 		Partida partida = new Partida( "prueba_AgregarPartida_BuscarPartida" );
 		partida.setPartidaDerecha( partida );
-		Partida buscada = partida.buscarPartida( "corto" );
-		assertNull( buscada );
+		assertNull( partida.buscarPartida( "corto" ) );
 	}
 
 	@Test
 	void testBuscarPartidaNoHayPartidasDerNoNulaNombreLargoResultadoNulo () {
 		Partida partida = new Partida( "corto" );
 		partida.setPartidaDerecha( new Partida( "corto" ) );
-		Partida buscada = partida.buscarPartida( "nombre_largo" );
-		assertNull( buscada );
+		assertNull( partida.buscarPartida( "nombre_largo" ) );
 	}
 
 	@Test
@@ -292,34 +290,28 @@ class PartidaTest {
 	void testNivelCompletoNivel1 () {
 		setUpEscenario6();
 		assertEquals( "1", partida.getNivel().getNivel() );
-		boolean isNivelCompleto = false;
 
 		if ( partida.terminarNivel() ) {
 			try {
-				isNivelCompleto = partida.nivelCompleto();
+				assertTrue( partida.nivelCompleto() );
+				assertEquals( "2", partida.getNivel().getNivel() );
 			} catch ( IOException e ) {
-				fail( "No se esperaba error" );
+				fail("Lanza excepción no esperada " + e.getClass().getName() );
 			}
 		}
-
-		assertTrue( isNivelCompleto );
-		assertEquals( "2", partida.getNivel().getNivel() );
 	}
 
 	@Test
 	void testNivelCompletoNivel2 () {
 		Partida partida = new Partida( "Partida" );
 		partida.setNivel( new Nivel( "2", 0,0,0,0,0,0,0 ) );
-		boolean isNivelCompleto = true;
 
-			try {
-				isNivelCompleto = partida.nivelCompleto();
-			} catch ( IOException e ) {
-				fail( "No se esperaba error" );
-			}
-
-		assertFalse( isNivelCompleto );
-		assertEquals( "2", partida.getNivel().getNivel() );
+		try {
+			assertFalse( partida.nivelCompleto() );
+			assertEquals( "2", partida.getNivel().getNivel() );
+		} catch ( IOException e ) {
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
+		}
 	}
 
 	@Test
@@ -336,8 +328,7 @@ class PartidaTest {
 		Partida partidaIzquierda = new Partida( "Izq" );
 		partida.setPartidaIzquierda( partidaIzquierda );
 
-		Partida partidaDevuelta = partida.eliminar( "Prueba" );
-		assertEquals( partidaIzquierda, partidaDevuelta );
+		assertEquals( partidaIzquierda, partida.eliminar( "Prueba" ) );
 	}
 
 	@Test
@@ -346,8 +337,7 @@ class PartidaTest {
 		Partida partidaDerecha = new Partida( "Der" );
 		partida.setPartidaDerecha( partidaDerecha );
 
-		Partida partidaDevuelta = partida.eliminar( "Prueba" );
-		assertEquals( partidaDerecha, partidaDevuelta );
+		assertEquals( partidaDerecha, partida.eliminar( "Prueba" ) );
 	}
 
 	@Test
@@ -358,8 +348,7 @@ class PartidaTest {
 		partida.setPartidaIzquierda( partidaIzquierda );
 		partida.setPartidaDerecha( partidaDerecha );
 
-		Partida partidaDevuelta = partida.eliminar( "Prueba" );
-		assertEquals( partidaDerecha, partidaDevuelta );
+		assertEquals( partidaDerecha, partida.eliminar( "Prueba" ) );
 	}
 
 	@Test
@@ -368,8 +357,7 @@ class PartidaTest {
 		Partida partidaIzquierda = new Partida( "Izq" );
 		partida.setPartidaIzquierda( partidaIzquierda );
 
-		Partida partidaDevuelta = partida.eliminar( "Prueba2" );
-		assertEquals( partida, partidaDevuelta );
+		assertEquals( partida, partida.eliminar( "Prueba2" ) );
 	}
 
 	@Test
@@ -378,8 +366,7 @@ class PartidaTest {
 		Partida partidaDerecha = new Partida( "Derecha" );
 		partida.setPartidaDerecha( partidaDerecha );
 
-		Partida partidaDevuelta = partida.eliminar( "Prueba2" );
-		assertEquals( partida, partidaDevuelta );
+		assertEquals( partida, partida.eliminar( "Prueba2" ) );
 	}
 
 	@Test
@@ -397,7 +384,9 @@ class PartidaTest {
 		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0, 0, 0 ) );
 
 		try {
+			assertNull( partida.getEnemigos() );
 			partida.inicializarPartida();
+			assertNotNull( partida.getEnemigos()[0][0] );
 		} catch ( IOException e ) {
 			fail( "No esperaba excepción IOException" );
 		}
@@ -405,6 +394,7 @@ class PartidaTest {
 
 	@Test
 	void testInicializarPartidaNivel3 () {
+		// Solo existen los niveles 1 y 2, al ingresar el nivel 3 se produce un error IO
 		Partida partida = new Partida( "Nueva" );
 		partida.setNivel( new Nivel( "3", 0, 0, 0, 0, 0, 0, 0 ) );
 

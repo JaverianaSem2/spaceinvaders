@@ -69,21 +69,15 @@ class SpaceInvadersTest {
 		
 		try {
 			space.agregarJugador("Yo1", "agre1");
-		} catch (NicknameYaExisteException | IOException e) {
-			fail("Lanza excepción inesperada NicknameYaExisteException");
-		}
-		
-		assertEquals(1, jugadores.size());
-		
-		try {
+			assertEquals(1, jugadores.size());
+
 			space.agregarJugador("Yo2", "agre2");
 			space.agregarJugador("Yo2", "agre3");
 			space.agregarJugador("Yo2", "agre4");
+			assertEquals(4, jugadores.size() );
 		} catch (NicknameYaExisteException | IOException e) {
-			fail("Lanza excepción inesperada NicknameYaExisteException");
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
-		
-		assertEquals(4, jugadores.size() );
 	}
 
 	@Test
@@ -93,11 +87,10 @@ class SpaceInvadersTest {
 		
 		try {
 			space.agregarJugador("Manuel", "juga5");
+			assertEquals(5, jugadores.size());
 		} catch (NicknameYaExisteException | IOException e) {
-			fail("Lanza excepción inesperada NicknameYaExisteException");
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
-		
-		assertEquals(5, jugadores.size());
 	}
 
 	@Test
@@ -157,7 +150,7 @@ class SpaceInvadersTest {
 			space.eliminarPartida();
 			assertNull( space.getJugadorActual().getPartidaRaiz() );
 		} catch ( PartidaYaExisteException |  IOException e ) {
-			e.printStackTrace();
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 	}
 
@@ -179,7 +172,7 @@ class SpaceInvadersTest {
 			space.getJugadorActual().setPartidaRaiz( space.getPartidaActual() );
 			assertEquals( "[" + NOMBRE_PARTIDA + "]", space.darPartidasJugador().toString() );
 		} catch ( PartidaYaExisteException | IOException e ) {
-			e.printStackTrace();
+			fail("Lanza excepción no esperada " + e.getClass().getName() );
 		}
 	}
 
