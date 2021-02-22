@@ -6,8 +6,8 @@ package mundo;
  */
 public class InvasorCangrejo extends Enemigo {
 
-	public InvasorCangrejo(double velocidad, int posX, int posY, int vida, int ancho, int alto, int direccion, String rutaImage, String ruta) {
-		super(velocidad, posX, posY, vida, ancho, alto, direccion, rutaImage, ruta);
+	public InvasorCangrejo(double velocidad, int posX, int posY, int vida, int ancho, int direccion, String rutaImage, String ruta) {
+		super(velocidad, posX, posY, vida, ancho, direccion, rutaImage, ruta);
 
 		setPuntosPorMuerte( 20 );
 	}

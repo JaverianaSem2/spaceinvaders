@@ -54,7 +54,7 @@ class NaveJugadorTest {
 		assertNotNull( naveJugador.getDisparoUno() );
 
 		// Crea un disparo a un enemigo
-		Enemigo momentaneo = new InvasorPulpo(0, 0, 0, 0, 0, 0, 0, "", "");
+		Enemigo momentaneo = new InvasorPulpo(0, 0, 0, 0, 0, 0, "", "");
 		momentaneo.disparar( 100, 300 );
 		assertNotNull( momentaneo.getDisparoUno() );
 

@@ -11,16 +11,16 @@ import java.util.List;
  */
 public class Partida implements Serializable {
 
-	private Partida     partidaIzquierda;
-	private Partida     partidaDerecha;
-	private Enemigo[][] enemigos;
-	private Puntaje     puntaje;
-	private Nivel       nivel;
-	private String      nombre;
+	private       Partida     partidaIzquierda;
+	private       Partida     partidaDerecha;
+	private       Enemigo[][] enemigos;
+	private       Puntaje     puntaje;
+	private       Nivel       nivel;
+	private final String      nombre;
 
 	public Partida ( String nombre ) {
 		this.nombre = nombre;
-		nivel = new Nivel("1", 0, 0, 0, 0, 0, 0, 0);
+		nivel = new Nivel("1", 0, 0, 0, 0, 0 );
 	}
 
 	public String getNombre () {
@@ -146,8 +146,6 @@ public class Partida implements Serializable {
 			linea = br.readLine(); // Code smell needed. Do not delete
 			linea = br.readLine();
 
-			cantEnemigos = Integer.parseInt( linea );
-
 			linea = br.readLine(); // Code smell needed. Do not delete
 			linea = br.readLine();
 
@@ -157,7 +155,7 @@ public class Partida implements Serializable {
 			linea = br.readLine();
 			String[] arreglo = linea.split( "\t" );
 
-			this.nivel = new Nivel( nivelActual, velocidad, cantEnemigos, vidaEnemigo, Integer.parseInt( arreglo[0] ), Integer.parseInt( arreglo[1] ), Integer.parseInt( arreglo[2] ), Integer.parseInt( arreglo[3] ) );
+			this.nivel = new Nivel( nivelActual, velocidad, vidaEnemigo, Integer.parseInt( arreglo[0] ), Integer.parseInt( arreglo[1] ), Integer.parseInt( arreglo[2] ) );
 
 			inicializarEnemigos();
 
@@ -176,7 +174,6 @@ public class Partida implements Serializable {
 						nivel.getPosYPrimerEnemigo(),
 						nivel.getVidaEnemigos(),
 						nivel.getAnchoEnemigos(),
-						nivel.getAltoEnemigos(),
 						Enemigo.DERECHA,
 						"./src/main/resources/data/imagenes/Naves/s0.png",
 						"./src/main/resources/data/imagenes/Naves/s1.png"
@@ -188,7 +185,6 @@ public class Partida implements Serializable {
 						(i *  nivel.getPosYPrimerEnemigo() +  nivel.getPosYPrimerEnemigo()),
 						nivel.getVidaEnemigos(),
 						nivel.getAnchoEnemigos(),
-						nivel.getAltoEnemigos(),
 						Enemigo.DERECHA,
 						"./src/main/resources/data/imagenes/Naves/p0.png",
 						"./src/main/resources/data/imagenes/Naves/p1.png"
@@ -200,7 +196,6 @@ public class Partida implements Serializable {
 						(i * nivel.getPosYPrimerEnemigo() + nivel.getPosYPrimerEnemigo()),
 						nivel.getVidaEnemigos(),
 						nivel.getAnchoEnemigos(),
-						nivel.getAltoEnemigos(),
 						Enemigo.DERECHA,
 						"./src/main/resources/data/imagenes/Naves/r0.png",
 						"./src/main/resources/data/imagenes/Naves/r1.png"

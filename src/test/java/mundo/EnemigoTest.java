@@ -10,7 +10,7 @@ class EnemigoTest {
 
 	// MOVER - MOVER ABAJO - BORDE(EDGE)
 	private void setUpEscenario1 () {
-		enemigo = new InvasorCalamar(5, 300, 210, 0, 0, 0, 0, "", "");
+		enemigo = new InvasorCalamar(5, 300, 210, 0, 0, 0, "", "");
 	}
 
 	@Test void testMover () {

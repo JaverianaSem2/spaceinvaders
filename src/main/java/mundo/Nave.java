@@ -11,13 +11,12 @@ public abstract class Nave implements Serializable {
 
 	Disparo disparoUno;
 
-	private double velocidad;
-	protected int    posX;
-	protected int    posY;
-	private   int    vida;
-	private   int    ancho;
-	private int alto;
-	private   String rutaImage;
+	private       double velocidad;
+	protected     int    posX;
+	protected     int    posY;
+	private       int    vida;
+	private       int    ancho;
+	private       String rutaImage;
 
 	protected Nave () {
 		this.velocidad = 0;
@@ -25,16 +24,14 @@ public abstract class Nave implements Serializable {
 		this.posY = 0;
 		this.vida = 0;
 		this.ancho = 0;
-		this.alto = 0;
 	}
 
-	protected Nave(double velocidad, int posX, int posY, int vida, int ancho, int alto, String ruta) {
+	protected Nave(double velocidad, int posX, int posY, int vida, int ancho, String ruta) {
 		this.velocidad = velocidad;
 		this.posX = posX;
 		this.posY = posY;
 		this.vida = vida;
 		this.ancho = ancho;
-		this.alto = alto;
 		rutaImage = ruta;
 	}
 
@@ -70,10 +67,6 @@ public abstract class Nave implements Serializable {
 		return this.posY;
 	}
 
-	public void setPosY(int posY) {
-		this.posY = posY;
-	}
-
 	public int getVida () {
 		return this.vida;
 	}
@@ -94,14 +87,6 @@ public abstract class Nave implements Serializable {
 		return this.ancho;
 	}
 
-	public int getAlto() {
-		return this.alto;
-	}
-
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}
-
 	public Disparo getDisparoUno () {
 		return disparoUno;
 	}
@@ -115,8 +100,6 @@ public abstract class Nave implements Serializable {
 	}
 
 	public void mover(int dir) { }
-
-	public void resetear() { }
 
 	public void eliminarDisparo () {
 		disparoUno = null;

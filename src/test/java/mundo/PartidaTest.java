@@ -55,7 +55,7 @@ class PartidaTest {
 
 		for ( int i = 0; i < enemigos.length; i++ ) {
 			for ( int j = 0; j < enemigos[i].length; j++ ) {
-				enemigos[i][j] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
+				enemigos[i][j] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, "", "" );
 			}
 		}
 	}
@@ -70,13 +70,13 @@ class PartidaTest {
 			Arrays.fill( enemigo, null );
 		}
 
-		enemigos[0][2] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
+		enemigos[0][2] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, "", "" );
 	}
 
 	// NIVEL COMPLETO
 	private void setUpEscenario6 () {
 		partida = new Partida( "prueba_NivelCompleto" );
-		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0, 0, 0 ) );
+		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
 		partida.getNivel().setNivel( "1" );
 		enemigos = new Enemigo[2][3];
 		partida.setEnemigos( enemigos );
@@ -219,9 +219,9 @@ class PartidaTest {
 
 		partida.inicializarEnemigos();
 
-		Enemigo a = new InvasorCangrejo( 0, 0, 0, 0, 0, 0, 0, "", "" );
-		Enemigo b = new InvasorCalamar( 0, 0, 0, 0, 0, 0, 0, "", "" );
-		Enemigo c = new InvasorPulpo( 0, 0, 0, 0, 0, 0, 0, "", "" );
+		Enemigo a = new InvasorCangrejo( 0, 0, 0, 0, 0, 0, "", "" );
+		Enemigo b = new InvasorCalamar( 0, 0, 0, 0, 0, 0, "", "" );
+		Enemigo c = new InvasorPulpo( 0, 0, 0, 0, 0, 0, "", "" );
 
 		assertEquals( a.getClass(), partida.getEnemigos()[1][4].getClass() );
 		assertEquals( b.getClass(), partida.getEnemigos()[0][7].getClass() );
@@ -266,7 +266,7 @@ class PartidaTest {
 
 	@Test void testNivelCompletoNivel2 () {
 		Partida partida = new Partida( "Partida" );
-		partida.setNivel( new Nivel( "2", 0,0,0,0,0,0,0 ) );
+		partida.setNivel( new Nivel( "2", 0,0,0,0,0 ) );
 
 		try {
 			assertFalse( partida.nivelCompleto() );
@@ -335,7 +335,7 @@ class PartidaTest {
 
 	@Test void testInicializarPartidaNivel1 () {
 		Partida partida = new Partida( "Nueva" );
-		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0, 0, 0 ) );
+		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
 
 		try {
 			assertNull( partida.getEnemigos() );
@@ -349,7 +349,7 @@ class PartidaTest {
 	@Test void testInicializarPartidaNivel3 () {
 		// Solo existen los niveles 1 y 2, al ingresar el nivel 3 se produce un error IO
 		Partida partida = new Partida( "Nueva" );
-		partida.setNivel( new Nivel( "3", 0, 0, 0, 0, 0, 0, 0 ) );
+		partida.setNivel( new Nivel( "3", 0, 0, 0, 0, 0 ) );
 
 		Assertions.assertThrows( IOException.class, () -> {
 			partida.inicializarPartida();

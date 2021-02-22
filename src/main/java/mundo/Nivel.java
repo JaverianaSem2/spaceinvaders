@@ -14,20 +14,16 @@ public class Nivel implements Serializable {
 	private final int    posXPrimerEnemigo;
 	private final int    posYPrimerEnemigo;
 	private final int    anchoEnemigos;
-	private final int    enemigos;
-	private final int    altoEnemigos;
 
-	public Nivel(String nivel, int velocidad, int enemigos, int vidaEnemigos , int posXPrimerEnemigo, int posYPrimerEnemigo,
-			int anchoEnemigos, int altoEnemigos) {
+	public Nivel(String nivel, int velocidad, int vidaEnemigos , int posXPrimerEnemigo, int posYPrimerEnemigo,
+			int anchoEnemigos ) {
 
 		this.nivel = nivel;
 		this.velocidadEnemigos = velocidad;
-		this.enemigos = enemigos;
 		this.vidaEnemigos = vidaEnemigos;
 		this.posXPrimerEnemigo = posXPrimerEnemigo;
 		this.posYPrimerEnemigo = posYPrimerEnemigo;
 		this.anchoEnemigos = anchoEnemigos;
-		this.altoEnemigos = altoEnemigos;
 	}
 
 	// -----------------------------------------------------------------
@@ -62,7 +58,4 @@ public class Nivel implements Serializable {
 		return anchoEnemigos;
 	}
 
-	public int getAltoEnemigos() {
-		return altoEnemigos;
-	}
 }

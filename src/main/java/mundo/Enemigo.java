@@ -12,8 +12,8 @@ public abstract class Enemigo extends Nave {
 	private final       String rutaImagen2;
 	private             int    puntosPorMuerte;
 
-	protected Enemigo(double velocidad, int posX, int posY, int vida, int ancho, int alto, int direccion, String rutaImage, String rutaImage2) {
-		super(velocidad, posX, posY, vida, ancho, alto, rutaImage);
+	protected Enemigo(double velocidad, int posX, int posY, int vida, int ancho, int direccion, String rutaImage, String rutaImage2) {
+		super(velocidad, posX, posY, vida, ancho, rutaImage);
 		this.direccion = direccion;
 		rutaImagen2 = rutaImage2;
 	}
