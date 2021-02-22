@@ -1,28 +1,18 @@
 package interfaz;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 /**
- * 
  * @author squin
- *
  */
 public class DialogoCrearJugador extends JDialog implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
-	private static final String ACEPTAR = "Aceptar";
-	private static final String CANCELAR = "Cancelar";
+	private static final long   serialVersionUID = 1L;
+	private static final String ACEPTAR          = "Aceptar";
+	private static final String CANCELAR         = "Cancelar";
 
 	InterfazSpaceInvaders interfaz;
 
@@ -37,71 +27,71 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 	JButton butBotonAceptar;
 	JButton butBotonCancelar;
 
-	public DialogoCrearJugador(InterfazSpaceInvaders interfaz) {
+	public DialogoCrearJugador ( InterfazSpaceInvaders interfaz ) {
 
-		super(interfaz, true);
+		super( interfaz, true );
 
 		this.interfaz = interfaz;
-		setLayout(null);
+		setLayout( null );
 
 		auxiliar = new JPanel();
-		auxiliar.setLayout(null);
+		auxiliar.setLayout( null );
 
-		labNombre = new JLabel("NOMBRE DEL JUGADOR");
-		labNombre.setForeground(Color.RED);
-		labNombre.setFont(FuenteInterfazGrafica.get(33));
-		labNombre.setBounds(10, 60, 350, 20);
+		labNombre = new JLabel( "NOMBRE DEL JUGADOR" );
+		labNombre.setForeground( Color.RED );
+		labNombre.setFont( FuenteInterfazGrafica.get( 33 ) );
+		labNombre.setBounds( 10, 60, 350, 20 );
 
 		txtNombre = new JTextField();
-		txtNombre.setBackground(Color.orange);
-		txtNombre.setBounds(10, 85, 205, 25);
-		txtNombre.setForeground(Color.BLUE);
-		txtNombre.setFont( FuenteInterfazGrafica.get(25) );
+		txtNombre.setBackground( Color.orange );
+		txtNombre.setBounds( 10, 85, 205, 25 );
+		txtNombre.setForeground( Color.BLUE );
+		txtNombre.setFont( FuenteInterfazGrafica.get( 25 ) );
 
-		labNickname = new JLabel("NICKNAME");
-		labNickname.setForeground(Color.red);
-		labNickname.setFont(FuenteInterfazGrafica.get(33));
-		labNickname.setBounds(10, 150, 260, 20);
+		labNickname = new JLabel( "NICKNAME" );
+		labNickname.setForeground( Color.red );
+		labNickname.setFont( FuenteInterfazGrafica.get( 33 ) );
+		labNickname.setBounds( 10, 150, 260, 20 );
 
 		txtNickame = new JTextField();
-		txtNickame.setBackground(Color.orange);
-		txtNickame.setBounds(10, 180, 150, 25);
-		txtNickame.setForeground(Color.BLUE);
-		txtNickame.setFont(FuenteInterfazGrafica.get(25));
+		txtNickame.setBackground( Color.orange );
+		txtNickame.setBounds( 10, 180, 150, 25 );
+		txtNickame.setForeground( Color.BLUE );
+		txtNickame.setFont( FuenteInterfazGrafica.get( 25 ) );
 
 		JLabel imagen = new JLabel();
-		ImageIcon icono = new ImageIcon("./src/main/resources/data/imagenes/fondAgJ.jpg");
-		imagen.setIcon(icono);
-		imagen.setBounds(0, 0, icono.getIconWidth(), icono.getIconHeight());
+		ImageIcon icono = new ImageIcon( "./src/main/resources/data/imagenes/fondAgJ.jpg" );
+		imagen.setIcon( icono );
+		imagen.setBounds( 0, 0, icono.getIconWidth(), icono.getIconHeight() );
 
-		butBotonAceptar = new JButton(ACEPTAR);
-		butBotonAceptar.setActionCommand(ACEPTAR);
-		butBotonAceptar.addActionListener(this);
-		butBotonAceptar.setBounds(10, 210, 130, 25);
-		butBotonAceptar.setBackground(Color.BLACK);
-		butBotonAceptar.setFont(FuenteInterfazGrafica.get(20));
-		butBotonAceptar.setForeground(Color.YELLOW);
+		butBotonAceptar = new JButton( ACEPTAR );
+		butBotonAceptar.setActionCommand( ACEPTAR );
+		butBotonAceptar.addActionListener( this );
+		butBotonAceptar.setBounds( 10, 210, 130, 25 );
+		butBotonAceptar.setBackground( Color.BLACK );
+		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
+		butBotonAceptar.setForeground( Color.YELLOW );
 
-		butBotonCancelar = new JButton(CANCELAR);
-		butBotonCancelar.setActionCommand(CANCELAR);
-		butBotonCancelar.addActionListener(this);
-		butBotonCancelar.setBounds(10, 350, 130, 25);
-		butBotonCancelar.setBackground(Color.BLACK);
-		butBotonCancelar.setFont(FuenteInterfazGrafica.get(20));
-		butBotonCancelar.setForeground(Color.green);
+		butBotonCancelar = new JButton( CANCELAR );
+		butBotonCancelar.setActionCommand( CANCELAR );
+		butBotonCancelar.addActionListener( this );
+		butBotonCancelar.setBounds( 10, 350, 130, 25 );
+		butBotonCancelar.setBackground( Color.BLACK );
+		butBotonCancelar.setFont( FuenteInterfazGrafica.get( 20 ) );
+		butBotonCancelar.setForeground( Color.green );
 
-		auxiliar.setSize(icono.getIconWidth(), icono.getIconHeight());
-		auxiliar.add(labNombre);
-		auxiliar.add(txtNombre);
-		auxiliar.add(labNickname);
-		auxiliar.add(txtNickame);
-		auxiliar.add(butBotonAceptar);
-		auxiliar.add(butBotonCancelar);
-		auxiliar.add(imagen);
+		auxiliar.setSize( icono.getIconWidth(), icono.getIconHeight() );
+		auxiliar.add( labNombre );
+		auxiliar.add( txtNombre );
+		auxiliar.add( labNickname );
+		auxiliar.add( txtNickame );
+		auxiliar.add( butBotonAceptar );
+		auxiliar.add( butBotonCancelar );
+		auxiliar.add( imagen );
 
-		setTitle("Crear Jugador");
-		setUndecorated(true);
-		getRootPane().setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		setTitle( "Crear Jugador" );
+		setUndecorated( true );
+		getRootPane().setBorder( BorderFactory.createLineBorder( Color.WHITE ) );
 	}
 
 	// -----------------------------------------------------------------
@@ -112,9 +102,9 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		String comando = e.getActionCommand();
-		if (comando.equals(CANCELAR)) {
+		if ( comando.equals( CANCELAR ) ) {
 			this.dispose();
-		} else if (comando.equals(ACEPTAR)) {
+		} else if ( comando.equals( ACEPTAR ) ) {
 			if ( txtNombre.getText() == null || txtNombre.getText().equals("")
 				|| txtNickame.getText() == null || txtNickame.getText().equals(""))
 				JOptionPane.showMessageDialog(
@@ -124,7 +114,7 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 					JOptionPane.ERROR_MESSAGE
 				);
 
-			else if (txtNickame.getText().length() != 5) {
+			else if ( txtNickame.getText().length() != 5 ) {
 				JOptionPane.showMessageDialog(
 					this,
 					"El nickname debe contener 5 caracteres",
@@ -132,7 +122,7 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 					JOptionPane.ERROR_MESSAGE
 				);
 			} else {
-				interfaz.reqAgregarJugador(txtNombre.getText(), txtNickame.getText());
+				interfaz.reqAgregarJugador( txtNombre.getText(), txtNickame.getText() );
 				this.dispose();
 			}
 		}
@@ -142,11 +132,11 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	public void mostrar() {
-		setSize(400, 400);
-		add(auxiliar);
-		setLocationRelativeTo(null);
-		this.setVisible(true);
+	public void mostrar () {
+		setSize( 400, 400 );
+		add( auxiliar );
+		setLocationRelativeTo( null );
+		this.setVisible( true );
 	}
 
 }

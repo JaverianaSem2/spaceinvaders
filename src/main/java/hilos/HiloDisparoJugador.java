@@ -9,14 +9,14 @@ import org.slf4j.LoggerFactory;
 
 public class HiloDisparoJugador extends Thread {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(HiloDisparoJugador.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger( HiloDisparoJugador.class.getName() );
 
 	private final NaveJugador           navesita;
 	private final InterfazSpaceInvaders interfaz;
 	private final Enemigo[][]           enemigos;
 	private final Partida               actual;
 
-	public HiloDisparoJugador(NaveJugador a, InterfazSpaceInvaders b, Enemigo[][] c, Partida d) {
+	public HiloDisparoJugador ( NaveJugador a, InterfazSpaceInvaders b, Enemigo[][] c, Partida d ) {
 		navesita = a;
 		interfaz = b;
 		enemigos = c;
@@ -26,7 +26,7 @@ public class HiloDisparoJugador extends Thread {
 	@Override
 	public void run() {
 
-		while (navesita.getDisparoUno() != null && !navesita.getDisparoUno().getImpacto()) {
+		while ( navesita.getDisparoUno() != null && !navesita.getDisparoUno().getImpacto() ) {
 
 			navesita.getDisparoUno().shoot();
 
@@ -34,11 +34,11 @@ public class HiloDisparoJugador extends Thread {
 					&& !navesita.getDisparoUno().getImpacto(); i++) {
 				for (int j = 0; j < enemigos[0].length && navesita.getDisparoUno() != null
 						&& !navesita.getDisparoUno().getImpacto(); j++) {
-					if (navesita.getDisparoUno().hitsEnemigo(enemigos[i][j])) {
-						navesita.getDisparoUno().setImpacto(true);
-						actual.getPuntaje().setPuntuacion(enemigos[i][j].getPuntosPorMuerte());
-						actual.eliminarUnEnemigo(true, enemigos[i][j]);
-						
+					if ( navesita.getDisparoUno().hitsEnemigo( enemigos[i][j] ) ) {
+						navesita.getDisparoUno().setImpacto( true );
+						actual.getPuntaje().setPuntuacion( enemigos[i][j].getPuntosPorMuerte() );
+						actual.eliminarUnEnemigo( true, enemigos[i][j] );
+
 						navesita.eliminarDisparo();
 						interfaz.getPanelNivel().repaint();
 					}
@@ -46,8 +46,8 @@ public class HiloDisparoJugador extends Thread {
 			}
 
 			try {
-				sleep(2);
-			} catch (InterruptedException e) {
+				sleep( 2 );
+			} catch ( InterruptedException e ) {
 				LOGGER.info( e.getMessage() );
 				// Restore interrupted state...
 				Thread.currentThread().interrupt();
@@ -56,8 +56,8 @@ public class HiloDisparoJugador extends Thread {
 
 			if (navesita.getDisparoUno() != null &&
 				navesita.getDisparoUno().getPosY() <= 0) {
-					navesita.getDisparoUno().setImpacto(true);
-					navesita.eliminarDisparo();
+				navesita.getDisparoUno().setImpacto( true );
+				navesita.eliminarDisparo();
 			}
 		}
 

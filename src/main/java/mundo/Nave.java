@@ -5,19 +5,19 @@ import java.io.Serializable;
 /**
  * 
  * @author Manuel Alejandro Coral Lozano - Juan Sebastián Quintero Yoshioka
- *         Proyecto final - Algoritmos y programación II.
+ * Proyecto final - Algoritmos y programación II.
  */
 public abstract class Nave implements Serializable {
 
 	Disparo disparoUno;
 
 	private double velocidad;
-	protected int posX;
-	protected int posY;
-	private int vida;
-	private int ancho;
+	protected int    posX;
+	protected int    posY;
+	private   int    vida;
+	private   int    ancho;
 	private int alto;
-	private String rutaImage;
+	private   String rutaImage;
 
 	protected Nave () {
 		this.velocidad = 0;
@@ -42,31 +42,31 @@ public abstract class Nave implements Serializable {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	public String getRutaImage() {
+	public String getRutaImage () {
 		return rutaImage;
 	}
 
-	public void setRutaImage(String rutaImage) {
+	public void setRutaImage ( String rutaImage ) {
 		this.rutaImage = rutaImage;
 	}
 
-	public double getVelocidad() {
+	public double getVelocidad () {
 		return this.velocidad;
 	}
 
-	public void setVelocidad(double velocidad) {
+	public void setVelocidad ( double velocidad ) {
 		this.velocidad = velocidad;
 	}
 
-	public int getPosX() {
+	public int getPosX () {
 		return this.posX;
 	}
 
-	public void setPosX(int posX) {
+	public void setPosX ( int posX ) {
 		this.posX = posX;
 	}
 
-	public int getPosY() {
+	public int getPosY () {
 		return this.posY;
 	}
 
@@ -74,15 +74,15 @@ public abstract class Nave implements Serializable {
 		this.posY = posY;
 	}
 
-	public int getVida() {
+	public int getVida () {
 		return this.vida;
 	}
 
-	public void setVida(int vida) {
+	public void setVida ( int vida ) {
 		this.vida = vida;
 	}
 
-	public void golpe (int dagno) {
+	public void golpe ( int dagno ) {
 		this.vida = this.vida - dagno;
 	}
 
@@ -90,7 +90,7 @@ public abstract class Nave implements Serializable {
 		this.ancho = ancho;
 	}
 
-	public int getAncho() {
+	public int getAncho () {
 		return this.ancho;
 	}
 
@@ -102,15 +102,15 @@ public abstract class Nave implements Serializable {
 		this.alto = alto;
 	}
 
-	public Disparo getDisparoUno() {
+	public Disparo getDisparoUno () {
 		return disparoUno;
 	}
 
-	public void setDisparoUno(Disparo disparoUno) {
+	public void setDisparoUno ( Disparo disparoUno ) {
 		this.disparoUno = disparoUno;
 	}
 
-	public boolean estaViva() {
+	public boolean estaViva () {
 		return vida != 0;
 	}
 
@@ -118,16 +118,16 @@ public abstract class Nave implements Serializable {
 
 	public void resetear() { }
 
-	public void eliminarDisparo() {
+	public void eliminarDisparo () {
 		disparoUno = null;
 	}
 
-	public void disparar (int posX, int posY) {
-		
-		if (disparoUno == null) {
-			disparoUno = new Disparo(posX, posY);
+	public void disparar ( int posX, int posY ) {
+
+		if ( disparoUno == null ) {
+			disparoUno = new Disparo( posX, posY );
 		}
-		
+
 	}
 
 }

@@ -9,6 +9,6 @@ public class FuenteInterfazGrafica {
 	}
 
 	public static Font get ( int size ) {
-		return new Font("ArcadeClassic", java.awt.Font.PLAIN, size);
+		return new Font( "ArcadeClassic", java.awt.Font.PLAIN, size );
 	}
 }

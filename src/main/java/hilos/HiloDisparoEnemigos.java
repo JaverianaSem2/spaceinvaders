@@ -28,8 +28,8 @@ public class HiloDisparoEnemigos extends Thread {
 			for ( int i = 0; i < partidaEnemigos.getEnemigos().length; i++ ) {
 				for ( int j = 0; j < partidaEnemigos.getEnemigos()[0].length; j++ ) {
 
-					if ( partidaEnemigos.getEnemigos()[i][j] != null  &&
-					partidaEnemigos.getEnemigos()[i][j].getDisparoUno() != null ) {
+					if ( partidaEnemigos.getEnemigos()[i][j] != null
+						&& partidaEnemigos.getEnemigos()[i][j].getDisparoUno() != null ) {
 						partidaEnemigos.getEnemigos()[i][j].getDisparoUno().shoot1();
 
 						if ( partidaEnemigos.getEnemigos()[i][j].getDisparoUno().hitsJugador( space.getJugadorActual() ) ) {
