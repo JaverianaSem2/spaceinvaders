@@ -3,70 +3,31 @@ package mundo;
 import excepciones.PartidaYaExisteException;
 
 /**
- * 
  * @author Manuel Alejandro Coral Lozano - Juan Sebastián Quintero Yoshioka
- *         Proyecto final - Algoritmos y programación II.
+ * Proyecto final - Algoritmos y programación II.
  */
 public class NaveJugador extends Nave {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	// -----------------------------------------------------------------
-	// ----------------------------Atributos----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private Partida partidaRaiz;
 
-	/**
-	 * 
-	 */
 	private int posInicialX;
 
-	/**
-	 * 
-	 */
-	private int posIncialY;
-	
-	/**
-	 * 
-	 */
-	private String nickname;
+	private int posInicialY;
 
-	/**
-	 * 
-	 */
-	private String nombre;
+	private final String nickname;
 
-	/**
-	 * 
-	 */
+	private final String nombre;
+
 	private int cantidadDisparos;
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 * @param pNombre
-	 * @param pDirectorio
-	 */
-	public NaveJugador(String nombre, String nickname) {
+	public NaveJugador ( String nombre, String nickname ) {
 		super();
 		partidaRaiz = null;
 		this.posInicialX = 320;
-		this.posIncialY = 410;
-		this.setVida(3);
+		this.posInicialY = 410;
+		this.setVida( 3 );
 		this.nombre = nombre;
 		this.nickname = nickname;
 	}
@@ -75,150 +36,79 @@ public class NaveJugador extends Nave {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	/**
-	 * 
-	 * @param agregar
-	 * @throws PartidaYaExisteException
-	 */
-	public void agregarPartida(Partida agregar) throws PartidaYaExisteException {
+	public void agregarPartida ( Partida agregar )
+		throws PartidaYaExisteException {
 
-		if (partidaRaiz == null) {
+		if ( partidaRaiz == null ) {
 			partidaRaiz = agregar;
 		} else {
-			partidaRaiz.agregarPartida(agregar);
+			partidaRaiz.agregarPartida( agregar );
 		}
-
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 * @throws PartidaYaExisteException
-	 */
-	public Partida crearPartida(String nombre) throws PartidaYaExisteException {
+	public Partida crearPartida ( String nombre )
+		throws PartidaYaExisteException {
 
-		Partida b = new Partida(nombre);
-		agregarPartida(b);
+		Partida b = new Partida( nombre );
+		agregarPartida( b );
 
 		return b;
-
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int getPosInicialX() {
+	public int getPosInicialX () {
 		return this.posInicialX;
 	}
 
-	/**
-	 * 
-	 * @param posInicialX
-	 */
-	public void setPosInicialX(int posInicialX) {
+	public void setPosInicialX ( int posInicialX ) {
 		this.posInicialX = posInicialX;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int getPosIncialY() {
-		return this.posIncialY;
+	public int getPosInicialY () {
+		return this.posInicialY;
 	}
 
-	/**
-	 * 
-	 * @param posIncialY
-	 */
-	public void setPosIncialY(int posIncialY) {
-		this.posIncialY = posIncialY;
+	public void setPosInicialY ( int posInicialY ) {
+		this.posInicialY = posInicialY;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public Partida getPartidaRaiz() {
+
+	public Partida getPartidaRaiz () {
 		return partidaRaiz;
 	}
 
-	/**
-	 * 
-	 * @param partidaRaiz
-	 */
-	public void setPartidaRaiz(Partida partidaRaiz) {
+	public void setPartidaRaiz ( Partida partidaRaiz ) {
 		this.partidaRaiz = partidaRaiz;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getNombre() {
+	public String getNombre () {
 		return nombre;
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getNickname() {
+	public String getNickname () {
 		return nickname;
 	}
 
-	/**
-	 * 
-	 * @param nickname
-	 */
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public int getCantidadDisparos() {
+	public int getCantidadDisparos () {
 		return cantidadDisparos;
-	}
-
-	public void setCantidadDisparos(int cantidadDisparos) {
-		this.cantidadDisparos = cantidadDisparos;
 	}
 
 	public boolean perdio () {
 		return getVida() == 0;
 	}
 
-	/**
-	 * 
-	 */
-	public void iniciarPartida() {
-
-	}
-
-	@Override
-	public void mover(int dir) {
-		super.mover(dir);
+	@Override public void mover ( int dir ) {
+		super.mover( dir );
 		posInicialX += dir * 10.0d;
 	}
 
-	@Override
-	public String toString() {
+	@Override public String toString () {
 		return nickname;
 	}
 
-	public void disparar (int posX, int posY) {
+	public void disparar ( int posX, int posY ) {
 
-		if (disparoUno == null) {
+		if ( disparoUno == null ) {
 			cantidadDisparos++;
-			disparoUno = new Disparo(posX, posY);
+			disparoUno = new Disparo( posX, posY );
 		}
 	}
 

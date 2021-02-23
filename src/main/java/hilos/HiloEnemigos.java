@@ -2,53 +2,52 @@ package hilos;
 
 import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HiloEnemigos extends Thread {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger( HiloEnemigos.class.getName() );
+
 	InterfazSpaceInvaders interfaz;
-	Enemigo enemigo;
+	Enemigo               enemigo;
 
-	public HiloEnemigos(Enemigo invasores, InterfazSpaceInvaders interfaz) {
-		// TODO Auto-generated constructor stub
-
+	public HiloEnemigos ( Enemigo invasores, InterfazSpaceInvaders interfaz ) {
 		enemigo = invasores;
 		this.interfaz = interfaz;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		while (interfaz.estaEnFuncionamiento()) {
+		while ( interfaz.estaEnFuncionamiento() ) {
 
-			if (enemigo.getDireccion() == Enemigo.DERECHA) {
-				enemigo.mover(1);
+			if ( enemigo.getDireccion() == Enemigo.DERECHA ) {
+				enemigo.mover( 1 );
 			} else {
-				enemigo.mover(-1);
+				enemigo.mover( -1 );
 			}
-			
-			if (enemigo.edge()) {
-				enemigo.moverAbajo(2);
-				if (enemigo.getDireccion() == Enemigo.DERECHA) {
-					enemigo.setDireccion(Enemigo.IZQUIERDA);
+
+			if ( enemigo.edge() ) {
+				enemigo.moverAbajo( 2 );
+				if ( enemigo.getDireccion() == Enemigo.DERECHA ) {
+					enemigo.setDireccion( Enemigo.IZQUIERDA );
 				} else {
-					enemigo.setDireccion(Enemigo.DERECHA);
+					enemigo.setDireccion( Enemigo.DERECHA );
 				}
 			}
 
 			try {
-				sleep(80);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				sleep( 80 );
+			} catch ( InterruptedException e ) {
+				LOGGER.info( e.getMessage() );
+				Thread.currentThread().interrupt();
 			}
 
 			interfaz.getPanelNivel().updateUI();
 
-			if (enemigo.getDisparoUno() != null) {
-				if (enemigo.getDisparoUno().getPosY() >= 420) {
-					enemigo.getDisparoUno().setImpacto(true);
-					enemigo.eliminarDisparo();
-				}
+			if ( enemigo.getDisparoUno() != null && enemigo.getDisparoUno().getPosY() >= 420 ) {
+				enemigo.getDisparoUno().setImpacto( true );
+				enemigo.eliminarDisparo();
 			}
 
 		}
