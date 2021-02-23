@@ -120,8 +120,6 @@ public class Partida implements Serializable {
 		try ( FileReader fr = new FileReader( archivo );
 			BufferedReader br = new BufferedReader( fr ) ) {
 
-			int cantEnemigos;
-
 			String linea = br.readLine();
 
 			linea = br.readLine();
