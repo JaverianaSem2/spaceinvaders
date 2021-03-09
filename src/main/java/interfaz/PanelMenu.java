@@ -144,7 +144,7 @@ public class PanelMenu extends JPanel implements ActionListener {
 		add( labOpenMenuJugador );
 
 		// JLabel de las mejoras
-		labLoginRapido = new JLabel( "LOGIN RÁPIDO" );
+		labLoginRapido = new JLabel( "LOGIN RaPIDO" );
 		labLoginRapido.setForeground( Color.WHITE );
 		labelYPosition = labelYPosition + LABEL_HEIGHT + LABEL_BOTTOM_PADDING;
 		labLoginRapido.setBounds( LABEL_X_POSITION, labelYPosition, 288, LABEL_HEIGHT );

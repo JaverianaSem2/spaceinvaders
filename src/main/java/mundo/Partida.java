@@ -161,43 +161,45 @@ public class Partida implements Serializable {
 	}
 
 	public void inicializarEnemigos () {
+    int posX;
+    int posY;
 
-		for ( int i = 0; i < enemigos.length; i++ ) {
+    InvasorFabrica fabrica;
+    InvasorCalamar calamar;
+    InvasorCangrejo cangrejo;
+    InvasorPulpo pulpo;
+
+    fabrica = new InvasorFabrica();
+    fabrica.setNivel(  this.nivel );
+
+    for ( int i = 0; i < enemigos.length; i++ ) {
 			for ( int j = 0; j < enemigos[i].length; j++ ) {
 
 				if ( i == 0 ) {
-					enemigos[i][j] = new InvasorCalamar(
-						nivel.getVelocidadEnemigos(),
-						(j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo()),
-						nivel.getPosYPrimerEnemigo(),
-						nivel.getVidaEnemigos(),
-						nivel.getAnchoEnemigos(),
-						Enemigo.DERECHA,
-						"./src/main/resources/data/imagenes/Naves/s0.png",
-						"./src/main/resources/data/imagenes/Naves/s1.png"
-					);
+
+          posX = (j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo());
+          posY = nivel.getPosYPrimerEnemigo();
+
+          calamar  = (InvasorCalamar) fabrica.crearInvasor( "Calamar", posX, posY );
+
+					enemigos[i][j] = calamar;
+
 				} else if ( i == 1 || i == 2 ) {
-					enemigos[i][j] = new InvasorCangrejo(
-						nivel.getVelocidadEnemigos(),
-						(j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo()),
-						(i *  nivel.getPosYPrimerEnemigo() +  nivel.getPosYPrimerEnemigo()),
-						nivel.getVidaEnemigos(),
-						nivel.getAnchoEnemigos(),
-						Enemigo.DERECHA,
-						"./src/main/resources/data/imagenes/Naves/p0.png",
-						"./src/main/resources/data/imagenes/Naves/p1.png"
-					);
+
+          posX = (j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo());
+          posY = (i * nivel.getPosYPrimerEnemigo() + nivel.getPosYPrimerEnemigo());
+
+          cangrejo = (InvasorCangrejo) fabrica.crearInvasor( "Cangrejo", posX, posY );
+					enemigos[i][j] = cangrejo;
+
 				} else if ( i == 3 || i == 4 ) {
-					enemigos[i][j] = new InvasorPulpo(
-						nivel.getVelocidadEnemigos(),
-						(j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo()),
-						(i * nivel.getPosYPrimerEnemigo() + nivel.getPosYPrimerEnemigo()),
-						nivel.getVidaEnemigos(),
-						nivel.getAnchoEnemigos(),
-						Enemigo.DERECHA,
-						"./src/main/resources/data/imagenes/Naves/r0.png",
-						"./src/main/resources/data/imagenes/Naves/r1.png"
-					);
+
+          posX = (j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo());
+          posY = (i * nivel.getPosYPrimerEnemigo() + nivel.getPosYPrimerEnemigo());
+
+          pulpo    = (InvasorPulpo) fabrica.crearInvasor( "Pulpo", posX, posY);
+					enemigos[i][j] = pulpo;
+
 				}
 			}
 		}

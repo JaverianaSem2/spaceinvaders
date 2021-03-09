@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NaveJugadorTest {
 
 	private NaveJugador naveJugador;
+  private Partida     partida;
 
 	// MOVER - DISPARAR
 	private void setUpEscenario1 () {
@@ -46,6 +47,9 @@ class NaveJugadorTest {
 	}
 
 	@Test void testDispara () {
+    partida = new Partida( "testDispara" );
+    partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
+
 		setUpEscenario1();
 		assertNull( naveJugador.getDisparoUno() );
 
@@ -54,7 +58,7 @@ class NaveJugadorTest {
 		assertNotNull( naveJugador.getDisparoUno() );
 
 		// Crea un disparo a un enemigo
-		Enemigo momentaneo = new InvasorPulpo(0, 0, 0, 0, 0, 0, "", "");
+		Enemigo momentaneo = new InvasorPulpo( partida.getNivel(), 0, 0);
 		momentaneo.disparar( 100, 300 );
 		assertNotNull( momentaneo.getDisparoUno() );
 

@@ -1,16 +1,29 @@
 package mundo;
 
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EnemigoTest {
 
 	private Enemigo enemigo;
+  private Partida partida;
 
 	// MOVER - MOVER ABAJO - BORDE(EDGE)
 	private void setUpEscenario1 () {
-		enemigo = new InvasorCalamar(5, 300, 210, 0, 0, 0, "", "");
+    partida = new Partida( "setUpEscenario1" );
+    partida.setNivel( new Nivel( "5", 5, 0, 0, 0, 0 ) );
+
+    InvasorFabrica fabrica;
+
+    fabrica = new InvasorFabrica();
+    fabrica.setNivel( partida.getNivel() );
+
+		enemigo = fabrica.crearInvasor( "Calamar", 300, 210);
 	}
 
 	@Test void testMover () {
@@ -52,5 +65,59 @@ class EnemigoTest {
 		enemigo.setPosX( -1 );
 		assertTrue( enemigo.edge() );
 	}
+
+
+  @Test void testCuandoEnemigoNoExisteDevuelveRamdom () {
+    partida = new Partida( "setUpEscenario2" );
+    partida.setNivel( new Nivel( "2", 0, 0, 0, 0, 0 ) );
+    InvasorFabrica fabrica;
+    fabrica = new InvasorFabrica();
+    fabrica.setNivel( partida.getNivel() );
+
+    enemigo = fabrica.crearInvasor( "NoExisto", 300, 210);
+    assertNotNull( enemigo );
+  }
+
+  @Test void testCrearEnemigoCangrejo () {
+    partida = new Partida( "setUpEscenario2" );
+    partida.setNivel( new Nivel( "2", 0, 0, 0, 0, 0 ) );
+    InvasorFabrica fabrica;
+    fabrica = new InvasorFabrica();
+    fabrica.setNivel( partida.getNivel() );
+
+    enemigo = fabrica.crearInvasor( "Cangrejo", 300, 210);
+
+
+    assertThat( enemigo, instanceOf(InvasorCangrejo.class));
+
+  }
+
+  @Test void testCrearEnemigoPulpo () {
+    partida = new Partida( "setUpEscenario2" );
+    partida.setNivel( new Nivel( "2", 0, 0, 0, 0, 0 ) );
+    InvasorFabrica fabrica;
+    fabrica = new InvasorFabrica();
+    fabrica.setNivel( partida.getNivel() );
+
+    enemigo = fabrica.crearInvasor( "Pulpo", 300, 210);
+
+
+    assertThat( enemigo, instanceOf(InvasorPulpo.class));
+
+  }
+
+  @Test void testCrearEnemigoCalamar () {
+    partida = new Partida( "setUpEscenario2" );
+    partida.setNivel( new Nivel( "2", 0, 0, 0, 0, 0 ) );
+    InvasorFabrica fabrica;
+    fabrica = new InvasorFabrica();
+    fabrica.setNivel( partida.getNivel() );
+
+    enemigo = fabrica.crearInvasor( "Calamar", 300, 210);
+
+
+    assertThat( enemigo, instanceOf(InvasorCalamar.class));
+
+  }
 
 }
