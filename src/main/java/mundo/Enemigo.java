@@ -18,9 +18,9 @@ public abstract class Enemigo extends Nave {
 		rutaImagen2 = rutaImage2;
 	}
 
-	// -----------------------------------------------------------------
-	// -----------------------------Métodos-----------------------------
-	// -----------------------------------------------------------------
+  /**
+   * Metodos
+   */
 
 	public int getDireccion () {
 		return direccion;
@@ -46,7 +46,8 @@ public abstract class Enemigo extends Nave {
 		return ( posX > 599 || posX < 0 );
 	}
 
-	@Override public void mover ( int dir ) {
+	@Override
+  public void mover ( int dir ) {
 		super.mover( dir );
 
 		posX += dir * getVelocidad();

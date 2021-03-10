@@ -16,6 +16,8 @@ class PartidaTest {
 	private NaveJugador jugador;
 	private Enemigo[][] enemigos;
 
+  InvasorFabrica fabrica = new InvasorFabrica();
+
 	// AGREGAR PARTIDA - BUSCAR PARTIDA
 	private void setUpEscenario1 () {
 		partida = new Partida( "prueba_AgregarPartida_BuscarPartida" );
@@ -50,12 +52,14 @@ class PartidaTest {
 	// ELIMINAR UN ENIMIGO
 	private void setUpEscenario4 () {
 		partida = new Partida( "prueba_EliminarEnemigo" );
+    partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
+    fabrica.setNivel( partida.getNivel() );
 		enemigos = new Enemigo[2][3];
 		partida.setEnemigos( enemigos );
 
 		for ( int i = 0; i < enemigos.length; i++ ) {
 			for ( int j = 0; j < enemigos[i].length; j++ ) {
-				enemigos[i][j] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, "", "" );
+				enemigos[i][j] = fabrica.crearInvasor( "Calamar", 0, 0 );
 			}
 		}
 	}
@@ -63,14 +67,15 @@ class PartidaTest {
 	// TERMINAR NIVEL
 	private void setUpEscenario5 () {
 		partida = new Partida( "prueba_TerminarNivel" );
+    partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
 		enemigos = new Enemigo[2][3];
 		partida.setEnemigos( enemigos );
-
+    fabrica.setNivel( partida.getNivel() );
 		for ( Enemigo[] enemigo : enemigos ) {
 			Arrays.fill( enemigo, null );
 		}
 
-		enemigos[0][2] = new InvasorCalamar( 0, 0, 0, 0, 0, 0, "", "" );
+		enemigos[0][2] =  fabrica.crearInvasor( "Calamar",0, 0);
 	}
 
 	// NIVEL COMPLETO
@@ -78,7 +83,9 @@ class PartidaTest {
 		partida = new Partida( "prueba_NivelCompleto" );
 		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
 		partida.getNivel().setNivel( "1" );
+    fabrica.setNivel( partida.getNivel() );
 		enemigos = new Enemigo[2][3];
+    enemigos[0][2] = fabrica.crearInvasor( "Calamar", 0, 0);
 		partida.setEnemigos( enemigos );
 
 		for ( Enemigo[] enemigo : enemigos ) {
@@ -218,10 +225,13 @@ class PartidaTest {
 		setUpEscenario3();
 
 		partida.inicializarEnemigos();
+    partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
+    fabrica.setNivel( partida.getNivel() );
 
-		Enemigo a = new InvasorCangrejo( 0, 0, 0, 0, 0, 0, "", "" );
-		Enemigo b = new InvasorCalamar( 0, 0, 0, 0, 0, 0, "", "" );
-		Enemigo c = new InvasorPulpo( 0, 0, 0, 0, 0, 0, "", "" );
+
+		Enemigo a = fabrica.crearInvasor( "Cangrejo", 0, 0);
+		Enemigo b = fabrica.crearInvasor( "Calamar", 0, 0);
+		Enemigo c = fabrica.crearInvasor( "Pulpo", 0, 0);
 
 		assertEquals( a.getClass(), partida.getEnemigos()[1][4].getClass() );
 		assertEquals( b.getClass(), partida.getEnemigos()[0][7].getClass() );
@@ -252,7 +262,8 @@ class PartidaTest {
 
 	@Test void testNivelCompletoNivel1 () {
 		setUpEscenario6();
-		assertEquals( "1", partida.getNivel().getNivel() );
+
+		assertEquals( "1", partida.getNivel().getNivel());
 
 		if ( partida.terminarNivel() ) {
 			try {

@@ -10,11 +10,14 @@ class DisparoTest {
 	private Disparo     disparo;
 	private NaveJugador nave;
 	private Enemigo     enemigo;
+  private Partida     partida;
 
 	// GOLPEA ENEMIGO
 	private void setUpEscenario1 () {
 		nave = new NaveJugador( "JugadorPrueba1", "Test1" );
-		enemigo = new InvasorCangrejo(0, 100, 100, 0, 12, 0, "", "");
+    partida = new Partida( "JugadorPrueba1" );
+    partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
+		enemigo = new InvasorCangrejo( partida.getNivel(), 100, 100);  //(0, 200, 200, 0, 12, 0);
 		disparo = new Disparo( 100, 100 );
 		nave.setDisparoUno( disparo );
 	}
@@ -22,13 +25,18 @@ class DisparoTest {
 	// NO GOLPEA ENEMIGO
 	private void setUpEscenario2 () {
 		nave = new NaveJugador( "JugadorPrueba2", "Test2" );
-		enemigo = new InvasorCangrejo(0, 200, 200, 0, 12, 0, "", "");
+    partida = new Partida( "JugadorPrueba2" );
+    partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
+    enemigo = new InvasorCangrejo( partida.getNivel(), 200, 200);  //(0, 200, 200, 0, 12, 0);
 		disparo = new Disparo( 100, 100 );
 		nave.setDisparoUno( disparo );
 	}
 
 	private void setUpEscenario3 () {
-		enemigo = new InvasorPulpo(0, 190, 0, 0, 12,0, "", "");
+
+    partida = new Partida( "JugadorPrueba3" );
+    partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
+		enemigo = new InvasorPulpo( partida.getNivel(), 190, 0); //new InvasorPulpo(0, 190, 0, 0, 12,0);
 		disparo = new Disparo( 190, 0 );
 		enemigo.setDisparoUno( disparo );
 
