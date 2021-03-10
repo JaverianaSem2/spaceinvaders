@@ -13,6 +13,8 @@ import java.awt.event.KeyListener;
  */
 public class Teclado implements KeyListener {
 
+	private static Teclado instance = null;
+
 	// public Partida actual
 
 	private final SpaceInvaders         actu;
@@ -23,10 +25,18 @@ public class Teclado implements KeyListener {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	public Teclado ( InterfazSpaceInvaders principal, SpaceInvaders actual ) {
+	private Teclado ( InterfazSpaceInvaders principal, SpaceInvaders actual ) {
 		interfaz = principal;
 		actu = actual;
 		navesita = actu.getJugadorActual();
+	}
+
+	public static Teclado getInstance( InterfazSpaceInvaders principal, SpaceInvaders actual ) {
+		if ( instance == null ) {
+			instance = new Teclado( principal, actual );
+		}
+
+		return instance;
 	}
 
 	public void keyPressed ( KeyEvent e ) {

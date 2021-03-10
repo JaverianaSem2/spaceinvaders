@@ -35,6 +35,11 @@ build
 # CDT- autotools
 .autotools
 
+# gradle
+.gradle
+gradle-app.setting
+.gradletasknamecache
+
 # Java annotation processor (APT)
 .factorypath
 
@@ -97,12 +102,6 @@ build
 
 # User-specific stuff
 .idea
-
-# Gradle
-.gradle
-gradle
-gradlew
-gradlew.bat
 
 
 # CMake

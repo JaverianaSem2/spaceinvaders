@@ -57,8 +57,7 @@ public class InterfazSpaceInvaders extends JFrame {
 		contenedor.setLayout( card );
 		card.show( contenedor, INICIO );
 
-		Teclado tecladito = new Teclado( this, mundo );
-		addKeyListener( tecladito );
+		addKeyListener( Teclado.getInstance( this, mundo ) );
 
 		setSize( 640, 480 );
 		setUndecorated( true );
