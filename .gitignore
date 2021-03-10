@@ -98,12 +98,6 @@ build
 # User-specific stuff
 .idea
 
-# Gradle
-.gradle
-gradle
-gradlew
-gradlew.bat
-
 
 # CMake
 cmake-build-*/
