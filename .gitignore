@@ -35,6 +35,11 @@ build
 # CDT- autotools
 .autotools
 
+# gradle
+.gradle
+gradle-app.setting
+.gradletasknamecache
+
 # Java annotation processor (APT)
 .factorypath
 
