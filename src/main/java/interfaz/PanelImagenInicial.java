@@ -1,9 +1,15 @@
 package interfaz;
 
+import interfaz.bridgeimageicon.IBridgeImageIcon;
+import interfaz.bridgeimageicon.ImageIconAbs;
+import interfaz.bridgeimageicon.ImageIconImplA;
+import interfaz.bridgeimageicon.ImageIconImplB;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.SecureRandom;
 
 /**
  * Panel que representa la imagen inicial al ejecutar el programa
@@ -25,8 +31,18 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 		// Contenedor gráfico
 		setLayout( new BorderLayout() );
 
-		// Imagen de fondo
-		ImageIcon icono = new ImageIcon( "./src/main/resources/data/imagenes/menuInicio.gif" );
+		// Establecer la imagen de fondo mediante un patrón Bridge que aleatoriamente
+		// cambie la imagen
+		ImageIcon icono = null;
+		IBridgeImageIcon imageImpl = null;
+		if ( new SecureRandom().nextInt(10 ) % 2 == 0 ) {
+			imageImpl = new ImageIconImplA();
+		} else {
+			imageImpl = new ImageIconImplB();
+		}
+		ImageIconAbs imageIconAbs = new ImageIconAbs( imageImpl );
+		icono = imageIconAbs.getImage();
+
 		JLabel labImagen = new JLabel( icono );
 		Color fondo = new Color( 21, 22, 25 );
 		setBackground( fondo );

@@ -26,7 +26,7 @@ public class InterfazSpaceInvaders extends JFrame {
 	private static final String                  INICIO    = "Inicio";
 	private static final String                  MENU      = "Menú";
 	private static final String                  JUEGO     = "Juego";
-	private static       Container               contenedor;
+	private final        Container               contenedor;
 	private final        SpaceInvaders           mundo;
 	private final        PanelMenu               panelMenu = new PanelMenu( this );
 	private final        PanelNivel              panelNivel;
@@ -45,7 +45,7 @@ public class InterfazSpaceInvaders extends JFrame {
 
 		PanelImagenInicial imagen = new PanelImagenInicial( this );
 		addKeyListener( imagen );
-		contenedor = this.getContentPane();
+		contenedor = getContentPane();
 		card.addLayoutComponent( imagen, INICIO );
 		card.addLayoutComponent( panelMenu, MENU );
 		card.addLayoutComponent( panelNivel, JUEGO );
