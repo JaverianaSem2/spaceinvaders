@@ -1,5 +1,10 @@
 package interfaz;
 
+import interfaz.decoratorbutton.AcceptDecorator;
+import interfaz.decoratorbutton.ButtonComponent;
+import interfaz.decoratorbutton.CancelDecorator;
+import interfaz.decoratorbutton.IButtonComponent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,8 +29,8 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 	JTextField txtNombre;
 	JTextField txtNickame;
 
-	JButton butBotonAceptar;
-	JButton butBotonCancelar;
+	AcceptDecorator butBotonAceptar;
+	CancelDecorator butBotonCancelar;
 
 	public DialogoCrearJugador ( InterfazSpaceInvaders interfaz ) {
 
@@ -64,21 +69,13 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 		imagen.setIcon( icono );
 		imagen.setBounds( 0, 0, icono.getIconWidth(), icono.getIconHeight() );
 
-		butBotonAceptar = new JButton( ACEPTAR );
-		butBotonAceptar.setActionCommand( ACEPTAR );
-		butBotonAceptar.addActionListener( this );
-		butBotonAceptar.setBounds( 10, 210, 130, 25 );
-		butBotonAceptar.setBackground( Color.BLACK );
-		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonAceptar.setForeground( Color.YELLOW );
+		IButtonComponent iButtonComponent = new ButtonComponent( this, ACEPTAR );
 
-		butBotonCancelar = new JButton( CANCELAR );
-		butBotonCancelar.setActionCommand( CANCELAR );
-		butBotonCancelar.addActionListener( this );
-		butBotonCancelar.setBounds( 10, 350, 130, 25 );
-		butBotonCancelar.setBackground( Color.BLACK );
-		butBotonCancelar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonCancelar.setForeground( Color.green );
+		butBotonAceptar = new AcceptDecorator( iButtonComponent );
+		butBotonAceptar.setup( this );
+
+		butBotonCancelar = new CancelDecorator( iButtonComponent );
+		butBotonCancelar.setup( this );
 
 		auxiliar.setSize( icono.getIconWidth(), icono.getIconHeight() );
 		auxiliar.add( labNombre );
@@ -105,26 +102,7 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 		if ( comando.equals( CANCELAR ) ) {
 			this.dispose();
 		} else if ( comando.equals( ACEPTAR ) ) {
-			if ( txtNombre.getText() == null || txtNombre.getText().equals("")
-				|| txtNickame.getText() == null || txtNickame.getText().equals(""))
-				JOptionPane.showMessageDialog(
-					this,
-					"Por favor ingrese un nombre y un nickname válido",
-						"Error al crear el jugador",
-					JOptionPane.ERROR_MESSAGE
-				);
-
-			else if ( txtNickame.getText().length() != 5 ) {
-				JOptionPane.showMessageDialog(
-					this,
-					"El nickname debe contener 5 caracteres",
-						"Error al asignar el nickname",
-					JOptionPane.ERROR_MESSAGE
-				);
-			} else {
-				interfaz.reqAgregarJugador( txtNombre.getText(), txtNickame.getText() );
-				this.dispose();
-			}
+			butBotonAceptar.execute( txtNombre.getText(), txtNickame.getText(), interfaz, this );
 		}
 	}
 
