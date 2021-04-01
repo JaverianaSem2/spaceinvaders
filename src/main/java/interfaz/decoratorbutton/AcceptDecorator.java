@@ -18,9 +18,9 @@ public class AcceptDecorator extends ButtonDecorator {
 		super.setText( "Aceptar" );
 		super.setActionCommand( "Aceptar" );
 		super.setBounds( 10, 210, 130, 25 );
-		super.setBackground( Color.BLACK );
+		super.setBackground( Color.black );
 		super.setFont( FuenteInterfazGrafica.get( 20 ) );
-		super.setForeground( Color.YELLOW );
+		super.setForeground( Color.red );
 		super.addActionListener( actionListener );
 	}
 

@@ -75,9 +75,9 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 		JLabel partida;
 
 		if ( puntajes != null ) {
-			for ( String s : puntajes ) {
+			for ( String puntajeActual : puntajes ) {
 
-				String[] informacion = s.split( " " );
+				String[] informacion = puntajeActual.split( " " );
 
 				numero = new JLabel();
 				puntaje = new JLabel();
