@@ -30,15 +30,14 @@ public class AcceptDecorator extends ButtonDecorator {
 	 */
 	public void execute ( String txtNombre, String txtNickame, InterfazSpaceInvaders interfaz, DialogoCrearJugador dialogoCrearJugador ) {
 		if ( txtNombre == null || txtNombre.equals("")
-			|| txtNickame == null || txtNickame.equals(""))
+			|| txtNickame == null || txtNickame.equals("")) {
 			JOptionPane.showMessageDialog(
 				this,
 				"Por favor ingrese un nombre y un nickname válido",
 				"Error al crear el jugador",
 				JOptionPane.ERROR_MESSAGE
 			);
-
-		else if ( txtNickame.length() != 5 ) {
+		} else if ( txtNickame.length() != 5 ) {
 			JOptionPane.showMessageDialog(
 				this,
 				"El nickname debe contener 5 caracteres",

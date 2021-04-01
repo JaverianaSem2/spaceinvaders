@@ -23,11 +23,11 @@ public class Puntaje implements Serializable {
 	}
 
 	public int getPuntuacion () {
-		return this.puntuacion;
+		return puntuacion;
 	}
 
 	public void setPuntuacion ( int puntuacion ) {
-		this.puntuacion = this.puntuacion + puntuacion;
+		this.puntuacion += puntuacion;
 	}
 
 	public Puntaje getSiguiente () {

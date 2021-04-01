@@ -19,7 +19,7 @@ public class Disparo implements Serializable {
 	}
 
 	public boolean getImpacto () {
-		return this.impacto;
+		return impacto;
 	}
 
 	public void setImpacto ( boolean impacto ) {

@@ -201,12 +201,12 @@ public class InterfazSpaceInvaders extends JFrame {
 			NaveJugador actual = mundo.buscarJugador( nickname );
 			mundo.setJugadorActual( actual );
 			panelMenu.repaint();
-		} else
+		} else {
 			JOptionPane.showMessageDialog( this, "Por favor cree algún jugador", "No existen jugadores", JOptionPane.INFORMATION_MESSAGE );
+		}
 	}
 
 	public void actualizarPartidaActual ( String nombre ) {
-
 		Partida partidaActual = mundo.getJugadorActual().getPartidaRaiz().buscarPartida( nombre );
 		mundo.setPartidaActual( partidaActual );
 		panelNivel.setPartida( partidaActual );

@@ -47,7 +47,7 @@ public class SpaceInvaders {
 	// -----------------------------------------------------------------
 
 	public boolean getEnFuncionamiento () {
-		return this.enFuncionamiento;
+		return enFuncionamiento;
 	}
 
 	public void setEnFuncionamiento ( boolean enFuncionamiento ) {
