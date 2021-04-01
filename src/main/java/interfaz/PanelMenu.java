@@ -153,7 +153,7 @@ public class PanelMenu extends JPanel implements ActionListener {
 		labLoginRapido.addMouseListener( new MouseAdapter() {
 			@Override public void mouseClicked ( MouseEvent e ) {
 				String respuesta = JOptionPane.showInputDialog( null, "Por favor ingresa tu nickname", "Login rápido", JOptionPane.PLAIN_MESSAGE );
-				if ( respuesta == null || respuesta.equals( "" ) ) {
+				if ( respuesta == null || respuesta.trim().isEmpty() ) {
 					JOptionPane.showMessageDialog( null, "Por favor ingresar un nickname válido", "Error al escribir el nickname", JOptionPane.ERROR_MESSAGE );
 				} else if ( respuesta.length() != 5 ) {
 					JOptionPane.showMessageDialog( null, "Recuerde que el nickname contiene 5 dígitos", "Error al escribir el nickname", JOptionPane.ERROR_MESSAGE );

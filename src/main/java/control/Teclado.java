@@ -6,6 +6,7 @@ import mundo.SpaceInvaders;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Optional;
 
 /**
  * @author Manuel Alejandro Coral Lozano - Juan Sebastián Quintero Yoshioka
@@ -32,11 +33,8 @@ public class Teclado implements KeyListener {
 	}
 
 	public static Teclado getInstance( InterfazSpaceInvaders principal, SpaceInvaders actual ) {
-		if ( instance == null ) {
-			instance = new Teclado( principal, actual );
-		}
-
-		return instance;
+		return Optional.ofNullable( instance )
+			.orElse( new Teclado( principal, actual ) );
 	}
 
 	public void keyPressed ( KeyEvent e ) {

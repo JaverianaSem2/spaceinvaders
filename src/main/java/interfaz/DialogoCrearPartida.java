@@ -96,7 +96,7 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 		if ( comando.equals( CANCELAR ) )
 			this.dispose();
 		else if ( comando.equals( ACEPTAR ) ) {
-			if ( txtNombre.getText() == null || txtNombre.getText().equals( "" ) )
+			if ( txtNombre.getText() == null || txtNombre.getText().trim().isEmpty() )
 				JOptionPane.showMessageDialog(
 					this,
 					"Por favor ingrese un nombre válido",

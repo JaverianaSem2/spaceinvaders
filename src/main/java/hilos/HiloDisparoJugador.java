@@ -54,7 +54,7 @@ public class HiloDisparoJugador extends Thread {
 			}
 			interfaz.getPanelNivel().updateUI();
 
-			if (navesita.getDisparoUno() != null &&
+			if ( navesita.getDisparoUno() != null &&
 				navesita.getDisparoUno().getPosY() <= 0) {
 				navesita.getDisparoUno().setImpacto( true );
 				navesita.eliminarDisparo();

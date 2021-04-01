@@ -29,8 +29,8 @@ public class AcceptDecorator extends ButtonDecorator {
 	 * El botón cancelar es mas "puro" y por eso no lo tiene
 	 */
 	public void execute ( String txtNombre, String txtNickame, InterfazSpaceInvaders interfaz, DialogoCrearJugador dialogoCrearJugador ) {
-		if ( txtNombre == null || txtNombre.equals("")
-			|| txtNickame == null || txtNickame.equals("")) {
+		if ( txtNombre == null || txtNombre.trim().isEmpty()
+			|| txtNickame == null || txtNickame.trim().isEmpty() ) {
 			JOptionPane.showMessageDialog(
 				this,
 				"Por favor ingrese un nombre y un nickname válido",
