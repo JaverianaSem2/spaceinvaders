@@ -48,7 +48,7 @@ public abstract class Nave implements Serializable {
 	}
 
 	public double getVelocidad () {
-		return this.velocidad;
+		return velocidad;
 	}
 
 	public void setVelocidad ( double velocidad ) {
@@ -56,7 +56,7 @@ public abstract class Nave implements Serializable {
 	}
 
 	public int getPosX () {
-		return this.posX;
+		return posX;
 	}
 
 	public void setPosX ( int posX ) {
@@ -64,11 +64,11 @@ public abstract class Nave implements Serializable {
 	}
 
 	public int getPosY () {
-		return this.posY;
+		return posY;
 	}
 
 	public int getVida () {
-		return this.vida;
+		return vida;
 	}
 
 	public void setVida ( int vida ) {
@@ -84,7 +84,7 @@ public abstract class Nave implements Serializable {
 	}
 
 	public int getAncho () {
-		return this.ancho;
+		return ancho;
 	}
 
 	public Disparo getDisparoUno () {

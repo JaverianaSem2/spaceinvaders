@@ -31,7 +31,7 @@ public class Nivel implements Serializable {
 	// -----------------------------------------------------------------
 
 	public String getNivel () {
-		return this.nivel;
+		return nivel;
 	}
 
 	public void setNivel ( String nivel ) {
@@ -47,11 +47,11 @@ public class Nivel implements Serializable {
 	}
 
 	public int getPosXPrimerEnemigo () {
-		return this.posXPrimerEnemigo;
+		return posXPrimerEnemigo;
 	}
 
 	public int getPosYPrimerEnemigo () {
-		return this.posYPrimerEnemigo;
+		return posYPrimerEnemigo;
 	}
 
 	public int getAnchoEnemigos () {

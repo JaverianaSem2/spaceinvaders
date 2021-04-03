@@ -18,9 +18,9 @@ public class AcceptDecorator extends ButtonDecorator {
 		super.setText( "Aceptar" );
 		super.setActionCommand( "Aceptar" );
 		super.setBounds( 10, 210, 130, 25 );
-		super.setBackground( Color.BLACK );
+		super.setBackground( Color.black );
 		super.setFont( FuenteInterfazGrafica.get( 20 ) );
-		super.setForeground( Color.YELLOW );
+		super.setForeground( Color.red );
 		super.addActionListener( actionListener );
 	}
 
@@ -29,16 +29,15 @@ public class AcceptDecorator extends ButtonDecorator {
 	 * El botón cancelar es mas "puro" y por eso no lo tiene
 	 */
 	public void execute ( String txtNombre, String txtNickame, InterfazSpaceInvaders interfaz, DialogoCrearJugador dialogoCrearJugador ) {
-		if ( txtNombre == null || txtNombre.equals("")
-			|| txtNickame == null || txtNickame.equals(""))
+		if ( txtNombre == null || txtNombre.trim().isEmpty()
+			|| txtNickame == null || txtNickame.trim().isEmpty() ) {
 			JOptionPane.showMessageDialog(
 				this,
 				"Por favor ingrese un nombre y un nickname válido",
 				"Error al crear el jugador",
 				JOptionPane.ERROR_MESSAGE
 			);
-
-		else if ( txtNickame.length() != 5 ) {
+		} else if ( txtNickame.length() != 5 ) {
 			JOptionPane.showMessageDialog(
 				this,
 				"El nickname debe contener 5 caracteres",

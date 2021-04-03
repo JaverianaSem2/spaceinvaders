@@ -24,7 +24,7 @@ public class Partida implements Serializable {
 	}
 
 	public String getNombre () {
-		return this.nombre;
+		return nombre;
 	}
 
 	public Partida getPartidaIzquierda () {
@@ -98,10 +98,10 @@ public class Partida implements Serializable {
 		} else {
 			if (this.getNombre().compareToIgnoreCase(nombre) > 0
 				&& this.getPartidaIzquierda() != null) {
-				return this.getPartidaIzquierda().buscarPartida( nombre );
+				return getPartidaIzquierda().buscarPartida( nombre );
 			} else if (this.getNombre().compareToIgnoreCase(nombre) < 0
 					&& this.getPartidaDerecha() != null) {
-				return this.getPartidaDerecha().buscarPartida( nombre );
+				return getPartidaDerecha().buscarPartida( nombre );
 			}
 		}
 

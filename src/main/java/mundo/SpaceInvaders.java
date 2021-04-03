@@ -47,7 +47,7 @@ public class SpaceInvaders {
 	// -----------------------------------------------------------------
 
 	public boolean getEnFuncionamiento () {
-		return this.enFuncionamiento;
+		return enFuncionamiento;
 	}
 
 	public void setEnFuncionamiento ( boolean enFuncionamiento ) {
@@ -124,7 +124,8 @@ public class SpaceInvaders {
 		jugadorActual.setVida( 3 );
 	}
 
-	@SuppressWarnings("unchecked") public void deserializarJugador ()
+	@SuppressWarnings("unchecked")
+	public void deserializarJugador ()
 		throws IOException, ClassNotFoundException {
 
 		File archivo = new File( "./src/main/resources/data/jugador" );
@@ -155,8 +156,8 @@ public class SpaceInvaders {
 		serializarJugador();
 	}
 
-	@SuppressWarnings("unchecked") public List<NaveJugador> ordenarPorNickname () {
-
+	@SuppressWarnings("unchecked")
+	public List<NaveJugador> ordenarPorNickname () {
 		List<NaveJugador> jugadoresOrdenados = (List<NaveJugador>) jugadores.clone();
 
 		for ( int i = 1; i < jugadoresOrdenados.size(); i++ ) {

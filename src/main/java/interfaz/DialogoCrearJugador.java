@@ -4,6 +4,8 @@ import interfaz.decoratorbutton.AcceptDecorator;
 import interfaz.decoratorbutton.ButtonComponent;
 import interfaz.decoratorbutton.CancelDecorator;
 import interfaz.decoratorbutton.IButtonComponent;
+import interfaz.proxyimageicon.IImage;
+import interfaz.proxyimageicon.ProxyImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,8 +66,11 @@ public class DialogoCrearJugador extends JDialog implements ActionListener {
 		txtNickame.setForeground( Color.BLUE );
 		txtNickame.setFont( FuenteInterfazGrafica.get( 25 ) );
 
+		// Llamado del proxy para cargar la imagen solo cuando se necesita
+		IImage proxyImage = new ProxyImage();
+		ImageIcon icono = proxyImage.display();
+
 		JLabel imagen = new JLabel();
-		ImageIcon icono = new ImageIcon( "./src/main/resources/data/imagenes/fondAgJ.jpg" );
 		imagen.setIcon( icono );
 		imagen.setBounds( 0, 0, icono.getIconWidth(), icono.getIconHeight() );
 

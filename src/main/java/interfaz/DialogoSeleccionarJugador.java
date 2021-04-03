@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Optional;
 
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
@@ -23,10 +24,8 @@ public class DialogoSeleccionarJugador extends JDialog
 	JButton butBotonCancelar;
 	private final InterfazSpaceInvaders interfaz;
 
-	@SuppressWarnings("rawtypes")
-	private final JList jugadores = new JList();
+	private final JList<Object> jugadores = new JList<>();
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DialogoSeleccionarJugador(InterfazSpaceInvaders interfaz) {
 
 		super( interfaz, true );
@@ -38,7 +37,7 @@ public class DialogoSeleccionarJugador extends JDialog
 		scroll.setPreferredSize( new Dimension( 240, 200 ) );
 		jugadores.addListSelectionListener( this );
 		jugadores.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		jugadores.setModel( new DefaultListModel() );
+		jugadores.setModel( new DefaultListModel<>() );
 		scroll.getViewport().add( jugadores );
 		jugadores.setBackground( Color.BLACK );
 		jugadores.setFont( FuenteInterfazGrafica.get( 20 ) );
@@ -97,7 +96,7 @@ public class DialogoSeleccionarJugador extends JDialog
 				this.dispose();
 				break;
 			case ACEPTAR:
-				if ( !darJugadorSeleccionado().equals( "" ) ) {
+				if ( ! darJugadorSeleccionado().trim().isEmpty() ) {
 					interfaz.actualizarJugadorActual( darJugadorSeleccionado() );
 				} else {
 					JOptionPane.showMessageDialog( this,
@@ -126,7 +125,6 @@ public class DialogoSeleccionarJugador extends JDialog
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	@SuppressWarnings("unchecked")
 	public void cambiarListaJugadores( List<NaveJugador> lista) {
 
 		jugadores.setListData( lista.toArray() );
@@ -137,8 +135,9 @@ public class DialogoSeleccionarJugador extends JDialog
 	}
 
 	public String darJugadorSeleccionado () {
-		NaveJugador jugador = (NaveJugador) jugadores.getSelectedValue();
-		return ( jugador != null ) ? jugador.getNickname() : "";
+		return Optional.ofNullable (
+			( (NaveJugador) jugadores.getSelectedValue() ).getNickname()
+		).orElse( "" );
 	}
 
 	public void mostrar () {

@@ -15,6 +15,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InterfazSpaceInvaders extends JFrame {
 
@@ -197,16 +198,16 @@ public class InterfazSpaceInvaders extends JFrame {
 	}
 
 	public void actualizarJugadorActual ( String nickname ) {
-		if ( !nickname.equals( "" ) ) {
+		if ( ! nickname.trim().isEmpty() ) {
 			NaveJugador actual = mundo.buscarJugador( nickname );
 			mundo.setJugadorActual( actual );
 			panelMenu.repaint();
-		} else
+		} else {
 			JOptionPane.showMessageDialog( this, "Por favor cree algún jugador", "No existen jugadores", JOptionPane.INFORMATION_MESSAGE );
+		}
 	}
 
 	public void actualizarPartidaActual ( String nombre ) {
-
 		Partida partidaActual = mundo.getJugadorActual().getPartidaRaiz().buscarPartida( nombre );
 		mundo.setPartidaActual( partidaActual );
 		panelNivel.setPartida( partidaActual );
@@ -215,8 +216,9 @@ public class InterfazSpaceInvaders extends JFrame {
 
 	public void actualizarJugadores () {
 		List<NaveJugador> jugadores = mundo.getJugadores();
-		jugadores = ( jugadores == null ) ? new ArrayList<>() : jugadores;
-		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores( jugadores );
+		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores(
+			Optional.ofNullable( jugadores ).orElse( new ArrayList<>() )
+		);
 	}
 
 	public void actualizarPartidas () {
@@ -258,8 +260,9 @@ public class InterfazSpaceInvaders extends JFrame {
 
 	public void ordenarJugadores () {
 		List<NaveJugador> jugadores = mundo.ordenarPorNickname();
-		jugadores = ( jugadores == null ) ? new ArrayList<>() : jugadores;
-		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores( jugadores );
+		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores(
+			Optional.ofNullable( jugadores ).orElse( new ArrayList<>() )
+		);
 	}
 
 	public void loginRapido ( String nickname ) {

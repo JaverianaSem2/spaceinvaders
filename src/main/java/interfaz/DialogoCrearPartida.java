@@ -1,5 +1,7 @@
 package interfaz;
 
+import interfaz.mediatorpartida.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,32 +48,19 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 		nombre1.setFont( FuenteInterfazGrafica.get( 33 ) );
 		nombre1.setBounds( 10, 55, 240, 20 );
 
-		txtNombre = new JTextField();
-		txtNombre.setBackground( Color.orange );
-		txtNombre.setBounds( 10, 150, 210, 25 );
-		txtNombre.setForeground( Color.BLUE );
-		txtNombre.setFont( FuenteInterfazGrafica.get( 25 ) );
+		// Se configura patrón mediator
+		IMediator mediator = new Mediator();
+		mediator.registerDialogo( interfaz, this );
+
+		txtNombre = new TxtName( this, mediator);
 
 		JLabel imagen = new JLabel();
 		ImageIcon icono = new ImageIcon( "./src/main/resources/data/imagenes/fondoAP.jpg" );
 		imagen.setIcon( icono );
 		imagen.setBounds( 0, 0, icono.getIconWidth(), icono.getIconHeight() );
 
-		butBotonAceptar = new JButton( ACEPTAR );
-		butBotonAceptar.setActionCommand( ACEPTAR );
-		butBotonAceptar.addActionListener( this );
-		butBotonAceptar.setBounds( 10, 200, 130, 25 );
-		butBotonAceptar.setBackground( Color.BLACK );
-		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonAceptar.setForeground( Color.YELLOW );
-
-		butBotonCancelar = new JButton( CANCELAR );
-		butBotonCancelar.setActionCommand( CANCELAR );
-		butBotonCancelar.addActionListener( this );
-		butBotonCancelar.setBounds( 200, 200, 130, 25 );
-		butBotonCancelar.setBackground( Color.BLACK );
-		butBotonCancelar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonCancelar.setForeground( Color.green );
+		butBotonAceptar = new BtnAccept(this, mediator, ACEPTAR);
+		butBotonCancelar = new BtnCancel(this, mediator, CANCELAR);
 
 		auxiliar.setSize( icono.getIconWidth(), icono.getIconHeight() );
 		auxiliar.add( nombre );
@@ -91,24 +80,12 @@ public class DialogoCrearPartida extends JDialog implements ActionListener {
 	// -----------------------------------------------------------------
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		boolean theSourceElementIsAButton = e.getSource().getClass().getSimpleName().toLowerCase().contains( "btn" );
 
-		String comando = e.getActionCommand();
-		if ( comando.equals( CANCELAR ) )
-			this.dispose();
-		else if ( comando.equals( ACEPTAR ) ) {
-			if ( txtNombre.getText() == null || txtNombre.getText().equals( "" ) )
-				JOptionPane.showMessageDialog(
-					this,
-					"Por favor ingrese un nombre válido",
-					"Error al crear el jugador",
-					JOptionPane.ERROR_MESSAGE
-				);
-			else {
-				interfaz.reqCrearPartida( txtNombre.getText() );
-				this.dispose();
-			}
+		if ( theSourceElementIsAButton ) {
+			ICommand iCommand = (ICommand) e.getSource();
+			iCommand.execute();
 		}
-
 	}
 
 	// -----------------------------------------------------------------

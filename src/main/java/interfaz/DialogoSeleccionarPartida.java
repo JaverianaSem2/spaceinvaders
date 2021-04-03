@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Optional;
 
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
@@ -22,9 +23,9 @@ public class DialogoSeleccionarPartida extends JDialog
 	JButton butBotonAceptar;
 	JButton butBotonCancelar;
 	private final                               InterfazSpaceInvaders interfaz;
-	@SuppressWarnings("rawtypes") private final JList                 partidas;
+	private final JList<Object>                 partidas;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" }) public DialogoSeleccionarPartida ( InterfazSpaceInvaders interfaz ) {
+	public DialogoSeleccionarPartida ( InterfazSpaceInvaders interfaz ) {
 
 		super( interfaz, true );
 		setLayout( new BorderLayout() );
@@ -33,10 +34,10 @@ public class DialogoSeleccionarPartida extends JDialog
 		JScrollPane scroll = new JScrollPane();
 		scroll.setVerticalScrollBarPolicy( VERTICAL_SCROLLBAR_ALWAYS );
 		scroll.setPreferredSize( new Dimension( 230, 200 ) );
-		partidas = new JList();
+		partidas = new JList<>();
 		partidas.addListSelectionListener( this );
 		partidas.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		partidas.setModel( new DefaultListModel() );
+		partidas.setModel( new DefaultListModel<>() );
 		scroll.getViewport().add( partidas );
 		partidas.setBackground( Color.BLACK );
 		partidas.setFont( FuenteInterfazGrafica.get( 20 ) );
@@ -84,7 +85,7 @@ public class DialogoSeleccionarPartida extends JDialog
 			this.dispose();
 		else if ( comando.equals( ACEPTAR ) ) {
 			String partidaSeleccionada = darPartidaSeleccionada();
-			if ( !partidaSeleccionada.equals( "" ) ) {
+			if ( ! partidaSeleccionada.trim().isEmpty() ) {
 				interfaz.actualizarPartidaActual( partidaSeleccionada );
 				this.dispose();
 				interfaz.cambiarPanel( "Juego" );
@@ -109,8 +110,7 @@ public class DialogoSeleccionarPartida extends JDialog
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
-	@SuppressWarnings("unchecked") public void cambiarListaPartidas ( List<Partida> lista ) {
-
+	public void cambiarListaPartidas ( List<Partida> lista ) {
 		partidas.setListData( lista.toArray() );
 
 		if ( partidas.getModel().getSize() > 0 )
@@ -118,8 +118,9 @@ public class DialogoSeleccionarPartida extends JDialog
 	}
 
 	public String darPartidaSeleccionada () {
-		Partida partida = (Partida) partidas.getSelectedValue();
-		return ( partida != null ) ? partida.getNombre() : "";
+		return Optional.ofNullable(
+			( ( Partida ) partidas.getSelectedValue() ).getNombre()
+		).orElse( "" );
 	}
 
 	public void mostrar () {

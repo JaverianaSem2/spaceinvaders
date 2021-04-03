@@ -23,7 +23,6 @@ public class NaveJugador extends Nave {
 	private int cantidadDisparos;
 
 	public NaveJugador ( String nombre, String nickname ) {
-		super();
 		partidaRaiz = null;
 		this.posInicialX = 320;
 		this.posInicialY = 410;
@@ -56,7 +55,7 @@ public class NaveJugador extends Nave {
 	}
 
 	public int getPosInicialX () {
-		return this.posInicialX;
+		return posInicialX;
 	}
 
 	public void setPosInicialX ( int posInicialX ) {
@@ -64,7 +63,7 @@ public class NaveJugador extends Nave {
 	}
 
 	public int getPosInicialY () {
-		return this.posInicialY;
+		return posInicialY;
 	}
 
 	public void setPosInicialY ( int posInicialY ) {

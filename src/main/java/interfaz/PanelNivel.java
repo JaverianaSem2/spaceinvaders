@@ -6,6 +6,7 @@ import mundo.SpaceInvaders;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Optional;
 
 public class PanelNivel extends JPanel {
 
@@ -47,14 +48,14 @@ public class PanelNivel extends JPanel {
 		g.drawString( partida.getPuntaje().getPuntuacion() + "", 400, 40 );
 
 		// DISPARO DE LA NAVE
-		Disparo a = space.getJugadorActual().getDisparoUno();
-		if ( a != null ) {
+		Optional<Disparo> a = Optional.ofNullable( space.getJugadorActual().getDisparoUno() );
+		if ( a.isPresent() ) {
 			g.setColor( Color.WHITE );
-			g.fillOval( a.getPosX() + 13, a.getPosY(), 7, 7 );
+			g.fillOval( a.get().getPosX() + 13, a.get().getPosY(), 7, 7 );
 
-			if ( a.getPosY() == 0 || a.getImpacto() ) {
+			if ( a.get().getPosY() == 0 || a.get().getImpacto() ) {
 				ImageIcon choque = new ImageIcon( "./src/main/resources/data/imagenes/Naves/muereBicho.png" );
-				g.drawImage( choque.getImage(), a.getPosX(), a.getPosY() - 6, null );
+				g.drawImage( choque.getImage(), a.get().getPosX(), a.get().getPosY() - 6, null );
 			}
 
 		}

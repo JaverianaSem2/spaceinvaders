@@ -5,7 +5,7 @@ import java.awt.*;
 public class FuenteInterfazGrafica {
 
 	FuenteInterfazGrafica () {
-		super();
+		// Empty constructor : SonarQube
 	}
 
 	public static Font get ( int size ) {
