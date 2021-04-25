@@ -24,7 +24,7 @@ class SpaceInvadersTest {
 		space.setJugadores( jugadores );
 	}
 
-	// AGREGAR JUGADOR - BUSCAR JUGADOR - BUSCAR RAPIDO
+	// AGREGAR JUGADOR - BUSCAR JUGADOR - BUSCAR RÁPIDO
 	private void setUpEscenario2 () {
 		space = new SpaceInvaders( true );
 		jugadores = new ArrayList<>();
@@ -172,7 +172,7 @@ class SpaceInvadersTest {
 		SpaceInvaders spaceInvaders = new SpaceInvaders( true );
 
 		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", null );
-		spaceInvaders.agregarPuntaje( new Puntaje( 10, "jugador", "partida" ) );
+		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 10, "jugador", "partida" ) ) );
 
 		assertEquals( "10 jugador partida", Whitebox.getInternalState( spaceInvaders, "primerPuntaje" ).toString() );
 	}
@@ -187,9 +187,9 @@ class SpaceInvadersTest {
 		assertNull( primerPuntaje.getSiguiente() );
 
 		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
-		spaceInvaders.agregarPuntaje( new Puntaje( 10, "jugador", "partida" ) );
+		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 10, "jugador", "partida" ) ) );
 
-		primerPuntaje = (Puntaje) Whitebox.getInternalState( spaceInvaders, "primerPuntaje" );
+		primerPuntaje = spaceInvaders.getPrimerPuntaje();
 		assertEquals( "10 jugador partida", primerPuntaje.toString() );
 		assertEquals( "10 jugador partida", primerPuntaje.getAnterior().toString() );
 		assertEquals( "1 jugador partida", primerPuntaje.getSiguiente().toString() );
@@ -206,7 +206,7 @@ class SpaceInvadersTest {
 		assertEquals( "8 jugador partida", primerPuntaje.getSiguiente().toString() );
 
 		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
-		spaceInvaders.agregarPuntaje( new Puntaje( 10, "jugador", "partida" ) );
+		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 10, "jugador", "partida" ) ) );
 
 		primerPuntaje = (Puntaje) Whitebox.getInternalState( spaceInvaders, "primerPuntaje" );
 		assertNull( primerPuntaje.getAnterior() );
@@ -217,7 +217,7 @@ class SpaceInvadersTest {
 	@Test void testMejoresPuntajes () {
 		SpaceInvaders spaceInvaders = new SpaceInvaders( true );
 		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", null );
-		assertEquals( new ArrayList<>(), spaceInvaders.mejoresPuntajes() );
+		assertEquals( new ArrayList<>(), Puntaje.getMejoresPuntajes( spaceInvaders.getPrimerPuntaje() ) );
 
 		Puntaje primerPuntaje = new Puntaje( 20, "jugador", "partida" );
 		Puntaje puntajeAuxiliar = primerPuntaje;
@@ -241,7 +241,7 @@ class SpaceInvadersTest {
 			+ "9 1 jugador partida, "
 			+ "10 2 jugador partida"
 			+ "]",
-			spaceInvaders.mejoresPuntajes().toString()
+			Puntaje.getMejoresPuntajes( spaceInvaders.getPrimerPuntaje() ).toString()
 		);
 
 		assertEquals( primerPuntaje, Whitebox.getInternalState( spaceInvaders, "primerPuntaje" ) );
@@ -257,7 +257,7 @@ class SpaceInvadersTest {
 		primerPuntaje.setSiguiente( new Puntaje( 3, "jugador", "partida" ) );
 
 		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
-		spaceInvaders.agregarPuntaje( new Puntaje( 3, "jugador", "partida" ) );
+		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 3, "jugador", "partida" ) ) );
 
 		primerPuntaje = (Puntaje) Whitebox.getInternalState( spaceInvaders, "primerPuntaje" );
 		assertEquals( "3 jugador partida", primerPuntaje.toString() );

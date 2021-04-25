@@ -6,6 +6,7 @@ import excepciones.PartidaYaExisteException;
 import hilos.*;
 import mundo.NaveJugador;
 import mundo.Partida;
+import mundo.Puntaje;
 import mundo.SpaceInvaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -273,7 +274,7 @@ public class InterfazSpaceInvaders extends JFrame {
 	}
 
 	public void mejoresPuntajes () {
-		panelMenu.setDialogoMejoresPuntajes( new DialogoMejoresPuntajes( this, mundo.mejoresPuntajes() ) );
+		panelMenu.setDialogoMejoresPuntajes( new DialogoMejoresPuntajes( this, Puntaje.getMejoresPuntajes( mundo.getPrimerPuntaje() ) ) );
 		panelMenu.getDialogoMejoresPuntajes().mostrar();
 	}
 
