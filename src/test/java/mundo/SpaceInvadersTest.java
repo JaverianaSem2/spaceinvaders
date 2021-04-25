@@ -4,7 +4,6 @@ import excepciones.NicknameYaExisteException;
 import excepciones.PartidaYaExisteException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.util.reflection.Whitebox;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -171,10 +170,10 @@ class SpaceInvadersTest {
 	@Test void testAgregarPuntajePrimerPuntajeNulo () {
 		SpaceInvaders spaceInvaders = new SpaceInvaders( true );
 
-		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", null );
+		spaceInvaders.setPrimerPuntaje( null );
 		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 10, "jugador", "partida" ) ) );
 
-		assertEquals( "10 jugador partida", Whitebox.getInternalState( spaceInvaders, "primerPuntaje" ).toString() );
+		assertEquals( "10 jugador partida", spaceInvaders.getPrimerPuntaje().toString() );
 	}
 
 	@Test void testAgregarPuntajePrimerPuntajeMenorAPuntuacion () {
@@ -186,7 +185,7 @@ class SpaceInvadersTest {
 		assertNull( primerPuntaje.getAnterior() );
 		assertNull( primerPuntaje.getSiguiente() );
 
-		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
+		spaceInvaders.setPrimerPuntaje( primerPuntaje );
 		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 10, "jugador", "partida" ) ) );
 
 		primerPuntaje = spaceInvaders.getPrimerPuntaje();
@@ -205,10 +204,10 @@ class SpaceInvadersTest {
 		assertEquals( "20 jugador partida", primerPuntaje.toString() );
 		assertEquals( "8 jugador partida", primerPuntaje.getSiguiente().toString() );
 
-		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
+		spaceInvaders.setPrimerPuntaje( primerPuntaje );
 		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 10, "jugador", "partida" ) ) );
 
-		primerPuntaje = (Puntaje) Whitebox.getInternalState( spaceInvaders, "primerPuntaje" );
+		primerPuntaje = spaceInvaders.getPrimerPuntaje();
 		assertNull( primerPuntaje.getAnterior() );
 		assertEquals( "20 jugador partida", primerPuntaje.toString() );
 		assertEquals( "10 jugador partida", primerPuntaje.getSiguiente().toString() );
@@ -216,7 +215,7 @@ class SpaceInvadersTest {
 
 	@Test void testMejoresPuntajes () {
 		SpaceInvaders spaceInvaders = new SpaceInvaders( true );
-		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", null );
+		spaceInvaders.setPrimerPuntaje( null );
 		assertEquals( new ArrayList<>(), Puntaje.getMejoresPuntajes( spaceInvaders.getPrimerPuntaje() ) );
 
 		Puntaje primerPuntaje = new Puntaje( 20, "jugador", "partida" );
@@ -228,7 +227,7 @@ class SpaceInvadersTest {
 			puntajeAuxiliar = puntajeAuxiliar.getSiguiente();
 		}
 
-		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
+		spaceInvaders.setPrimerPuntaje( primerPuntaje );
 		assertEquals( "["
 			+ "1 20 jugador partida, "
 			+ "2 10 jugador partida, "
@@ -244,7 +243,7 @@ class SpaceInvadersTest {
 			Puntaje.getMejoresPuntajes( spaceInvaders.getPrimerPuntaje() ).toString()
 		);
 
-		assertEquals( primerPuntaje, Whitebox.getInternalState( spaceInvaders, "primerPuntaje" ) );
+		assertEquals( primerPuntaje, spaceInvaders.getPrimerPuntaje() );
 	}
 
 	@Test
@@ -256,10 +255,10 @@ class SpaceInvadersTest {
 		primerPuntaje.setAnterior( new Puntaje( 4, "jugador", "partida" ) );
 		primerPuntaje.setSiguiente( new Puntaje( 3, "jugador", "partida" ) );
 
-		Whitebox.setInternalState( spaceInvaders, "primerPuntaje", primerPuntaje );
+		spaceInvaders.setPrimerPuntaje( primerPuntaje );
 		spaceInvaders.setPrimerPuntaje( Puntaje.agregarPuntaje( spaceInvaders.getPrimerPuntaje(), new Puntaje( 3, "jugador", "partida" ) ) );
 
-		primerPuntaje = (Puntaje) Whitebox.getInternalState( spaceInvaders, "primerPuntaje" );
+		primerPuntaje = spaceInvaders.getPrimerPuntaje();
 		assertEquals( "3 jugador partida", primerPuntaje.toString() );
 		assertEquals( "4 jugador partida", primerPuntaje.getAnterior().toString() );
 		assertEquals( "3 jugador partida", primerPuntaje.getSiguiente().toString() );
