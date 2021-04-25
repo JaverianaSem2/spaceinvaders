@@ -4,8 +4,8 @@ plugins {
     id "jacoco"
 }
 
-sourceCompatibility=11
-targetCompatibility=11
+//sourceCompatibility=11
+//targetCompatibility=11
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -16,6 +16,12 @@ apply plugin: 'jacoco'
 repositories {
     mavenLocal()
     jcenter()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
 
 dependencies {
