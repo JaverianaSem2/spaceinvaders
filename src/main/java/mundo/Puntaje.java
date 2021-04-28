@@ -1,6 +1,8 @@
 package mundo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Manuel Alejandro Coral Lozano - Juan Sebastián Quintero Yoshioka
@@ -49,6 +51,49 @@ public class Puntaje implements Serializable {
 	@Override public String toString () {
 		String puntos = puntuacion + "";
 		return "" + puntos + " " + nickname + " " + nombrePartida;
+	}
+
+	public static List<String> getMejoresPuntajes ( Puntaje primer ) {
+
+		List<String> mejoresPuntajes = new ArrayList<>();
+		int contador = 1;
+		while ( primer != null && contador <= 10 ) {
+			mejoresPuntajes.add( contador + " " + primer.toString() );
+			contador++;
+			primer = primer.getSiguiente();
+		}
+
+		return mejoresPuntajes;
+	}
+
+	public static Puntaje agregarPuntaje ( Puntaje primerPuntaje, Puntaje puntaje ) {
+		if ( primerPuntaje == null ) {
+			primerPuntaje = puntaje;
+		} else {
+			if ( primerPuntaje.getPuntuacion() < puntaje.getPuntuacion() ) {
+				puntaje.setSiguiente( primerPuntaje );
+				puntaje.setAnterior( puntaje );
+				primerPuntaje = puntaje;
+			} else {
+				Puntaje aux = primerPuntaje;
+
+				while ( aux.getSiguiente() != null && aux.getSiguiente().getPuntuacion() >= puntaje.getPuntuacion() ) {
+					aux = aux.getSiguiente();
+				}
+
+				Puntaje nuevaSiguiente = null;
+
+				if ( aux.getSiguiente() != null ) {
+					nuevaSiguiente = aux.getSiguiente();
+					nuevaSiguiente.setAnterior( puntaje );
+				}
+
+				aux.setSiguiente( puntaje );
+				puntaje.setAnterior( aux );
+				puntaje.setSiguiente( nuevaSiguiente );
+			}
+		}
+		return primerPuntaje;
 	}
 
 }

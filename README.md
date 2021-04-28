@@ -2,7 +2,7 @@
 
 Proyecto de Java para jugar Space Invaders o Invasores espaciales
 
-[![java](https://img.shields.io/badge/Java--jdk-1.8-critical)](https://www.oracle.com/co/java/technologies/javase/javase-jdk8-downloads.html)
+[![java](https://img.shields.io/badge/Java--jdk-11-critical)](https://www.oracle.com/co/java/technologies/javase-jdk11-downloads.html)
 [![junit](https://img.shields.io/badge/junit-5-critical)](https://junit.org/junit5/)
 [![gradle](https://img.shields.io/badge/gradle-6.6.1-important)](https://gradle.org/install/)
 [![sonarqube](https://img.shields.io/badge/SonarQube-8-informational)](https://www.sonarqube.org/downloads/)
@@ -70,8 +70,6 @@ Todo el progreso de un juego queda serialzado, asi como los puntajes.
 
 ## Información técnica
 
-El proyecto arranca en el archivo
+El proyecto requiere java 11 y arranca en el archivo
 
 src/java/interfaz/InterfazSpaceInvaders.java
-
-Requiere java 1.8

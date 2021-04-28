@@ -46,6 +46,14 @@ public class SpaceInvaders {
 	// -----------------------------Métodos-----------------------------
 	// -----------------------------------------------------------------
 
+	public Puntaje getPrimerPuntaje() {
+		return primerPuntaje;
+	}
+
+	public void setPrimerPuntaje(Puntaje primerPuntaje) {
+		this.primerPuntaje = primerPuntaje;
+	}
+
 	public boolean getEnFuncionamiento () {
 		return enFuncionamiento;
 	}
@@ -202,49 +210,6 @@ public class SpaceInvaders {
 		return encontrado;
 	}
 
-	public void agregarPuntaje ( Puntaje puntaje ) {
-		if ( primerPuntaje == null ) {
-			primerPuntaje = puntaje;
-		} else {
-			if ( primerPuntaje.getPuntuacion() < puntaje.getPuntuacion() ) {
-				puntaje.setSiguiente( primerPuntaje );
-				puntaje.setAnterior( puntaje );
-				primerPuntaje = puntaje;
-			} else {
-				Puntaje aux = primerPuntaje;
-
-				while ( aux.getSiguiente() != null && aux.getSiguiente().getPuntuacion() >= puntaje.getPuntuacion() ) {
-					aux = aux.getSiguiente();
-				}
-
-				Puntaje nuevaSiguiente = null;
-
-				if ( aux.getSiguiente() != null ) {
-					nuevaSiguiente = aux.getSiguiente();
-					nuevaSiguiente.setAnterior( puntaje );
-				}
-
-				aux.setSiguiente( puntaje );
-				puntaje.setAnterior( aux );
-				puntaje.setSiguiente( nuevaSiguiente );
-			}
-		}
-	}
-
-	public List<String> mejoresPuntajes () {
-
-		List<String> mejoresPuntajes = new ArrayList<>();
-		Puntaje primer = primerPuntaje;
-		int contador = 1;
-		while ( primer != null && contador <= 10 ) {
-			mejoresPuntajes.add( contador + " " + primer.toString() );
-			contador++;
-			primer = primer.getSiguiente();
-		}
-
-		return mejoresPuntajes;
-	}
-
 	public void serializarPuntaje () throws IOException {
 
 		File archivo = new File( "./src/main/resources/data/puntaje" );
@@ -282,7 +247,7 @@ public class SpaceInvaders {
 
 	public void eliminarPartida () throws IOException {
 		Puntaje nuevoPuntaje = new Puntaje( partidaActual.getPuntaje().getPuntuacion(), jugadorActual.getNickname(), partidaActual.getNombre() );
-		agregarPuntaje( nuevoPuntaje );
+		primerPuntaje = Puntaje.agregarPuntaje( primerPuntaje, nuevoPuntaje );
 		jugadorActual.setPartidaRaiz( jugadorActual.getPartidaRaiz().eliminar( partidaActual.getNombre() ) );
 		serializarJugador();
 		serializarPuntaje();
