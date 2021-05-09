@@ -237,17 +237,22 @@ public class PanelMenu extends JPanel implements ActionListener {
 				dialogoCrearJugador.mostrar();
 				break;
 			case SELECCIONAR_JUGADOR:
-				interfaz.actualizarJugadores();
-				dialogoSeleccionarJugador.mostrar();
+				showSeleccionarJugador();
 				break;
 			case CREAR_PARTIDA:
+				if ( interfaz.getJugadorActual() == null ) {
+					notSelectedPlayer( this );
+				}
 				if ( interfaz.getJugadorActual() != null ) {
 					dialogoCrearPartida.mostrar();
 				} else {
-					JOptionPane.showMessageDialog( this, "Por favor crear o seleccionar un jugador", "Error al iniciar partida", JOptionPane.ERROR_MESSAGE );
+					JOptionPane.showMessageDialog( this, "Por favor crear o seleccionar un jugador", "Error al crear la partida", JOptionPane.ERROR_MESSAGE );
 				}
 				break;
 			case SELECCIONAR_PARTIDA:
+				if ( interfaz.getJugadorActual() == null ) {
+					notSelectedPlayer( this );
+				}
 				if ( interfaz.getJugadorActual() != null ) {
 					interfaz.actualizarPartidas();
 					dialogoSeleccionarPartida.mostrar();
@@ -270,6 +275,37 @@ public class PanelMenu extends JPanel implements ActionListener {
 
 	public DialogoSeleccionarPartida getDialogoSeleccionarPartida () {
 		return dialogoSeleccionarPartida;
+	}
+
+	private void showSeleccionarJugador() {
+		interfaz.actualizarJugadores();
+		dialogoSeleccionarJugador.mostrar();
+	}
+
+	private void notSelectedPlayer( PanelMenu frame) {
+		Object[] customButtonText = {"Crear jugador",
+			"Seleccionar jugador",
+			"Cancelar"};
+
+		int actionForPlayer = JOptionPane.showOptionDialog(frame,
+			"Para crear una partida, debe...",
+			"No ha seleccionado o creado un jugador",
+			JOptionPane.YES_NO_CANCEL_OPTION,
+			JOptionPane.QUESTION_MESSAGE,
+			null,
+			customButtonText,
+			customButtonText[2]);
+
+		switch ( actionForPlayer ) {
+			case 0:
+				dialogoCrearJugador.mostrar();
+				break;
+			case 1:
+				showSeleccionarJugador();
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override public void paintComponent ( Graphics g ) {
