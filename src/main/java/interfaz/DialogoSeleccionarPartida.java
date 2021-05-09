@@ -51,7 +51,7 @@ public class DialogoSeleccionarPartida extends JDialog
 		butBotonAceptar.setBounds( 60, 2, 130, 25 );
 		butBotonAceptar.setBackground( Color.BLACK );
 		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonAceptar.setForeground( Color.YELLOW );
+		butBotonAceptar.setForeground( Color.BLUE );
 
 		butBotonCancelar = new JButton( CANCELAR );
 		butBotonCancelar.setActionCommand( CANCELAR );
@@ -59,7 +59,7 @@ public class DialogoSeleccionarPartida extends JDialog
 		butBotonCancelar.setBounds( 210, 2, 130, 25 );
 		butBotonCancelar.setBackground( Color.BLACK );
 		butBotonCancelar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonCancelar.setForeground( Color.green );
+		butBotonCancelar.setForeground( Color.RED );
 
 		this.setBackground( Color.BLACK );
 		JPanel auxiliar = new JPanel();

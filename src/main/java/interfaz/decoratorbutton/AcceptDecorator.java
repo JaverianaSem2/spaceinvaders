@@ -20,7 +20,7 @@ public class AcceptDecorator extends ButtonDecorator {
 		super.setBounds( 10, 210, 130, 25 );
 		super.setBackground( Color.black );
 		super.setFont( FuenteInterfazGrafica.get( 20 ) );
-		super.setForeground( Color.red );
+		super.setForeground( Color.BLUE );
 		super.addActionListener( actionListener );
 	}
 

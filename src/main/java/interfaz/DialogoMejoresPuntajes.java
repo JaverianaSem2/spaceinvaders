@@ -32,7 +32,7 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 		butBotonAceptar.setBounds( 235, 360, 130, 25 );
 		butBotonAceptar.setBackground( Color.BLACK );
 		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonAceptar.setForeground( Color.YELLOW );
+		butBotonAceptar.setForeground( Color.BLUE );
 
 		auxiliar.setSize( 600, 400 );
 		auxiliar.add( butBotonAceptar );
@@ -42,7 +42,7 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 		setFont( FuenteInterfazGrafica.get( 20 ) );
 		setForeground( Color.RED );
 
-		JLabel labPosicion = new JLabel( "POSICION" );
+		JLabel labPosicion = new JLabel( "POSICIÓN" );
 		labPosicion.setFont( FuenteInterfazGrafica.get( 20 ) );
 		labPosicion.setForeground( Color.GREEN );
 		labPosicion.setBounds( 10, 10, 100, 25 );

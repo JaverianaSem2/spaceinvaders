@@ -51,7 +51,7 @@ public class DialogoSeleccionarJugador extends JDialog
 		butBotonAceptar.setBounds( 5, 2, 130, 25 );
 		butBotonAceptar.setBackground( Color.BLACK );
 		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonAceptar.setForeground( Color.YELLOW );
+		butBotonAceptar.setForeground( Color.BLUE );
 
 		butBotonCancelar = new JButton( CANCELAR );
 		butBotonCancelar.setActionCommand( CANCELAR );
@@ -59,15 +59,15 @@ public class DialogoSeleccionarJugador extends JDialog
 		butBotonCancelar.setBounds( 140, 2, 130, 25 );
 		butBotonCancelar.setBackground( Color.BLACK );
 		butBotonCancelar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonCancelar.setForeground( Color.green );
+		butBotonCancelar.setForeground( Color.RED );
 
-		JButton butOrdenar = new JButton( "ORDENAR" );
+		JButton butOrdenar = new JButton( ORDENAR );
 		butOrdenar.addActionListener( this );
 		butOrdenar.setActionCommand( ORDENAR );
 		butOrdenar.setBounds( 275, 2, 130, 25 );
 		butOrdenar.setBackground( Color.BLACK );
 		butOrdenar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butOrdenar.setForeground( Color.BLUE );
+		butOrdenar.setForeground( Color.GREEN );
 
 		this.setBackground( Color.BLACK );
 		JPanel auxiliar = new JPanel();
