@@ -21,7 +21,7 @@ public class BtnAccept extends JButton implements ICommand {
 		this.setBounds( 10, 200, 130, 25 );
 		this.setBackground( Color.BLACK );
 		this.setFont( FuenteInterfazGrafica.get( 20 ) );
-		this.setForeground( Color.GREEN );
+		this.setForeground( Color.BLUE );
 	}
 
 	public void execute (){

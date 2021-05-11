@@ -18,6 +18,6 @@ public class CancelDecorator extends ButtonDecorator {
 		super.setBounds( 10, 350, 130, 25 );
 		super.setBackground( Color.BLACK );
 		super.setFont( FuenteInterfazGrafica.get( 20 ) );
-		super.setForeground( Color.green );
+		super.setForeground( Color.RED );
 	}
 }

@@ -12,7 +12,7 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 
 	InterfazSpaceInvaders interfaz;
 
-	JPanel auxiliar;
+	JPanel panelAuxiliar;
 
 	JButton butBotonAceptar;
 
@@ -23,8 +23,8 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 		this.interfaz = interfaz;
 		setLayout( null );
 
-		auxiliar = new JPanel();
-		auxiliar.setLayout( null );
+		panelAuxiliar = new JPanel();
+		panelAuxiliar.setLayout( null );
 
 		butBotonAceptar = new JButton( ACEPTAR );
 		butBotonAceptar.setActionCommand( ACEPTAR );
@@ -32,39 +32,39 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 		butBotonAceptar.setBounds( 235, 360, 130, 25 );
 		butBotonAceptar.setBackground( Color.BLACK );
 		butBotonAceptar.setFont( FuenteInterfazGrafica.get( 20 ) );
-		butBotonAceptar.setForeground( Color.YELLOW );
+		butBotonAceptar.setForeground( Color.BLUE );
 
-		auxiliar.setSize( 600, 400 );
-		auxiliar.add( butBotonAceptar );
+		panelAuxiliar.setSize( 600, 400 );
+		panelAuxiliar.add( butBotonAceptar );
 
-		auxiliar.setBackground( Color.BLACK );
+		panelAuxiliar.setBackground( Color.BLACK );
 
 		setFont( FuenteInterfazGrafica.get( 20 ) );
 		setForeground( Color.RED );
 
-		JLabel labPosicion = new JLabel( "POSICION" );
+		JLabel labPosicion = new JLabel( "POSICIÓN" );
 		labPosicion.setFont( FuenteInterfazGrafica.get( 20 ) );
 		labPosicion.setForeground( Color.GREEN );
 		labPosicion.setBounds( 10, 10, 100, 25 );
-		auxiliar.add( labPosicion );
+		panelAuxiliar.add( labPosicion );
 
 		JLabel labPuntaje = new JLabel( "PUNTAJE" );
 		labPuntaje.setFont( FuenteInterfazGrafica.get( 20 ) );
 		labPuntaje.setForeground( Color.GREEN );
 		labPuntaje.setBounds( 110, 10, 200, 25 );
-		auxiliar.add( labPuntaje );
+		panelAuxiliar.add( labPuntaje );
 
 		JLabel labNickname = new JLabel( "NICKNAME" );
 		labNickname.setFont( FuenteInterfazGrafica.get( 20 ) );
 		labNickname.setForeground( Color.GREEN );
 		labNickname.setBounds( 200, 10, 300, 25 );
-		auxiliar.add( labNickname );
+		panelAuxiliar.add( labNickname );
 
 		JLabel labNombrePartida = new JLabel( "PARTIDA" );
 		labNombrePartida.setFont( FuenteInterfazGrafica.get( 20 ) );
 		labNombrePartida.setForeground( Color.GREEN );
 		labNombrePartida.setBounds( 310, 10, 400, 25 );
-		auxiliar.add( labNombrePartida );
+		panelAuxiliar.add( labNombrePartida );
 
 		int x = 10;
 		int y = 30;
@@ -103,16 +103,16 @@ public class DialogoMejoresPuntajes extends JDialog implements ActionListener {
 				nickname.setBounds( x + 190, y, 300, 25 );
 				partida.setBounds( x + 300, y, 400, 25 );
 
-				auxiliar.add( numero );
-				auxiliar.add( puntaje );
-				auxiliar.add( nickname );
-				auxiliar.add( partida );
+				panelAuxiliar.add( numero );
+				panelAuxiliar.add( puntaje );
+				panelAuxiliar.add( nickname );
+				panelAuxiliar.add( partida );
 
 				y = y + 30;
 
 			}
 		}
-		add( auxiliar );
+		add( panelAuxiliar );
 		setUndecorated( true );
 		getRootPane().setBorder( BorderFactory.createLineBorder( Color.WHITE ) );
 	}
