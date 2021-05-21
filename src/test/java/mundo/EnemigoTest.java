@@ -74,7 +74,7 @@ class EnemigoTest {
     fabrica.setNivel( partida.getNivel() );
 
     enemigo = fabrica.crearInvasor( "NoExisto", 300, 210);
-    assertNotNull( enemigo );
+    assertNull( enemigo );
   }
 
   @Test void testCrearEnemigoCangrejo () {
