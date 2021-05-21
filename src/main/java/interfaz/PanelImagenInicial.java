@@ -33,13 +33,15 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 
 		// Establecer la imagen de fondo mediante un patrón Bridge que aleatoriamente
 		// cambie la imagen
-		ImageIcon icono = null;
+
 		IBridgeImageIcon imageImpl = null;
 		if ( new SecureRandom().nextInt(10 ) % 2 == 0 ) {
 			imageImpl = new ImageIconImplA();
 		} else {
 			imageImpl = new ImageIconImplB();
 		}
+
+    ImageIcon icono = null;
 		ImageIconAbs imageIconAbs = new ImageIconAbs( imageImpl );
 		icono = imageIconAbs.getImage();
 

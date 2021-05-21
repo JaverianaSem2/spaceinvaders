@@ -2,8 +2,9 @@ package hilos;
 
 import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
-import mundo.InvasorCalamar;
-import mundo.InvasorCangrejo;
+import mundo.abstracfactory.CalamarInvasor;
+import mundo.abstracfactory.CangrejoInvasor;
+import mundo.abstracfactory.Invasor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,10 +12,10 @@ public class HiloAnimacionEnemigos extends Thread {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger( HiloAnimacionEnemigos.class.getName() );
 
-	Enemigo               enemigo;
+	Invasor               enemigo;
 	InterfazSpaceInvaders interfaz;
 
-	public HiloAnimacionEnemigos ( Enemigo invasores, InterfazSpaceInvaders principal ) {
+	public HiloAnimacionEnemigos ( Invasor invasores, InterfazSpaceInvaders principal ) {
 		enemigo = invasores;
 		interfaz = principal;
 	}
@@ -24,9 +25,9 @@ public class HiloAnimacionEnemigos extends Thread {
 
 		while ( interfaz.estaEnFuncionamiento() ) {
 
-			if ( enemigo instanceof InvasorCalamar ) {
+			if ( enemigo instanceof CalamarInvasor ) {
 				enemigo.setRutaImage( "./src/main/resources/data/imagenes/Naves/s0.png" );
-			} else if ( enemigo instanceof InvasorCangrejo ) {
+			} else if ( enemigo instanceof CangrejoInvasor ) {
 				enemigo.setRutaImage( "./src/main/resources/data/imagenes/Naves/p0.png" );
 			} else {
 				enemigo.setRutaImage( "./src/main/resources/data/imagenes/Naves/r0.png" );

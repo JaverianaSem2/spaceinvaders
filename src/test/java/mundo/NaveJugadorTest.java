@@ -1,5 +1,7 @@
 package mundo;
 
+import mundo.abstracfactory.Invasor;
+import mundo.abstracfactory.PulpoInvasor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,7 +60,7 @@ class NaveJugadorTest {
 		assertNotNull( naveJugador.getDisparoUno() );
 
 		// Crea un disparo a un enemigo
-		Enemigo momentaneo = new InvasorPulpo( partida.getNivel(), 0, 0);
+		Invasor momentaneo = new PulpoInvasor( partida.getNivel(), 0, 0);
 		momentaneo.disparar( 100, 300 );
 		assertNotNull( momentaneo.getDisparoUno() );
 

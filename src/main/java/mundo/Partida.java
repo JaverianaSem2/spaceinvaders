@@ -1,6 +1,7 @@
 package mundo;
 
 import excepciones.PartidaYaExisteException;
+import mundo.abstracfactory.*;
 
 import java.io.*;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Partida implements Serializable {
 
 	private       Partida     partidaIzquierda;
 	private       Partida     partidaDerecha;
-	private       Enemigo[][] enemigos;
+	private       Invasor[][] enemigos;
 	private       Puntaje     puntaje;
 	private       Nivel       nivel;
 	private final String      nombre;
@@ -43,11 +44,11 @@ public class Partida implements Serializable {
 		this.partidaDerecha = partidaDerecha;
 	}
 
-	public Enemigo[][] getEnemigos () {
+	public Invasor[][] getEnemigos () {
 		return enemigos;
 	}
 
-	public void setEnemigos ( Enemigo[][] enemigos ) {
+	public void setEnemigos ( Invasor[][] enemigos ) {
 		this.enemigos = enemigos;
 	}
 
@@ -134,7 +135,7 @@ public class Partida implements Serializable {
 			linea = br.readLine();
 			int colums = Integer.parseInt( linea );
 
-			enemigos = new Enemigo[filas][colums];
+			enemigos = new Invasor[filas][colums];
 
 			linea = br.readLine(); // Code smell needed. Do not delete
 			linea = br.readLine();
@@ -165,9 +166,9 @@ public class Partida implements Serializable {
     int posY;
 
     InvasorFabrica fabrica;
-    InvasorCalamar calamar;
-    InvasorCangrejo cangrejo;
-    InvasorPulpo pulpo;
+    CalamarInvasor calamar;
+    CangrejoInvasor cangrejo;
+    PulpoInvasor pulpo;
 
     fabrica = new InvasorFabrica();
     fabrica.setNivel(  this.nivel );
@@ -180,7 +181,7 @@ public class Partida implements Serializable {
           posX = (j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo());
           posY = nivel.getPosYPrimerEnemigo();
 
-          calamar  = (InvasorCalamar) fabrica.crearInvasor( "Calamar", posX, posY );
+          calamar  = (CalamarInvasor) fabrica.crearInvasor( "Calamar", posX, posY );
 
 					enemigos[i][j] = calamar;
 
@@ -189,7 +190,7 @@ public class Partida implements Serializable {
           posX = (j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo());
           posY = (i * nivel.getPosYPrimerEnemigo() + nivel.getPosYPrimerEnemigo());
 
-          cangrejo = (InvasorCangrejo) fabrica.crearInvasor( "Cangrejo", posX, posY );
+          cangrejo = (CangrejoInvasor) fabrica.crearInvasor( "Cangrejo", posX, posY );
 					enemigos[i][j] = cangrejo;
 
 				} else if ( i == 3 || i == 4 ) {
@@ -197,7 +198,7 @@ public class Partida implements Serializable {
           posX = (j * nivel.getPosXPrimerEnemigo() + nivel.getPosXPrimerEnemigo());
           posY = (i * nivel.getPosYPrimerEnemigo() + nivel.getPosYPrimerEnemigo());
 
-          pulpo    = (InvasorPulpo) fabrica.crearInvasor( "Pulpo", posX, posY);
+          pulpo    = (PulpoInvasor) fabrica.crearInvasor( "Pulpo", posX, posY);
 					enemigos[i][j] = pulpo;
 
 				}
@@ -206,7 +207,7 @@ public class Partida implements Serializable {
 
 	}
 
-	public void eliminarUnEnemigo ( boolean elimino, Enemigo a ) {
+	public void eliminarUnEnemigo ( boolean elimino, Invasor a ) {
 		boolean salida = false;
 
 		if ( elimino ) {
@@ -224,8 +225,8 @@ public class Partida implements Serializable {
 	public boolean terminarNivel () {
 		int contador = 0;
 
-		for ( Enemigo[] enemigo : enemigos ) {
-			for ( Enemigo value : enemigo ) {
+		for ( Invasor[] enemigo : enemigos ) {
+			for ( Invasor value : enemigo ) {
 				if ( value == null ) {
 					contador++;
 				}

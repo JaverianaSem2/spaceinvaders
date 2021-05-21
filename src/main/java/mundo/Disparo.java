@@ -1,5 +1,7 @@
 package mundo;
 
+import mundo.abstracfactory.Invasor;
+
 import java.io.Serializable;
 
 public class Disparo implements Serializable {
@@ -50,7 +52,7 @@ public class Disparo implements Serializable {
 		this.posY = this.posY + 5;
 	}
 
-	public boolean hitsEnemigo ( Enemigo a ) {
+	public boolean hitsEnemigo ( Invasor a ) {
 		int r = 8;
 		if ( a != null ) {
 			double cateto = this.posX - a.getPosX();

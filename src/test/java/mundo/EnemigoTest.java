@@ -1,5 +1,6 @@
 package mundo;
 
+import mundo.abstracfactory.*;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EnemigoTest {
 
-	private Enemigo enemigo;
+	private Invasor enemigo;
   private Partida partida;
 
 	// MOVER - MOVER ABAJO - BORDE(EDGE)
@@ -18,9 +19,7 @@ class EnemigoTest {
     partida = new Partida( "setUpEscenario1" );
     partida.setNivel( new Nivel( "5", 5, 0, 0, 0, 0 ) );
 
-    InvasorFabrica fabrica;
-
-    fabrica = new InvasorFabrica();
+    InvasorFabrica fabrica = new InvasorFabrica();
     fabrica.setNivel( partida.getNivel() );
 
 		enemigo = fabrica.crearInvasor( "Calamar", 300, 210);
@@ -88,7 +87,7 @@ class EnemigoTest {
     enemigo = fabrica.crearInvasor( "Cangrejo", 300, 210);
 
 
-    assertThat( enemigo, instanceOf(InvasorCangrejo.class));
+    assertThat( enemigo, instanceOf( CangrejoInvasor.class));
 
   }
 
@@ -102,7 +101,7 @@ class EnemigoTest {
     enemigo = fabrica.crearInvasor( "Pulpo", 300, 210);
 
 
-    assertThat( enemigo, instanceOf(InvasorPulpo.class));
+    assertThat( enemigo, instanceOf( PulpoInvasor.class));
 
   }
 
@@ -116,7 +115,7 @@ class EnemigoTest {
     enemigo = fabrica.crearInvasor( "Calamar", 300, 210);
 
 
-    assertThat( enemigo, instanceOf(InvasorCalamar.class));
+    assertThat( enemigo, instanceOf( CalamarInvasor.class));
 
   }
 

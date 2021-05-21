@@ -4,6 +4,7 @@ import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
 import mundo.NaveJugador;
 import mundo.Partida;
+import mundo.abstracfactory.Invasor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,10 +14,10 @@ public class HiloDisparoJugador extends Thread {
 
 	private final NaveJugador           navesita;
 	private final InterfazSpaceInvaders interfaz;
-	private final Enemigo[][]           enemigos;
+	private final Invasor[][]           enemigos;
 	private final Partida               actual;
 
-	public HiloDisparoJugador ( NaveJugador a, InterfazSpaceInvaders b, Enemigo[][] c, Partida d ) {
+	public HiloDisparoJugador ( NaveJugador a, InterfazSpaceInvaders b, Invasor[][] c, Partida d ) {
 		navesita = a;
 		interfaz = b;
 		enemigos = c;
