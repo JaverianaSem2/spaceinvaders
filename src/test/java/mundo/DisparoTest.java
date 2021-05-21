@@ -1,5 +1,8 @@
 package mundo;
 
+import mundo.abstracfactory.CangrejoInvasor;
+import mundo.abstracfactory.Invasor;
+import mundo.abstracfactory.PulpoInvasor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,7 +12,7 @@ class DisparoTest {
 
 	private Disparo     disparo;
 	private NaveJugador nave;
-	private Enemigo     enemigo;
+	private Invasor     enemigo;
   private Partida     partida;
 
 	// GOLPEA ENEMIGO
@@ -17,7 +20,7 @@ class DisparoTest {
 		nave = new NaveJugador( "JugadorPrueba1", "Test1" );
     partida = new Partida( "JugadorPrueba1" );
     partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
-		enemigo = new InvasorCangrejo( partida.getNivel(), 100, 100);  //(0, 200, 200, 0, 12, 0);
+		enemigo = new CangrejoInvasor( partida.getNivel(), 100, 100);  //(0, 200, 200, 0, 12, 0);
 		disparo = new Disparo( 100, 100 );
 		nave.setDisparoUno( disparo );
 	}
@@ -27,7 +30,7 @@ class DisparoTest {
 		nave = new NaveJugador( "JugadorPrueba2", "Test2" );
     partida = new Partida( "JugadorPrueba2" );
     partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
-    enemigo = new InvasorCangrejo( partida.getNivel(), 200, 200);  //(0, 200, 200, 0, 12, 0);
+    enemigo = new CangrejoInvasor( partida.getNivel(), 200, 200);  //(0, 200, 200, 0, 12, 0);
 		disparo = new Disparo( 100, 100 );
 		nave.setDisparoUno( disparo );
 	}
@@ -36,7 +39,7 @@ class DisparoTest {
 
     partida = new Partida( "JugadorPrueba3" );
     partida.setNivel( new Nivel( "0", 0, 0, 0, 0, 0 ) );
-		enemigo = new InvasorPulpo( partida.getNivel(), 190, 0); //new InvasorPulpo(0, 190, 0, 0, 12,0);
+		enemigo = new PulpoInvasor( partida.getNivel(), 190, 0); //new InvasorPulpo(0, 190, 0, 0, 12,0);
 		disparo = new Disparo( 190, 0 );
 		enemigo.setDisparoUno( disparo );
 

@@ -23,7 +23,7 @@ class SpaceInvadersTest {
 		space.setJugadores( jugadores );
 	}
 
-	// AGREGAR JUGADOR - BUSCAR JUGADOR - BUSCAR RÁPIDO
+	// AGREGAR JUGADOR - BUSCAR JUGADOR - BUSCAR RAPIDO
 	private void setUpEscenario2 () {
 		space = new SpaceInvaders( true );
 		jugadores = new ArrayList<>();

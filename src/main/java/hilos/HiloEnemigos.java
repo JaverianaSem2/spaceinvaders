@@ -2,6 +2,7 @@ package hilos;
 
 import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
+import mundo.abstracfactory.Invasor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +11,9 @@ public class HiloEnemigos extends Thread {
 	private static final Logger LOGGER = LoggerFactory.getLogger( HiloEnemigos.class.getName() );
 
 	InterfazSpaceInvaders interfaz;
-	Enemigo               enemigo;
+	Invasor               enemigo;
 
-	public HiloEnemigos ( Enemigo invasores, InterfazSpaceInvaders interfaz ) {
+	public HiloEnemigos ( Invasor invasores, InterfazSpaceInvaders interfaz ) {
 		enemigo = invasores;
 		this.interfaz = interfaz;
 	}

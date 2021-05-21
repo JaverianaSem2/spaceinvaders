@@ -1,6 +1,8 @@
 package mundo;
 
 import excepciones.PartidaYaExisteException;
+import mundo.abstracfactory.Invasor;
+import mundo.abstracfactory.InvasorFabrica;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ class PartidaTest {
 
 	private Partida     partida;
 	private NaveJugador jugador;
-	private Enemigo[][] enemigos;
+	private Invasor[][] enemigos;
 
   InvasorFabrica fabrica = new InvasorFabrica();
 
@@ -45,7 +47,7 @@ class PartidaTest {
 	// INICIAR ENEMIGOS
 	private void setUpEscenario3 () {
 		partida = new Partida( "prueba_IniciarEnemigos" );
-		enemigos = new Enemigo[5][10];
+		enemigos = new Invasor[5][10];
 		partida.setEnemigos( enemigos );
 	}
 
@@ -54,7 +56,7 @@ class PartidaTest {
 		partida = new Partida( "prueba_EliminarEnemigo" );
     partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
     fabrica.setNivel( partida.getNivel() );
-		enemigos = new Enemigo[2][3];
+		enemigos = new Invasor[2][3];
 		partida.setEnemigos( enemigos );
 
 		for ( int i = 0; i < enemigos.length; i++ ) {
@@ -68,10 +70,10 @@ class PartidaTest {
 	private void setUpEscenario5 () {
 		partida = new Partida( "prueba_TerminarNivel" );
     partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
-		enemigos = new Enemigo[2][3];
+		enemigos = new Invasor[2][3];
 		partida.setEnemigos( enemigos );
     fabrica.setNivel( partida.getNivel() );
-		for ( Enemigo[] enemigo : enemigos ) {
+		for ( Invasor[] enemigo : enemigos ) {
 			Arrays.fill( enemigo, null );
 		}
 
@@ -84,11 +86,11 @@ class PartidaTest {
 		partida.setNivel( new Nivel( "1", 0, 0, 0, 0, 0 ) );
 		partida.getNivel().setNivel( "1" );
     fabrica.setNivel( partida.getNivel() );
-		enemigos = new Enemigo[2][3];
+		enemigos = new Invasor[2][3];
     enemigos[0][2] = fabrica.crearInvasor( "Calamar", 0, 0);
 		partida.setEnemigos( enemigos );
 
-		for ( Enemigo[] enemigo : enemigos ) {
+		for ( Invasor[] enemigo : enemigos ) {
 			Arrays.fill( enemigo, null );
 		}
 	}
@@ -229,9 +231,9 @@ class PartidaTest {
     fabrica.setNivel( partida.getNivel() );
 
 
-		Enemigo a = fabrica.crearInvasor( "Cangrejo", 0, 0);
-		Enemigo b = fabrica.crearInvasor( "Calamar", 0, 0);
-		Enemigo c = fabrica.crearInvasor( "Pulpo", 0, 0);
+		Invasor a = fabrica.crearInvasor( "Cangrejo", 0, 0);
+    Invasor b = fabrica.crearInvasor( "Calamar", 0, 0);
+    Invasor c = fabrica.crearInvasor( "Pulpo", 0, 0);
 
 		assertEquals( a.getClass(), partida.getEnemigos()[1][4].getClass() );
 		assertEquals( b.getClass(), partida.getEnemigos()[0][7].getClass() );
@@ -241,7 +243,7 @@ class PartidaTest {
 	@Test void testEliminarEnemigo () {
 		setUpEscenario4();
 
-		Enemigo eliminar = enemigos[1][2];
+		Invasor eliminar = enemigos[1][2];
 		assertNotNull( enemigos[1][2].toString(), "No debe ser null porque existe" );
 
 		partida.eliminarUnEnemigo( false, eliminar );
@@ -255,7 +257,7 @@ class PartidaTest {
 		setUpEscenario5();
 		assertFalse( partida.terminarNivel(), "Queda un enemigo" );
 
-		Enemigo eliminar = enemigos[0][2];
+		Invasor eliminar = enemigos[0][2];
 		partida.eliminarUnEnemigo( true, eliminar );
 		assertTrue( partida.terminarNivel(), "No quedan enemigos" );
 	}
@@ -370,7 +372,7 @@ class PartidaTest {
 
 	@Test void testInicializarPartidaEnemigosMayorACuatro () {
 		Partida partida = new Partida( "Nueva" );
-		Enemigo[][] enemigoLocal = new Enemigo[6][10];
+		Invasor[][] enemigoLocal = new Invasor[6][10];
 		partida.setEnemigos( enemigoLocal );
 		partida.inicializarEnemigos();
 		assertNotNull( partida.getEnemigos()[4][0] );
