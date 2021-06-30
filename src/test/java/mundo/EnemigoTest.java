@@ -2,13 +2,16 @@ package mundo;
 
 import mundo.abstracfactory.*;
 import org.hamcrest.Matcher;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@TestMethodOrder(MethodOrderer.Random.class)
 class EnemigoTest {
 
 	private Invasor enemigo;

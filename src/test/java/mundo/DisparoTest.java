@@ -3,11 +3,14 @@ package mundo;
 import mundo.abstracfactory.CangrejoInvasor;
 import mundo.abstracfactory.Invasor;
 import mundo.abstracfactory.PulpoInvasor;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@TestMethodOrder(MethodOrderer.Random.class)
 class DisparoTest {
 
 	private Disparo     disparo;

@@ -3,7 +3,9 @@ package mundo;
 import excepciones.NicknameYaExisteException;
 import excepciones.PartidaYaExisteException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.Random.class)
 class SpaceInvadersTest {
 
 	private SpaceInvaders          space;
