@@ -1,110 +1,91 @@
 package interfaz;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import interfaz.bridgeimageicon.IBridgeImageIcon;
+import interfaz.bridgeimageicon.ImageIconAbs;
+import interfaz.bridgeimageicon.ImageIconImplA;
+import interfaz.bridgeimageicon.ImageIconImplB;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.security.SecureRandom;
 
 /**
  * Panel que representa la imagen inicial al ejecutar el programa
- * 
+ *
  * @author Juan Sebastián Quintero Yoshioka - Manuel Alejandro Coral Lozano
- *         Proyecto final - Algoritmos y programación II
+ * Proyecto final - Algoritmos y programación II
  */
 public class PanelImagenInicial extends JPanel implements KeyListener {
 
-	// -----------------------------------------------------------------
-	// ---------------------------Constantes----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	// -----------------------------------------------------------------
-	// --------------------------Asociaciones---------------------------
-	// -----------------------------------------------------------------
+	private final InterfazSpaceInvaders interfaz;
 
-	/**
-	 * 
-	 */
-	private InterfazSpaceInvaders interfaz;
-
-	// -----------------------------------------------------------------
-	// ---------------------------Atributos-----------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 */
-	private JLabel labImagen;
-
-	// -----------------------------------------------------------------
-	// ---------------------------Constructor---------------------------
-	// -----------------------------------------------------------------
-
-	/**
-	 * 
-	 * @param interfaz
-	 */
-	public PanelImagenInicial(InterfazSpaceInvaders interfaz) {
+	public PanelImagenInicial ( InterfazSpaceInvaders interfaz ) {
 
 		// Inicializa la asociación con la interfaz
 		this.interfaz = interfaz;
 
 		// Contenedor gráfico
-		setLayout(new BorderLayout());
+		setLayout( new BorderLayout() );
 
-		// Imagen de fondo
-		ImageIcon icono = new ImageIcon("./src/main/resources/data/imagenes/menuInicio.gif");
-		labImagen = new JLabel(icono);
-		Color fondo = new Color(21, 22, 25);
-		setBackground(fondo);
+		// Establecer la imagen de fondo mediante un patrón Bridge que aleatoriamente
+		// cambie la imagen
+
+		IBridgeImageIcon imageImpl = null;
+		if ( new SecureRandom().nextInt(10 ) % 2 == 0 ) {
+			imageImpl = new ImageIconImplA();
+		} else {
+			imageImpl = new ImageIconImplB();
+		}
+
+    ImageIcon icono = null;
+		ImageIconAbs imageIconAbs = new ImageIconAbs( imageImpl );
+		icono = imageIconAbs.getImage();
+
+		JLabel labImagen = new JLabel( icono );
+		Color fondo = new Color( 21, 22, 25 );
+		setBackground( fondo );
 
 		// Título del juego: "SPACE INVADERS"
-		JPanel titulo = new JPanel(new FlowLayout());
-		JLabel space = new JLabel("Space ");
-		space.setFont(new Font("ArcadeClassic", Font.PLAIN, 82));
-		space.setForeground(Color.WHITE);
-		JLabel invaders = new JLabel("Invaders");
-		invaders.setFont(new Font("ArcadeClassic", Font.PLAIN, 82));
-		invaders.setForeground(Color.WHITE);
-		titulo.setBackground(fondo);
-		titulo.add(space);
-		titulo.add(invaders);
+		JPanel titulo = new JPanel( new FlowLayout() );
+		JLabel space = new JLabel( "Space " );
+		space.setFont( FuenteInterfazGrafica.get( 82 ) );
+		space.setForeground( Color.WHITE );
+		JLabel invaders = new JLabel( "Invaders" );
+		invaders.setFont( FuenteInterfazGrafica.get( 82 ) );
+		invaders.setForeground( Color.WHITE );
+		titulo.setBackground( fondo );
+		titulo.add( space );
+		titulo.add( invaders );
 
 		// Texto instructivo: "PRESIONE LA TECLA ESPACIO"
-		JPanel flow = new JPanel(new FlowLayout());
-		JLabel presione = new JLabel("PRESIONE ");
-		presione.setForeground(Color.BLUE);
-		JLabel la = new JLabel("LA ");
-		la.setForeground(Color.RED);
-		JLabel tecla = new JLabel("TECLA ");
-		tecla.setForeground(Color.GREEN);
-		JLabel espacio = new JLabel("ENTER ");
-		espacio.setForeground(Color.YELLOW);
-		presione.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		la.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		tecla.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		espacio.setFont(new Font("ArcadeClassic", Font.PLAIN, 49));
-		flow.setBackground(fondo);
-		flow.add(presione);
-		flow.add(la);
-		flow.add(tecla);
-		flow.add(espacio);
+		JPanel flow = new JPanel( new FlowLayout() );
+		JLabel presione = new JLabel( "PRESIONE " );
+		presione.setForeground( Color.BLUE );
+		JLabel la = new JLabel( "LA " );
+		la.setForeground( Color.RED );
+		JLabel tecla = new JLabel( "TECLA " );
+		tecla.setForeground( Color.GREEN );
+		JLabel espacio = new JLabel( "ENTER " );
+		espacio.setForeground( Color.YELLOW );
+		presione.setFont( FuenteInterfazGrafica.get( 49 ) );
+		la.setFont( FuenteInterfazGrafica.get( 49 ) );
+		tecla.setFont( FuenteInterfazGrafica.get( 49 ) );
+		espacio.setFont( FuenteInterfazGrafica.get( 49 ) );
+		flow.setBackground( fondo );
+		flow.add( presione );
+		flow.add( la );
+		flow.add( tecla );
+		flow.add( espacio );
 
 		// Agrega los tres elementos al panel: imagen de fondo, título del juego
 		// y la intstrucción.
-		add(labImagen, BorderLayout.CENTER);
-		add(titulo, BorderLayout.NORTH);
-		add(flow, BorderLayout.SOUTH);
+		add( labImagen, BorderLayout.CENTER );
+		add( titulo, BorderLayout.NORTH );
+		add( flow, BorderLayout.SOUTH );
 
 	}
 
@@ -114,38 +95,35 @@ public class PanelImagenInicial extends JPanel implements KeyListener {
 
 	/**
 	 * Manejo de eventos de los botones
-	 * 
-	 * @param e
-	 *            Evento que generó la acción - e != null.
+	 *
+	 * @param e Evento que generó la acción - e != null.
 	 */
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-			// En caso que el usuario presione la tecla Enter, cambia al panel
-			// que contiene el menú del juego
-			if(!interfaz.estaEnFuncionamiento())
-			interfaz.cambiarPanel("Menú");
+	@Override public void keyPressed ( KeyEvent e ) {
+		// En caso que el usuario presione la tecla Enter, cambia al panel
+		// que contiene el menú del juego
+		if ( e.getKeyCode() == KeyEvent.VK_ENTER && !interfaz.estaEnFuncionamiento() ) {
+			interfaz.cambiarPanel( "Menú" );
+		}
 	}
 
 	/**
 	 * Manejo de eventos de los botones
-	 * 
-	 * @param e
-	 *            Evento que generó la acción - e != null.
+	 *
+	 * @param e Evento que generó la acción - e != null.
 	 */
-	@Override
-	public void keyReleased(KeyEvent e) {
+	@Override public void keyReleased ( KeyEvent e ) {
+		// Empty method for control behavior
 	}
 
 	/**
 	 * Manejo de eventos de los botones
-	 * 
-	 * @param e
-	 *            Evento que generó la acción - e != null.
+	 *
+	 * @param e Evento que generó la acción - e != null.
 	 */
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_SPACE)
-			interfaz.cambiarPanel("Menú");
+	@Override public void keyTyped ( KeyEvent e ) {
+		if ( e.getKeyCode() == KeyEvent.VK_SPACE ) {
+			interfaz.cambiarPanel( "Menú" );
+		}
 	}
+
 }

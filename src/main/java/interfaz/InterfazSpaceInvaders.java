@@ -1,254 +1,163 @@
 package interfaz;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import control.Teclado;
 import excepciones.NicknameYaExisteException;
 import excepciones.PartidaYaExisteException;
-import hilos.HiloAnimacionEnemigos;
-import hilos.HiloAuxiliarCreaDisparo;
-import hilos.HiloDisparoEnemigos;
-import hilos.HiloDisparoJugador;
-import hilos.HiloEnemigos;
+import hilos.*;
 import mundo.NaveJugador;
 import mundo.Partida;
+import mundo.Puntaje;
 import mundo.SpaceInvaders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class InterfazSpaceInvaders extends JFrame {
 
-	/**
-	 * 
-	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger( InterfazSpaceInvaders.class.getName() );
+
 	private static final long serialVersionUID = 1L;
 
-	public static CardLayout card = new CardLayout();
+	private static final CardLayout              card      = new CardLayout();
+	private static final String                  INICIO    = "Inicio";
+	private static final String                  MENU      = "Menú";
+	private static final String                  JUEGO     = "Juego";
+	private final        Container               contenedor;
+	private final        SpaceInvaders           mundo;
+	private final        PanelMenu               panelMenu = new PanelMenu( this );
+	private final        PanelNivel              panelNivel;
+	private              HiloEnemigos            hilitoEnemigo;
+	private              HiloDisparoJugador      hilitoDisparo;
+	private              HiloDisparoEnemigos     hilitoEnemigoDisparo;
+	private              HiloAuxiliarCreaDisparo hilitoAuxiliar;
+	private              HiloAnimacionEnemigos   hilitoAnimacion;
+	private              boolean                 pausa;
 
-	public static Container contenedor;
+	public InterfazSpaceInvaders () {
 
-	private PanelImagenInicial imagen;
+		mundo = new SpaceInvaders( false );
 
-	private Teclado tecladito;
+		panelNivel = new PanelNivel( mundo.getPartidaActual(), mundo, this );
 
-	private PanelMenu panelMenu;
+		PanelImagenInicial imagen = new PanelImagenInicial( this );
+		addKeyListener( imagen );
+		contenedor = getContentPane();
+		card.addLayoutComponent( imagen, INICIO );
+		card.addLayoutComponent( panelMenu, MENU );
+		card.addLayoutComponent( panelNivel, JUEGO );
 
-	private PanelNivel panelNivel;
+		contenedor.add( imagen );
+		contenedor.add( panelMenu );
+		contenedor.add( panelNivel );
 
-	private SpaceInvaders mundo;
+		contenedor.setLayout( card );
+		card.show( contenedor, INICIO );
 
-	private HiloEnemigos hilitoEnemigo;
+		addKeyListener( Teclado.getInstance( this, mundo ) );
 
-	private HiloDisparoJugador hilitoDisparo;
-
-	private HiloDisparoEnemigos hilitoEnemigoDisparo;
-
-	private HiloAuxiliarCreaDisparo hilitoAuxiliar;
-
-	private HiloAnimacionEnemigos hilitoAnimacion;
-
-	private boolean pausa;
-
-	public InterfazSpaceInvaders() {
-
-		mundo = new SpaceInvaders(false);
-
-		panelMenu = new PanelMenu(this);
-		panelNivel = new PanelNivel(mundo.getPartidaActual(), mundo, this);
-
-		imagen = new PanelImagenInicial(this);
-		addKeyListener(imagen);
-		contenedor = this.getContentPane();
-		card.addLayoutComponent(imagen, "Inicio");
-		card.addLayoutComponent(panelMenu, "Menú");
-		card.addLayoutComponent(panelNivel, "Juego");
-
-		contenedor.add(imagen);
-		contenedor.add(panelMenu);
-		contenedor.add(panelNivel);
-
-		contenedor.setLayout(card);
-		card.show(contenedor, "Inicio");
-
-		tecladito = new Teclado(this, mundo);
-		addKeyListener(tecladito);
-
-		setSize(640, 480);
-		setUndecorated(true);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		getRootPane().setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		setSize( 640, 480 );
+		setUndecorated( true );
+		setLocationRelativeTo( null );
+		setDefaultCloseOperation( EXIT_ON_CLOSE );
+		getRootPane().setBorder( BorderFactory.createLineBorder( Color.WHITE ) );
 
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 */
-	public void cambiarPanel(String nombre) {
-		if (nombre.equals("Menú")) {
-			card.show(contenedor, "Menú");
-		} else if (nombre.equals("Juego")) {
-			card.show(contenedor, "Juego");
+	public static void main ( String[] args ) {
+		InterfazSpaceInvaders ventana = new InterfazSpaceInvaders();
+		ventana.setVisible( true );
+	}
+
+	public void cambiarPanel ( String nombre ) {
+		if ( nombre.equals( MENU ) ) {
+			card.show( contenedor, MENU );
+		} else if ( nombre.equals( JUEGO ) ) {
+			card.show( contenedor, JUEGO );
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public void cerrar() {
+	public void cerrar () {
 		try {
 			mundo.serializarJugador();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch ( IOException e ) {
+			LOGGER.info( e.getMessage() );
 		}
-		System.exit(0);
+		System.exit( 0 );
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean estaEnPausa() {
+	public boolean estaEnPausa () {
 		return pausa;
 	}
 
-	/**
-	 * 
-	 * @param paus
-	 */
-	public void cambiarPausa (boolean paus) {
+	public void cambiarPausa ( boolean paus ) {
 		this.pausa = paus;
 	}
 
-	/**
-	 * 
-	 */
-	public void startHiloEnemigo() {
-		for (int i = 0; i < mundo.getPartidaActual().getEnemigos().length; i++) {
-			for (int j = 0; j < mundo.getPartidaActual().getEnemigos()[0].length; j++) {
-				if (mundo.getPartidaActual().getEnemigos()[i][j] != null) {
-					hilitoEnemigo = new HiloEnemigos(mundo.getPartidaActual().getEnemigos()[i][j], this);
+	public void startHiloEnemigo () {
+		for ( int i = 0; i < mundo.getPartidaActual().getEnemigos().length; i++ ) {
+			for ( int j = 0; j < mundo.getPartidaActual().getEnemigos()[0].length; j++ ) {
+				if ( mundo.getPartidaActual().getEnemigos()[i][j] != null ) {
+					hilitoEnemigo = new HiloEnemigos( mundo.getPartidaActual().getEnemigos()[i][j], this );
 					hilitoEnemigo.start();
 				}
 			}
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public void startHiloAuxiliar() {
-		hilitoAuxiliar = new HiloAuxiliarCreaDisparo(mundo.getPartidaActual(), this);
+	public void startHiloAuxiliar () {
+		hilitoAuxiliar = new HiloAuxiliarCreaDisparo( mundo.getPartidaActual(), this );
 		hilitoAuxiliar.start();
 	}
 
-	/**
-	 * 
-	 */
-	public void startHiloAnimacion() {
-		for (int i = 0; i < mundo.getPartidaActual().getEnemigos().length; i++) {
-			for (int j = 0; j < mundo.getPartidaActual().getEnemigos()[0].length; j++) {
-				if (mundo.getPartidaActual().getEnemigos()[i][j] != null) {
-					hilitoAnimacion = new HiloAnimacionEnemigos(mundo.getPartidaActual().getEnemigos()[i][j], this);
+	public void startHiloAnimacion () {
+		for ( int i = 0; i < mundo.getPartidaActual().getEnemigos().length; i++ ) {
+			for ( int j = 0; j < mundo.getPartidaActual().getEnemigos()[0].length; j++ ) {
+				if ( mundo.getPartidaActual().getEnemigos()[i][j] != null ) {
+					hilitoAnimacion = new HiloAnimacionEnemigos( mundo.getPartidaActual().getEnemigos()[i][j], this );
 					hilitoAnimacion.start();
 				}
 			}
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public void startHiloDisparoEnemigo() {
-		hilitoEnemigoDisparo = new HiloDisparoEnemigos(mundo.getPartidaActual(), this, mundo);
+	public void startHiloDisparoEnemigo () {
+		hilitoEnemigoDisparo = new HiloDisparoEnemigos( mundo.getPartidaActual(), this, mundo );
 		hilitoEnemigoDisparo.start();
 	}
 
-	/**
-	 * 
-	 */
-	public void startHiloJugador() {
-		hilitoDisparo = new HiloDisparoJugador((NaveJugador) mundo.getJugadorActual(), this,
-				mundo.getPartidaActual().getEnemigos(), mundo.getPartidaActual());
+	public void startHiloJugador () {
+		hilitoDisparo = new HiloDisparoJugador( mundo.getJugadorActual(), this, mundo.getPartidaActual().getEnemigos(), mundo.getPartidaActual() );
 		hilitoDisparo.start();
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int darPosActualJugador() {
+	public int darPosActualJugador () {
 		return panelNivel.getPosJugadorActualX();
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean estaEnFuncionamiento() {
+	public boolean estaEnFuncionamiento () {
 		return mundo.getEnFuncionamiento();
 	}
 
-	/**
-	 * 
-	 * @param salida
-	 */
-	public void modificarFuncionamiento (boolean salida) {
-		mundo.setEnFuncionamiento(salida);
+	public void modificarFuncionamiento ( boolean salida ) {
+		mundo.setEnFuncionamiento( salida );
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public PanelNivel getPanelNivel() {
+	public PanelNivel getPanelNivel () {
 		return panelNivel;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public NaveJugador getJugadorActual() {
+	public NaveJugador getJugadorActual () {
 		return mundo.getJugadorActual();
 	}
 
-	/**
-	 * 
-	 * @param panelNivel
-	 */
-	public void setPanelNivel(PanelNivel panelNivel) {
-		this.panelNivel = panelNivel;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public PanelMenu getPanelMenu() {
-		return panelMenu;
-	}
-
-	/**
-	 * 
-	 * @param panelMenu
-	 */
-	public void setPanelMenu(PanelMenu panelMenu) {
-		this.panelMenu = panelMenu;
-	}
-
-	/**
-	 * 
-	 */
-	public void iniciarTodosLosHilos() {
-		mundo.setEnFuncionamiento(true);
+	public void iniciarTodosLosHilos () {
+		mundo.setEnFuncionamiento( true );
 		startHiloJugador();
 		startHiloEnemigo();
 		startHiloAnimacion();
@@ -256,10 +165,7 @@ public class InterfazSpaceInvaders extends JFrame {
 		startHiloDisparoEnemigo();
 	}
 
-	/**
-	 * 
-	 */
-	public void matarHilos (){
+	public void matarHilos () {
 		hilitoAnimacion = null;
 		hilitoAuxiliar = null;
 		hilitoDisparo = null;
@@ -267,160 +173,109 @@ public class InterfazSpaceInvaders extends JFrame {
 		hilitoEnemigo = null;
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 */
-	public void reqCrearPartida(String nombre) {
+	public void reqCrearPartida ( String nombre ) {
 		try {
-			mundo.crearPartida(nombre);
+			mundo.crearPartida( nombre );
 			mundo.getPartidaActual().inicializarPartida();
 			actualizarPartidas();
-			actualizarPartidaActual(nombre);
-			panelNivel.setPartida(mundo.getPartidaActual());
+			actualizarPartidaActual( nombre );
+			panelNivel.setPartida( mundo.getPartidaActual() );
 			mundo.iniciarPartida();
-			cambiarPanel("Juego");
-		} catch (PartidaYaExisteException | IOException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Error al crear la partida", JOptionPane.ERROR_MESSAGE);
+			cambiarPanel( JUEGO );
+		} catch ( PartidaYaExisteException | IOException e ) {
+			JOptionPane.showMessageDialog( this, e.getMessage(), "Error al crear la partida", JOptionPane.ERROR_MESSAGE );
 		}
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 * @param nickname
-	 */
-	public void reqAgregarJugador(String nombre, String nickname) {
+	public void reqAgregarJugador ( String nombre, String nickname ) {
 		try {
-			mundo.agregarJugador(nombre, nickname);
+			mundo.agregarJugador( nombre, nickname );
 			panelMenu.repaint();
 			actualizarJugadores();
-			actualizarJugadorActual(nickname);
-		} catch (NicknameYaExisteException | IOException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Error al agregar el jugador",
-					JOptionPane.ERROR_MESSAGE);
+			actualizarJugadorActual( nickname );
+		} catch ( NicknameYaExisteException | IOException e ) {
+			JOptionPane.showMessageDialog( this, e.getMessage(), "Error al agregar el jugador", JOptionPane.ERROR_MESSAGE );
 		}
 	}
 
-	/**
-	 * 
-	 * @param nickname
-	 */
-	public void actualizarJugadorActual(String nickname) {
-		if (!nickname.equals("")) {
-			NaveJugador actual = mundo.buscarJugador(nickname);
-			mundo.setJugadorActual(actual);
+	public void actualizarJugadorActual ( String nickname ) {
+		if ( ! nickname.trim().isEmpty() ) {
+			NaveJugador actual = mundo.buscarJugador( nickname );
+			mundo.setJugadorActual( actual );
 			panelMenu.repaint();
-		} else
-			JOptionPane.showMessageDialog(this, "Por favor cree algún jugador", "No existen jugadores",
-					JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog( this, "Por favor cree algún jugador", "No existen jugadores", JOptionPane.INFORMATION_MESSAGE );
+		}
 	}
 
-	/**
-	 * 
-	 * @param nombre
-	 */
-	public void actualizarPartidaActual(String nombre) {
-
-		Partida partidaActual = mundo.getJugadorActual().getPartidaRaiz().buscarPartida(nombre);
-		mundo.setPartidaActual(partidaActual);
-		panelNivel.setPartida(partidaActual);
+	public void actualizarPartidaActual ( String nombre ) {
+		Partida partidaActual = mundo.getJugadorActual().getPartidaRaiz().buscarPartida( nombre );
+		mundo.setPartidaActual( partidaActual );
+		panelNivel.setPartida( partidaActual );
 		iniciarTodosLosHilos();
-
 	}
 
-	/**
-	 * 
-	 */
-	public void actualizarJugadores() {
-		ArrayList<NaveJugador> jugadores = mundo.getJugadores();
-		if (jugadores == null)
-			jugadores = new ArrayList<>();
-		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores(jugadores);
+	public void actualizarJugadores () {
+		List<NaveJugador> jugadores = mundo.getJugadores();
+		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores(
+			Optional.ofNullable( jugadores ).orElse( new ArrayList<>() )
+		);
 	}
 
-	/**
-	 * 
-	 */
-	public void actualizarPartidas() {
-		ArrayList<Partida> partidas = mundo.darPartidasJugador();
-		if (partidas.size() == 0)
-			partidas = new ArrayList<Partida>();
-		panelMenu.getDialogoSeleccionarPartida().cambiarListaPartidas(partidas);
+	public void actualizarPartidas () {
+		List<Partida> partidas = mundo.darPartidasJugador();
+
+		if ( partidas.size() == 0 ) {
+			partidas = new ArrayList<>();
+		}
+		panelMenu.getDialogoSeleccionarPartida().cambiarListaPartidas( partidas );
 	}
 
-	/**
-	 * 
-	 */
 	public void nivelCompleto () {
 		try {
-			if (mundo.getPartidaActual().nivelCompleto()) {
+			if ( mundo.getPartidaActual().nivelCompleto() ) {
 				iniciarTodosLosHilos();
 			} else {
 				panelMenu.repaint();
 				mundo.eliminarPartida();
 				actualizarPartidas();
-				cambiarPanel("Menú");
+				cambiarPanel( MENU );
 				panelMenu.repaint();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch ( IOException e ) {
+			LOGGER.info( e.getMessage() );
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public void perder(){
+	public void perder () {
 		panelMenu.repaint();
 		try {
 			mundo.eliminarPartida();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch ( IOException e ) {
+			LOGGER.info( e.getMessage() );
 		}
 		actualizarPartidas();
-		cambiarPanel("Menú");
+		cambiarPanel( MENU );
 		panelMenu.repaint();
 	}
 
-	/**
-	 * 
-	 */
-	public void ordenarJugadores() {
-		ArrayList<NaveJugador> jugadores = mundo.ordenarPorNickname();
-		if (jugadores == null)
-			jugadores = new ArrayList<>();
-		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores(jugadores);
+	public void ordenarJugadores () {
+		List<NaveJugador> jugadores = mundo.ordenarPorNickname();
+		panelMenu.getDialogoSeleccionarJugador().cambiarListaJugadores(
+			Optional.ofNullable( jugadores ).orElse( new ArrayList<>() )
+		);
 	}
 
-	/**
-	 * 
-	 * @param nickname
-	 */
-	public void loginRapido(String nickname){
-		if(!mundo.busquedaRapida(nickname)){
-			JOptionPane.showMessageDialog(null, "El jugador con el nickname " + nickname + " no existe",
-					"Jugador no encontrado", JOptionPane.ERROR_MESSAGE);
+	public void loginRapido ( String nickname ) {
+		if ( !mundo.busquedaRapida( nickname ) ) {
+			JOptionPane.showMessageDialog( null, "El jugador con el nickname " + nickname + " no existe", "Jugador no encontrado", JOptionPane.ERROR_MESSAGE );
 		}
 		panelMenu.repaint();
 	}
 
-	/**
-	 * 
-	 */
-	public void mejoresPuntajes(){
-		panelMenu.setDialogoMejoresPuntajes(new DialogoMejoresPuntajes(this,mundo.mejoresPuntajes()));
-		panelMenu.getDialogoMejoresPuntajes().mostrar();	
-	}
-
-
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		InterfazSpaceInvaders ventana = new InterfazSpaceInvaders();
-		ventana.setVisible(true);
+	public void mejoresPuntajes () {
+		panelMenu.setDialogoMejoresPuntajes( new DialogoMejoresPuntajes( this, Puntaje.getMejoresPuntajes( mundo.getPrimerPuntaje() ) ) );
+		panelMenu.getDialogoMejoresPuntajes().mostrar();
 	}
 
 }

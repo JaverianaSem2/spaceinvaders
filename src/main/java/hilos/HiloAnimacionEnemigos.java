@@ -2,53 +2,57 @@ package hilos;
 
 import interfaz.InterfazSpaceInvaders;
 import mundo.Enemigo;
-import mundo.InvasorCalamar;
-import mundo.InvasorCangrejo;
+import mundo.abstracfactory.CalamarInvasor;
+import mundo.abstracfactory.CangrejoInvasor;
+import mundo.abstracfactory.Invasor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HiloAnimacionEnemigos extends Thread {
 
-	Enemigo enemigo;
+	private static final Logger LOGGER = LoggerFactory.getLogger( HiloAnimacionEnemigos.class.getName() );
+
+	Invasor               enemigo;
 	InterfazSpaceInvaders interfaz;
-	
-	public HiloAnimacionEnemigos(Enemigo invasores, InterfazSpaceInvaders principal) {
-		// TODO Auto-generated constructor stub
-		
+
+	public HiloAnimacionEnemigos ( Invasor invasores, InterfazSpaceInvaders principal ) {
 		enemigo = invasores;
 		interfaz = principal;
 	}
-	
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 
-		while (interfaz.estaEnFuncionamiento()) {
+		while ( interfaz.estaEnFuncionamiento() ) {
 
-			if (enemigo instanceof InvasorCalamar) {
-				enemigo.setRutaImage("./src/main/resources/data/imagenes/Naves/s0.png");
-			} else if (enemigo instanceof InvasorCangrejo) {
-				enemigo.setRutaImage("./src/main/resources/data/imagenes/Naves/p0.png");
+			if ( enemigo instanceof CalamarInvasor ) {
+				enemigo.setRutaImage( "./src/main/resources/data/imagenes/Naves/s0.png" );
+			} else if ( enemigo instanceof CangrejoInvasor ) {
+				enemigo.setRutaImage( "./src/main/resources/data/imagenes/Naves/p0.png" );
 			} else {
-				enemigo.setRutaImage("./src/main/resources/data/imagenes/Naves/r0.png");
+				enemigo.setRutaImage( "./src/main/resources/data/imagenes/Naves/r0.png" );
 			}
 
 			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				sleep( 1000 );
+			} catch ( InterruptedException e ) {
+				LOGGER.info( e.getMessage() ); // Compliant
+				// Restore interrupted state...
+				Thread.currentThread().interrupt();
 			}
 
-			enemigo.setRutaImage(enemigo.getRutaImagen2());
+			enemigo.setRutaImage( enemigo.getRutaImagen2() );
 
 			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				sleep( 1000 );
+			} catch ( InterruptedException e ) {
+				LOGGER.info( e.getMessage() );
+				// Restore interrupted state...
+				Thread.currentThread().interrupt();
 			}
 
 		}
 
 	}
-	
+
 }
